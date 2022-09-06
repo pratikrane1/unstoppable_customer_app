@@ -7,6 +7,8 @@ class AppButton extends StatelessWidget {
   final bool? loading;
   final bool? disableTouchWhenLoading;
   final OutlinedBorder? shape;
+  final Color? color;
+
 
   AppButton({
     Key? key,
@@ -15,6 +17,7 @@ class AppButton extends StatelessWidget {
     this.loading = false,
     this.disableTouchWhenLoading = false,
     this.shape,
+  this.color,
   }) : super(key: key);
 
   // Widget _buildLoading() {

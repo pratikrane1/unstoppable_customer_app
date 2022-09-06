@@ -42,6 +42,7 @@ class _DrawerWidgetState extends State<DrawerWidget>{
     return Drawer(
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
+
         appBar: AppBar(
           leading: GestureDetector(
             onTap: () {
@@ -299,21 +300,35 @@ Widget _LogOutButton(BuildContext context) {
               child:
 
               //updated on 14/01/2022
-              AppButton(
-                onPressed: (){
-                  Application.preferences!.remove('user');
-                  // _RemoverUser();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignInPage()),
-                        (Route<dynamic> route) => false,
-                  );
-                },
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-                text: 'Logout',
-                // loading: profile is LogoutLoading,
-                // disableTouchWhenLoading: true,
-              )
+              // AppButton(
+              //   onPressed: (){
+              //     Application.preferences!.remove('user');
+              //     // _RemoverUser();
+              //     Navigator.pushAndRemoveUntil(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => SignInPage()),
+              //           (Route<dynamic> route) => false,
+              //     );
+              //   },
+              //   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+              //   text: 'Logout',
+              //   // loading: profile is LogoutLoading,
+              //   // disableTouchWhenLoading: true,
+              // )
+            
+            ElevatedButton(
+              onPressed: () {  },
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.logout),
+                  SizedBox(width: 10,),
+                  Text("Logout",style: TextStyle(fontSize: 18),)
+
+                ],
+              ),
+            )
           )
       );
     // )

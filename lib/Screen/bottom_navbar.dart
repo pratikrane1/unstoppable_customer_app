@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
 import 'MyOrders/myOrders_Screen.dart';
 
@@ -18,7 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(index: 0,),
     MyOrders(),
-    HomeScreen(index: 2,),
+    Category(),
     HomeScreen(index: 3,),
   ];
 

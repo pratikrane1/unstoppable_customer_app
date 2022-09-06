@@ -37,6 +37,10 @@ dependencies:
   connectivity: ^3.0.6
   intl: ^0.17.0
   easy_localization: ^3.0.0
+  cached_network_image: ^3.2.0
+  shimmer: 2.0.0
+  timeline_tile: ^2.0.0
+  expansion_card: ^0.1.0
 
 
 

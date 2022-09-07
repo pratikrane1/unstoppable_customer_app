@@ -77,6 +77,7 @@ class _CategoryState extends State<Category> with TickerProviderStateMixin{
               ),
             ],
           ),
+
           // bottom:   TabBar(
           //   labelColor: Colors.black,
           //   unselectedLabelColor: Colors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unstoppable_customer_app/Screen/profile.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
 import 'MyOrders/myOrders_Screen.dart';
@@ -20,7 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     HomeScreen(index: 0,),
     MyOrders(),
     Category(),
-    HomeScreen(index: 3,),
+    MyProfile(),
   ];
 
   void _onItemTapped(int index) {

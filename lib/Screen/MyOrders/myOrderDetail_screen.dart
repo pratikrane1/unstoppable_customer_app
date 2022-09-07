@@ -195,8 +195,17 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                       children: [
                         Row(
                           children: [
-                            Text("Order Id -"),
-                            Text("123456789zxc")
+                            Text("Order Id -",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: ThemeColors.greyTextColor
+                            ),),
+                            Text("123456789zxc",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: ThemeColors.greyTextColor
+
+                              ),)
                           ],
                         ),
                         Padding(
@@ -312,36 +321,6 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                           ),
                         ),
 
-                  // Padding(
-                  //   padding: const EdgeInsets.only(top: 20, left: leftPadding, right: rightPadding, bottom: 0),
-                  //   child: Container(
-                  //     constraints: BoxConstraints(maxHeight: 10, ),
-                  //     child: ListView.separated(
-                  //       shrinkWrap: true,
-                  //       scrollDirection: Axis.horizontal,
-                  //       physics: const NeverScrollableScrollPhysics(),
-                  //       itemCount: totalSteps!.toInt(),
-                  //       separatorBuilder: (context, index) => const SizedBox(width: separatedWidth,),
-                  //       itemBuilder: (context, position) {
-                  //         return Container(
-                  //           width: (screenWidth - ((totalSteps! - 1) * separatedWidth)
-                  //               - (leftPadding + rightPadding)) / totalSteps!,
-                  //           decoration: BoxDecoration(
-                  //               color: Colors.white,
-                  //               borderRadius: BorderRadius.circular(20)
-                  //           ),
-                  //           child: Container(
-                  //             height: 2,
-                  //             decoration: BoxDecoration(
-                  //                 color: currentStep! >= position ? Colors.green : Colors.transparent,
-                  //                 borderRadius: BorderRadius.circular(20)
-                  //             ),
-                  //           ),
-                  //         );
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
 
 
                       ],
@@ -363,15 +342,137 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: Text("You might be also Interested in"),),
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text("You might be also Interested in",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500
+                    ),),),
 
-                  ],
+                SizedBox(
+                  height: 20,
+                ),
+
+
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 2.7,
+
+                  child: GridView.count(
+                    scrollDirection: Axis.horizontal,
+                      crossAxisCount: 1,
+                      children: List.generate(10, (index) {
+                        return Card(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          elevation: 5,
+                          child: Center(
+                            child: Column(
+
+                              children: [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                CachedNetworkImage(
+                                  width: 150,
+                                  height: 150,
+                                  filterQuality: FilterQuality.medium,
+                                  // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                                  // imageUrl: "https://picsum.photos/250?image=9",
+                                  imageUrl: "https://picsum.photos/250?image=9",
+                                  placeholder: (context, url) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Theme.of(context).hoverColor,
+                                      highlightColor: Theme.of(context).highlightColor,
+                                      enabled: true,
+                                      child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  imageBuilder: (context, imageProvider) {
+                                    return Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    );
+                                  },
+                                  errorWidget: (context, url, error) {
+                                    return Shimmer.fromColors(
+                                      baseColor: Theme.of(context).hoverColor,
+                                      highlightColor: Theme.of(context).highlightColor,
+                                      enabled: true,
+                                      child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Icon(Icons.error),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Container(
+
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Item Name", style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500
+                                        ),),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Neque porro quisquam est qui dolorem\n ipsum quia dolor sit amet, consectetur,\n adipisci velit...",
+
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.normal,
+                                            color: ThemeColors.textFieldBgColor,
+                                            fontSize: 10.0,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "\u{20B9} 15,000",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+
+
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                  ),
                 )
               ],
             ),

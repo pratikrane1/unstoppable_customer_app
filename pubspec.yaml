@@ -41,6 +41,7 @@ dependencies:
   shimmer: 2.0.0
   timeline_tile: ^2.0.0
   expansion_card: ^0.1.0
+  carousel_slider: ^4.1.1
 
 
 

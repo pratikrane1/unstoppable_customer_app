@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:unstoppable_customer_app/Screen/contactUs.dart';
 import '../Screen/Login/sign_in.dart';
 import '../Screen/bottom_navbar.dart';
+import '../Screen/change_password.dart';
 import '../Utils/application.dart';
 import '../constant/theme_colors.dart';
 import 'app_button.dart';
@@ -44,14 +46,14 @@ class _DrawerWidgetState extends State<DrawerWidget>{
       child: Scaffold(
 
         appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => BottomNavigation(index: 0,)));
-              // Navigator.of(context).pop();
-            },
-            child: Icon(Icons.arrow_back_ios),
-          ),
+          // leading: GestureDetector(
+          //   onTap: () {
+          //     Navigator.pushReplacement(context,
+          //         MaterialPageRoute(builder: (context) => BottomNavigation(index: 0,)));
+          //     // Navigator.of(context).pop();
+          //   },
+          //   child: Icon(Icons.arrow_back_ios),
+          // ),
           backgroundColor: ThemeColors.baseThemeColor,
           elevation: 0.0,
           centerTitle: true,
@@ -227,7 +229,7 @@ Widget _ChangePassword(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavigation(index: 1,)));
+          context, MaterialPageRoute(builder: (context) => ChangePassword()));
     },
     child: Card(
       elevation: 1,
@@ -262,7 +264,7 @@ Widget _ContactUs(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => BottomNavigation(index: 1,)));
+          context, MaterialPageRoute(builder: (context) => ContactUs()));
     },
     child: Card(
       elevation: 1,
@@ -299,23 +301,6 @@ Widget _LogOutButton(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               child:
 
-              //updated on 14/01/2022
-              // AppButton(
-              //   onPressed: (){
-              //     Application.preferences!.remove('user');
-              //     // _RemoverUser();
-              //     Navigator.pushAndRemoveUntil(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => SignInPage()),
-              //           (Route<dynamic> route) => false,
-              //     );
-              //   },
-              //   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-              //   text: 'Logout',
-              //   // loading: profile is LogoutLoading,
-              //   // disableTouchWhenLoading: true,
-              // )
-            
             ElevatedButton(
               onPressed: () {  },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),

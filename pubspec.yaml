@@ -37,12 +37,13 @@ dependencies:
   connectivity: ^3.0.6
   intl: ^0.17.0
   easy_localization: ^3.0.0
+  image_picker: 0.8.2
+  image_cropper: 1.4.1
   cached_network_image: ^3.2.0
   shimmer: 2.0.0
   timeline_tile: ^2.0.0
   expansion_card: ^0.1.0
-  image_picker: 0.8.2
-  image_cropper: 1.4.1
+  carousel_slider: ^4.1.1
 
 
 

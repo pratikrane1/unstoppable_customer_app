@@ -151,6 +151,120 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
       );
     }
 
+    Widget buildInterestedCard(){
+      return GridView.count(
+        scrollDirection: Axis.horizontal,
+        crossAxisCount: 1,
+        children: List.generate(10, (index) {
+          return Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            elevation: 5,
+            child: Center(
+              child: Column(
+
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CachedNetworkImage(
+                    width: 150,
+                    height: 150,
+                    filterQuality: FilterQuality.medium,
+                    // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                    // imageUrl: "https://picsum.photos/250?image=9",
+                    imageUrl: "https://picsum.photos/250?image=9",
+                    placeholder: (context, url) {
+                      return Shimmer.fromColors(
+                        baseColor: Theme.of(context).hoverColor,
+                        highlightColor: Theme.of(context).highlightColor,
+                        enabled: true,
+                        child: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      );
+                    },
+                    imageBuilder: (context, imageProvider) {
+                      return Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return Shimmer.fromColors(
+                        baseColor: Theme.of(context).hoverColor,
+                        highlightColor: Theme.of(context).highlightColor,
+                        enabled: true,
+                        child: Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(Icons.error),
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Item Name", style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500
+                          ),),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Neque porro quisquam est qui dolorem\n ipsum quia dolor sit amet, consectetur,\n adipisci velit...",
+
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: ThemeColors.textFieldBgColor,
+                              fontSize: 10.0,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "\u{20B9} 15,000",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+
+
+                ],
+              ),
+            ),
+          );
+        }),
+      );
+    }
+
 
     // TODO: implement build
     return Scaffold(
@@ -362,117 +476,7 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 2.7,
 
-                  child: GridView.count(
-                    scrollDirection: Axis.horizontal,
-                      crossAxisCount: 1,
-                      children: List.generate(10, (index) {
-                        return Card(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          elevation: 5,
-                          child: Center(
-                            child: Column(
-
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                CachedNetworkImage(
-                                  width: 150,
-                                  height: 150,
-                                  filterQuality: FilterQuality.medium,
-                                  // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                                  // imageUrl: "https://picsum.photos/250?image=9",
-                                  imageUrl: "https://picsum.photos/250?image=9",
-                                  placeholder: (context, url) {
-                                    return Shimmer.fromColors(
-                                      baseColor: Theme.of(context).hoverColor,
-                                      highlightColor: Theme.of(context).highlightColor,
-                                      enabled: true,
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  imageBuilder: (context, imageProvider) {
-                                    return Container(
-                                      height: 80,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    );
-                                  },
-                                  errorWidget: (context, url, error) {
-                                    return Shimmer.fromColors(
-                                      baseColor: Theme.of(context).hoverColor,
-                                      highlightColor: Theme.of(context).highlightColor,
-                                      enabled: true,
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Icon(Icons.error),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Container(
-
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Item Name", style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500
-                                        ),),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "Neque porro quisquam est qui dolorem\n ipsum quia dolor sit amet, consectetur,\n adipisci velit...",
-
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: ThemeColors.textFieldBgColor,
-                                            fontSize: 10.0,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          "\u{20B9} 15,000",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-
-
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                  ),
+                  child: buildInterestedCard(),
                 )
               ],
             ),

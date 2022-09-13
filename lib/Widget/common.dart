@@ -67,20 +67,17 @@ Widget notificationIcon() {
 
 Widget imageSlider()
 {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-        child: CarouselSlider(
-          options: CarouselOptions(),
-          items: imgList
-              .map((item) => Container(
-            child: Center(
-                child:
-                Image.network(item, fit: BoxFit.fitWidth, width: 400)),
-          ))
-              .toList(),
-        )),
-  );
+  return Container(
+      child: CarouselSlider(
+        options: CarouselOptions(),
+        items: imgList
+            .map((item) => Container(
+          child: Center(
+              child:
+              Image.network(item, fit: BoxFit.fitWidth, width: 400)),
+        ))
+            .toList(),
+      ));
 }
 
 final List<String> imgList = [

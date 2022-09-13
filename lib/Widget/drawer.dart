@@ -46,18 +46,17 @@ class _DrawerWidgetState extends State<DrawerWidget>{
       child: Scaffold(
 
         appBar: AppBar(
-          // leading: GestureDetector(
-          //   onTap: () {
-          //     Navigator.pushReplacement(context,
-          //         MaterialPageRoute(builder: (context) => BottomNavigation(index: 0,)));
-          //     // Navigator.of(context).pop();
-          //   },
-          //   child: Icon(Icons.arrow_back_ios),
-          // ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.arrow_back_ios,color: Colors.white,),
+          ),
           backgroundColor: ThemeColors.baseThemeColor,
           elevation: 0.0,
           centerTitle: true,
-          title: Text('More'),
+          title: Text('More',style: TextStyle(fontFamily: 'SF-Pro_display',fontSize: 16.0,
+          fontWeight: FontWeight.w600,color: Colors.white),),
         ),
         body:
         // BlocBuilder<CompanyProfileBloc, CompanyProfileState>(builder: (context, state) {
@@ -159,7 +158,7 @@ class _DrawerWidgetState extends State<DrawerWidget>{
 Widget _MyProfile(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => BottomNavigation(index: 3,)));
     },
     child: Card(
@@ -181,7 +180,8 @@ Widget _MyProfile(BuildContext context) {
             title: const Text(
               'My Profile',
               style:
-              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16),
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+              fontFamily: 'SF-Pro-Display'),
             ),
           )
         ],
@@ -193,7 +193,7 @@ Widget _MyProfile(BuildContext context) {
 Widget _MyOrders(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => BottomNavigation(index: 1,)));
     },
     child: Card(
@@ -215,7 +215,8 @@ Widget _MyOrders(BuildContext context) {
             title: const Text(
               'My Orders',
               style:
-              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16),
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+                  fontFamily: 'SF-Pro-Display'),
             ),
           )
         ],
@@ -228,7 +229,7 @@ Widget _MyOrders(BuildContext context) {
 Widget _ChangePassword(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => ChangePassword()));
     },
     child: Card(
@@ -250,7 +251,8 @@ Widget _ChangePassword(BuildContext context) {
             title: const Text(
               'Change Password',
               style:
-              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16),
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+                  fontFamily: 'SF-Pro-Display'),
             ),
           )
         ],
@@ -263,7 +265,7 @@ Widget _ChangePassword(BuildContext context) {
 Widget _ContactUs(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => ContactUs()));
     },
     child: Card(
@@ -285,7 +287,8 @@ Widget _ContactUs(BuildContext context) {
             title: const Text(
               'Contact Us',
               style:
-              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16),
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+                  fontFamily: 'SF-Pro-Display'),
             ),
           )
         ],
@@ -307,9 +310,11 @@ Widget _LogOutButton(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.logout),
+                  Icon(Icons.logout,color: Colors.white,),
                   SizedBox(width: 10,),
-                  Text("Logout",style: TextStyle(fontSize: 18),)
+                  Text("Logout",style:
+                  TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w400,
+                      fontFamily: 'SF-Pro-Display'),)
 
                 ],
               ),

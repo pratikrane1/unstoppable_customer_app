@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:unstoppable_customer_app/Config/theme.dart';
 
 import 'Bloc/authentication/authentication_bloc.dart';
 import 'Bloc/authentication/authentication_state.dart';
@@ -52,8 +53,8 @@ class _AppState extends State<App> {
         MaterialApp(
           // navigatorKey: PushNotify.navigatorKey, // imp nvigator key is used as navigation through context didnt worked
           debugShowCheckedModeBanner: false,
-          // theme: AppTheme.lightTheme,
-          // darkTheme: AppTheme.darkTheme,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
           locale: AppLanguage.defaultLanguage,
 
           localizationsDelegates: [

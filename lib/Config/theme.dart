@@ -23,15 +23,15 @@ class AppTheme {
   static Color appColor=Color(0xffDF5F00);
 
   ///Default font
-  static String currentFont = "Poppins";
+  static String currentFont = "SF-Pro-Display";
 
   ///List Font support
-  static List<String> fontSupport = ["Raleway", "Roboto", "Merriweather"];
+  static List<String> fontSupport = ["SF-Pro-Display", "Roboto"];
 
   ///Default Theme
   static ThemeModel currentTheme = ThemeModel.fromJson({
     "name": "darkorange",
-    "color": Color(0xffDF5F00),
+    "color": Color(0xffEF8642),
     "light": "primaryLight",
     "dark": "primaryDark",
   });
@@ -41,7 +41,7 @@ class AppTheme {
     {
       "name": "default",
       // "color": Color(0xff03502B),
-      "color": Color(0xffDF5F00),
+      "color": Color(0xffEF8642),
       "light": "primaryLight",
       "dark": "primaryDark",
     },

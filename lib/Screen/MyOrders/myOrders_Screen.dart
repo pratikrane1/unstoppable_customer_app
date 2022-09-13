@@ -156,6 +156,21 @@ class _MyOrdersState extends State<MyOrders> {
           backgroundColor: ThemeColors.baseThemeColor,
           elevation: 0.0,
           centerTitle: true,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 28, // Changing Drawer Icon Size
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
           title: Column(
             children: [
               Row(
@@ -170,6 +185,25 @@ class _MyOrdersState extends State<MyOrders> {
                 ],
               ),
             ],
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.infinity,
+                height: 40,
+                color: Colors.white,
+                child: const Center(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        hintText: 'Search for something',
+                        prefixIcon: Icon(Icons.search),
+                        suffixIcon: Icon(CupertinoIcons.mic_fill)),
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
         drawer: DrawerWidget(),

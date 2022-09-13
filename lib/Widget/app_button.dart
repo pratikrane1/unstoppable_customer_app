@@ -20,17 +20,17 @@ class AppButton extends StatelessWidget {
   this.color,
   }) : super(key: key);
 
-  // Widget _buildLoading() {
-  //   if (loading!) {
-  //     return Container();
-  //   }
-  //   return Container(
-  //     margin: EdgeInsets.only(left: 10, right: 10),
-  //     width: 14,
-  //     height: 14,
-  //     child: CircularProgressIndicator(strokeWidth: 2),
-  //   );
-  // }
+  Widget _buildLoading() {
+    if (loading!) {
+      return Container();
+    }
+    return Container(
+      margin: EdgeInsets.only(left: 10, right: 10),
+      width: 14,
+      height: 14,
+      child: CircularProgressIndicator(strokeWidth: 2),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,8 @@ class AppButton extends StatelessWidget {
 
       ElevatedButton(
         style: ElevatedButton.styleFrom(
-            side: BorderSide(color: Theme.of(context).primaryColor, width: 1),
-          primary: Theme.of(context).primaryColor,
+            side: BorderSide(color: Theme.of(context).buttonColor, width: 1),
+          primary: Theme.of(context).buttonColor,
 
           shape: shape,
         ),

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:unstoppable_customer_app/Screen/Login/sign_up.dart';
+import 'package:unstoppable_customer_app/Utils/connectivity_check.dart';
+import 'package:unstoppable_customer_app/Widget/app_button.dart';
+import 'package:unstoppable_customer_app/Widget/app_dialogs.dart';
 import '../../Constant/font_size.dart';
 import '../../Constant/theme_colors.dart';
 import '../bottom_navbar.dart';
@@ -78,8 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   Center(
                     child: Container(
-                      width: 325,
-                      // height: 270,
+                     margin: EdgeInsets.only(left:20.0,right:20.0),
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -91,7 +93,7 @@ class _SignInPageState extends State<SignInPage> {
                               Radius.circular(15.0),
                             ),
                           ),
-                          elevation: 20,
+                          elevation: 10,
                           child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
@@ -101,7 +103,8 @@ class _SignInPageState extends State<SignInPage> {
                                     child: Text(
                                       "Welcome User!",
                                       style: TextStyle(
-                                          fontSize: 28, fontWeight: FontWeight.bold),
+                                          fontSize: 20, fontWeight: FontWeight.w600,fontFamily: 'SF-Pro-Display',
+                                      color: Colors.black),
                                     ),
                                   ),
                                   const SizedBox(
@@ -117,6 +120,8 @@ class _SignInPageState extends State<SignInPage> {
                                   Container(
                                     height: 40,
                                     child: TextFormField(
+                                      style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                      fontSize: 14.0,color: ThemeColors.textColor),
                                       controller: _textEmailController,
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
@@ -162,6 +167,9 @@ class _SignInPageState extends State<SignInPage> {
                                   Container(
                                     height: 40,
                                     child: TextFormField(
+                                      style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                          fontSize: 14.0,
+                                      color: ThemeColors.textColor),
                                       controller: _textPasswordController,
                                       obscureText: _isObscure,
                                       keyboardType: TextInputType.visiblePassword,
@@ -204,7 +212,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(35.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -222,17 +230,17 @@ class _SignInPageState extends State<SignInPage> {
                             // SizedBox(
                             //   width: 5,
                             // ),
-                            Text("Remember me"),
+                            Text("Remember me", style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                fontSize: 14.0,color: Colors.black),),
                           ],
                         ),
                         InkWell(
                             onTap: () {},
                             child: Text(
                               "Forget Password?",
-                              style: TextStyle(
-                                  color: ThemeColors.drawerTextColor,
-                                  fontSize: FontSize.medium),
-                            ))
+                              style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                fontSize: 14.0,color: ThemeColors.drawerTextColor),),
+                            )
                       ],
                     ),
                   ),
@@ -240,65 +248,67 @@ class _SignInPageState extends State<SignInPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child:
-                      //                 AppButton(
-                      //                   onPressed: () async {
-                      //                     isconnectedToInternet = await ConnectivityCheck
-                      //                         .checkInternetConnectivity();
-                      //                     if (isconnectedToInternet == true) {
-                      // // if (_formKey.currentState!.validate()) {
+                      AppButton(
+                                        onPressed: () async {
+                                          isconnectedToInternet = await ConnectivityCheck
+                                              .checkInternetConnectivity();
+                                          if (isconnectedToInternet == true) {
+                      // if (_formKey.currentState!.validate()) {
                       //   _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
-                      // // }
-                      //                     } else {
-                      //                       CustomDialogs.showDialogCustom(
-                      //                           "Internet",
-                      //                           "Please check your Internet Connection!",
-                      //                           context);
-                      //                     }
-                      //                   },
-                      //                   shape: const RoundedRectangleBorder(
-                      //                       borderRadius:
-                      //                       BorderRadius.all(Radius.circular(50))),
-                      //                   text: 'Login',
-                      //                   loading: login is LoginLoading,
-                      //                   disableTouchWhenLoading: true,
-                      //                 )
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(0),
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 40,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ThemeColors.drawerTextColor,
-                            ),
-                            onPressed: () async {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
-                              // _userLoginBloc!.add(OnLogin(email: ));
-                              // isconnectedToInternet = await ConnectivityCheck
-                              //     .checkInternetConnectivity();
-                              // if (isconnectedToInternet == true) {
-                              //   if (_formKey.currentState!.validate()) {
-                              //     _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
-                              //   }
-                              // } else {
-                              //   Fluttertoast.showToast(msg: "Login Failed");
-                              //
-                              //   CustomDialogs.showDialogCustom(
-                              //       "Internet",
-                              //       "Please check your Internet Connection!",
-                              //       context);
-                              // }
-                            },
-                            child: const Text(
-                              'Login',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // }
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
+
+                                          } else {
+                                            CustomDialogs.showDialogCustom(
+                                                "Internet",
+                                                "Please check your Internet Connection!",
+                                                context);
+                                          }
+                                        },
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.all(Radius.circular(10))),
+                                        text: 'Login',
+                                        // loading: login is LoginLoading,
+                                        disableTouchWhenLoading: true,
+                                      )
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(0),
+                      //   child: SizedBox(
+                      //     width: MediaQuery.of(context).size.width,
+                      //     height: 40,
+                      //     child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         primary: ThemeColors.drawerTextColor,
+                      //       ),
+                      //       onPressed: () async {
+                      //         Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
+                      //         // _userLoginBloc!.add(OnLogin(email: ));
+                      //         // isconnectedToInternet = await ConnectivityCheck
+                      //         //     .checkInternetConnectivity();
+                      //         // if (isconnectedToInternet == true) {
+                      //         //   if (_formKey.currentState!.validate()) {
+                      //         //     _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
+                      //         //   }
+                      //         // } else {
+                      //         //   Fluttertoast.showToast(msg: "Login Failed");
+                      //         //
+                      //         //   CustomDialogs.showDialogCustom(
+                      //         //       "Internet",
+                      //         //       "Please check your Internet Connection!",
+                      //         //       context);
+                      //         // }
+                      //       },
+                      //       child: const Text(
+                      //         'Login',
+                      //         style: TextStyle(
+                      //           fontSize: 18,
+                      //           fontWeight: FontWeight.w400,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   ),
                   Row(
@@ -306,7 +316,8 @@ class _SignInPageState extends State<SignInPage> {
                     children: [
                       Text(
                         "New User?",
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                        style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w500,
+                            fontSize: 14.0,color: Colors.black),
                       ),
                       SizedBox(
                         width: 8,
@@ -317,10 +328,8 @@ class _SignInPageState extends State<SignInPage> {
                         },
                         child: Text(
                           "Register Here",
-                          style: TextStyle(
-                              color: ThemeColors.drawerTextColor,
-                              fontSize: FontSize.medium,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w600,
+                              fontSize: 14.0),
                         ),
                       ),
                     ],

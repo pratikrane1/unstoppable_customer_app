@@ -5,22 +5,22 @@ class CollectionTheme {
   ///
   /// primaryLight/primaryDark/brownLight/brownDark/pinkLight/pinkDark
   static ThemeData getCollectionTheme(
-      {String theme = "primaryLight", String font = "Poppins"}) {
+      {String theme = "primaryLight", String font = "SF-Pro-Display"}) {
     switch (theme) {
       case "primaryLight":
         return ThemeData(
           primarySwatch:
           MaterialColor(4293223245, {
-            50: Color(0xfffDF5F00),
-            100: Color(0xfffDF5F00),
-            200: Color(0xfffDF5F00),
-            300: Color(0xffDF5F00),
-            400: Color(0xffDF5F00),
-            500: Color(0xffDF5F00),
-            600: Color(0xffDF5F00),
-            700: Color(0xffDF5F00),
-            800: Color(0xffDF5F00),
-            900: Color(0xffDF5F00)
+            50: Color(0xfffEF8642),
+            100: Color(0xfffEF8642),
+            200: Color(0xfffEF8642),
+            300: Color(0xffEF8642),
+            400: Color(0xffEF8642),
+            500: Color(0xffEF8642),
+            600: Color(0xffEF8642),
+            700: Color(0xffEF8642),
+            800: Color(0xffEF8642),
+            900: Color(0xffEF8642)
           }),
 
           fontFamily: font,
@@ -33,8 +33,10 @@ class CollectionTheme {
           // darkgreenColor: Color(0xff509D45),
           // darkblueColor: Color(0xff254EA1),
           primaryColorDark: Color(0xffDF5F00),
-          accentColor: Color(0xffF58634),
-          accentColorBrightness: Brightness.dark,
+          //imp
+          colorScheme: ColorScheme.fromSwatch(primarySwatch:Colors.orange,
+              accentColor:Color(0xffEF8642),brightness: Brightness.light ),
+
           canvasColor: Color(0xfffafafa),
           scaffoldBackgroundColor: Color(0xfffafafa),
           bottomAppBarColor: Color(0xffffffff),
@@ -47,7 +49,7 @@ class CollectionTheme {
           // unselectedWidgetColor: Color(0xFF1C1E1E),
 
           disabledColor: Color(0x61000000),
-          buttonColor: Color(0xff03502B),
+          buttonColor: Color(0xff00008C),
           toggleableActiveColor: Color(0xff4A90A4),
           secondaryHeaderColor: Color(0xfffcebe9),
           textSelectionColor: Color(0xff4A90A4),
@@ -75,7 +77,7 @@ class CollectionTheme {
               ),
             ),
             // buttonColor: Color(0xff03502B),
-            buttonColor: Color(0xff50AD38), //updated on 14/06/2021 for screen updation colors
+            buttonColor: Color(0xff00008C), //updated on 14/06/2021 for screen updation colors
 
             disabledColor: Color(0x61000000),
             highlightColor: Color(0x29000000),
@@ -154,12 +156,15 @@ class CollectionTheme {
           fontFamily: font,
           brightness: Brightness.dark,
           // primaryColor: Color(0xff03502B),
-          primaryColor: Color(0xffDF5F00),
+          primaryColor: Color(0xffEF8642),
           primaryColorBrightness: Brightness.dark,
           primaryColorLight: Color(0xffFF8A65),
           primaryColorDark: Color(0xff000000),
-          accentColor: Color(0xff4A90A4),
-          accentColorBrightness: Brightness.light,
+          // accentColor: Color(0xff4A90A4),
+          // accentColorBrightness: Brightness.light,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch:Colors.orange,
+              accentColor:Color(0xffEF8642),brightness: Brightness.dark ),
+
           canvasColor: Colors.grey[900],
           scaffoldBackgroundColor: Color(0xff303030),
           bottomAppBarColor: Color(0xff424242),
@@ -171,7 +176,7 @@ class CollectionTheme {
           unselectedWidgetColor: Color(0xb3ffffff),
           // unselectedWidgetColor: Color(0xFF1C1E1E),
           disabledColor: Color(0x62ffffff),
-          buttonColor: Color(0xffF58634),
+          buttonColor: Color(0xff00008C),
           toggleableActiveColor: Color(0xff4A90A4),
           secondaryHeaderColor: Color(0xff616161),
           textSelectionColor: Color(0xff4A90A4),
@@ -202,7 +207,7 @@ class CollectionTheme {
               ),
             ),
             // buttonColor: Color(0xff03502B),
-            buttonColor: Color(0xffF58634),
+            buttonColor: Color(0xff00008C),
             disabledColor: Color(0x61ffffff),
             highlightColor: Color(0x29ffffff),
             splashColor: Color(0x1fffffff),
@@ -250,7 +255,7 @@ class CollectionTheme {
           ),
           sliderTheme: SliderThemeData.fromPrimaryColors(
             // primaryColor: Color(0xff03502B),
-            primaryColor: Color(0xffF58634),
+            primaryColor: Color(0xffEF8642),
             primaryColorLight: Color(0xfff9d8d3),
             primaryColorDark: Color(0xff862413),
             valueIndicatorTextStyle: TextStyle(
@@ -293,13 +298,15 @@ class CollectionTheme {
           fontFamily: font,
           brightness: Brightness.light,
           // primaryColor: Color(0xff03502B),
-          primaryColor: Color(0xffF58634),
+          primaryColor: Color(0xffEF8642),
           primaryColorBrightness: Brightness.dark,
           primaryColorLight: Color(0xffFF8A65),
           primaryColorDark: Color(0xff862413),
-          accentColor: Color(0xff4A90A4),
-          accentColorBrightness: Brightness.dark,
+          // accentColor: Color(0xff4A90A4),
+          // accentColorBrightness: Brightness.dark,
           canvasColor: Color(0xfffafafa),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch:Colors.orange,
+              accentColor:Color(0xffEF8642),brightness: Brightness.dark ),
           scaffoldBackgroundColor: Color(0xfffafafa),
           bottomAppBarColor: Color(0xffffffff),
           cardColor: Color(0xffffffff),
@@ -312,7 +319,7 @@ class CollectionTheme {
 
           disabledColor: Color(0x61000000),
           // buttonColor: Color(0xff03502B),
-          buttonColor: Color(0xffF58634),
+          buttonColor: Color(0xff00008C),
           toggleableActiveColor: Color(0xff4A90A4),
           secondaryHeaderColor: Color(0xfffcebe9),
           textSelectionColor: Color(0xff4A90A4),
@@ -339,7 +346,7 @@ class CollectionTheme {
               ),
             ),
             // buttonColor: Color(0xff03502B),
-            buttonColor: Color(0xffF58634),
+            buttonColor: Color(0xff00008C),
             disabledColor: Color(0x61000000),
             highlightColor: Color(0x29000000),
             splashColor: Color(0x1f000000),

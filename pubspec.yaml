@@ -45,7 +45,7 @@ dependencies:
   expansion_card: ^0.1.0
   carousel_slider: ^4.1.1
   font_awesome_flutter: ^10.2.1
-
+  flutter_share: ^2.0.0
 
 
 

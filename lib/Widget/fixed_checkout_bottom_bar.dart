@@ -20,39 +20,13 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
     mainHeight = MediaQuery.of(context).size.height;
     return Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: ThemeColors.backgroundColor,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         height: mainHeight / 4,
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      child: Text(
-                        'Sub Total',
-                          style: TextStyle(
-                            fontFamily: "SF-Pro-Display-Bold",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.0,
-                          ),
-                      )),
-                  Container(
-                      child: Text(
-                        "00.00",
-                        style: TextStyle(
-                          fontFamily: "SF-Pro-Display-Regular",
-                          // fontWeight: FontWeight.w700,
-                          fontSize: 16.0,
-                        ),
-                      )),
-                ],
-              ),
-            ),
             //SizedBox(height: 5,),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
@@ -61,16 +35,16 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
                 children: [
                   Container(
                       child: Text(
-                        'Delivery Fee',
+                        'Products',
                         style: TextStyle(
                           fontFamily: "SF-Pro-Display-Bold",
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.0,
                         ),
                       )),
                   Container(
                       child: Text(
-                        "00.00",
+                        "x0",
                         style: TextStyle(
                           fontFamily: "SF-Pro-Display-Regular",
                           // fontWeight: FontWeight.w700,
@@ -81,14 +55,14 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
               ),
             ),
             //SizedBox(height: 5,),
-            Divider(),
+            // Divider(),
             Padding(
               padding: const EdgeInsets.only(bottom: 4.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total',
+                    'Total: ',
                     style: TextStyle(
                       fontFamily: "SF-Pro-Display-Bold",
                       fontWeight: FontWeight.w700,

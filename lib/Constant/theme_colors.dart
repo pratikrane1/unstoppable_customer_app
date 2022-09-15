@@ -16,9 +16,10 @@ class ThemeColors {
   static const Color buttonColor = Color(0xff00008C);
   static const Color cardColor = Color(0xfffcf8f8);
   static const Color bottomNavColor = Color(0xff389B4B);
-  static Color backgroundColor=Color(0xFFE2E7EE);
-  static Color textColor=Color(0xff333333);
-  static Color logOutButtonColor=Color(0xffE31F1F);
+  static const Color backgroundColor=Color(0xFFE2E7EE);
+  static const Color textColor=Color(0xff333333);
+  static const Color logOutButtonColor=Color(0xffE31F1F);
+  static const Color discountBackgroundColor=Color(0xff9d061a);
 
 
 

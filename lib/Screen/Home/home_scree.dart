@@ -368,12 +368,16 @@ Widget buildProductCard(BuildContext context) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail()));
     },
     child: Padding(
-      padding: const EdgeInsets.only(left:8.0,right: 8.0),
-      child: GridView.count(
+      // padding: const EdgeInsets.only(left:8.0,right: 8.0),
+      padding: const EdgeInsets.all(8),
+      child:
+      GridView.count(
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         crossAxisCount: 2,
+        mainAxisSpacing: 10,
+        // crossAxisSpacing: 10,
         children: List.generate(10, (index) {
           return Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -448,7 +452,7 @@ Widget buildProductCard(BuildContext context) {
                             fontWeight: FontWeight.w400,
                             color: ThemeColors.textColor,
                             fontSize: 12.0,
-                            fontFamily: 'SF-Pro-Display'
+                            fontFamily: 'SF-Pro-Display-Regular'
                           ),
                         ),
                         SizedBox(

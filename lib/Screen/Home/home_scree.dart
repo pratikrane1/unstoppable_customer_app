@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unstoppable_customer_app/Config/theme.dart';
+import 'package:unstoppable_customer_app/Screen/Home/product_details.dart';
 import 'package:unstoppable_customer_app/Utils/translate.dart';
 import 'package:unstoppable_customer_app/app.dart';
 
@@ -351,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               imageSlider(),
 
-                  buildProductCard()
+                  buildProductCard(context)
 
             ],
           ),
@@ -361,111 +362,116 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Widget buildProductCard() {
-  return Padding(
-    padding: const EdgeInsets.only(left:8.0,right: 8.0),
-    child: GridView.count(
-      scrollDirection: Axis.vertical,
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      crossAxisCount: 2,
-      children: List.generate(10, (index) {
-        return Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 5,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              CachedNetworkImage(
-                width: 100,
-                height: 100,
-                filterQuality: FilterQuality.medium,
-                // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                // imageUrl: "https://picsum.photos/250?image=9",
-                imageUrl: "https://picsum.photos/250?image=9",
-                placeholder: (context, url) {
-                  return Shimmer.fromColors(
-                    baseColor: Theme.of(context).hoverColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    enabled: true,
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  );
-                },
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  );
-                },
-                errorWidget: (context, url, error) {
-                  return Shimmer.fromColors(
-                    baseColor: Theme.of(context).hoverColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    enabled: true,
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(Icons.error),
-                    ),
-                  );
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "High speed table fan for home",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: ThemeColors.textColor,
-                          fontSize: 12.0,
-                          fontFamily: 'SF-Pro-Display'
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "\u{20B9} 15,000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.0,
-                          fontFamily: 'SF-Pro-Display'
-                        ),
-                      ),
-
-                    ],
-                  ),
+Widget buildProductCard(BuildContext context) {
+  return InkWell(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail()));
+    },
+    child: Padding(
+      padding: const EdgeInsets.only(left:8.0,right: 8.0),
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        crossAxisCount: 2,
+        children: List.generate(10, (index) {
+          return Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 5,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              )
-            ],
-          ),
-        );
-      }),
+                CachedNetworkImage(
+                  width: 100,
+                  height: 100,
+                  filterQuality: FilterQuality.medium,
+                  // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                  // imageUrl: "https://picsum.photos/250?image=9",
+                  imageUrl: "https://picsum.photos/250?image=9",
+                  placeholder: (context, url) {
+                    return Shimmer.fromColors(
+                      baseColor: Theme.of(context).hoverColor,
+                      highlightColor: Theme.of(context).highlightColor,
+                      enabled: true,
+                      child: Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    );
+                  },
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    );
+                  },
+                  errorWidget: (context, url, error) {
+                    return Shimmer.fromColors(
+                      baseColor: Theme.of(context).hoverColor,
+                      highlightColor: Theme.of(context).highlightColor,
+                      enabled: true,
+                      child: Container(
+                        height: 80,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Icon(Icons.error),
+                      ),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "High speed table fan for home",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: ThemeColors.textColor,
+                            fontSize: 12.0,
+                            fontFamily: 'SF-Pro-Display'
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "\u{20B9} 15,000",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.0,
+                            fontFamily: 'SF-Pro-Display'
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
+      ),
     ),
   );
 }

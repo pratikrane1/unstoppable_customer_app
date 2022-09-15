@@ -298,7 +298,7 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
           ),
           backgroundColor: ThemeColors.baseThemeColor,
           elevation: 0.0,
-          centerTitle: false,
+          centerTitle: true,
           title: Column(
             children: [
               Row(

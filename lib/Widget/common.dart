@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-Widget notificationIcon() {
+import '../Screen/Notification/notification.dart';
+
+Widget notificationIcon(BuildContext context) {
     return Container(
       width: 28,
       height: 28,
@@ -14,7 +16,7 @@ Widget notificationIcon() {
           border: Border.all(color: Colors.black, width: 1)),
       child: InkWell(
         onTap: (){
-          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> NotificationPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> NotificationPage()));
 
         },
         child: Container(

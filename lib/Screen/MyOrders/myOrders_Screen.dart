@@ -209,8 +209,7 @@ class _MyOrdersState extends State<MyOrders> {
         drawer: DrawerWidget(),
         body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height ,
-
+            height: MediaQuery.of(context).size.height,
             child: Container(
               child: buildOrdersList(),
             ),
@@ -221,112 +220,133 @@ class _MyOrdersState extends State<MyOrders> {
   Widget unstoppableProductCard() {
     return InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> MyOrdersDetail()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MyOrdersDetail()));
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(width: 1, color: ThemeColors.buttonColor),
+              border: Border.all(width: 0.9, color: ThemeColors.buttonColor),
               // color: Colors.black12,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  //visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                  // leading: nameIcon(),
-                  leading: CachedNetworkImage(
-                    filterQuality: FilterQuality.medium,
-                    // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                    // imageUrl: "https://picsum.photos/250?image=9",
-                    imageUrl: "https://picsum.photos/250?image=9",
-                    placeholder: (context, url) {
-                      return Shimmer.fromColors(
-                        baseColor: Theme.of(context).hoverColor,
-                        highlightColor: Theme.of(context).highlightColor,
-                        enabled: true,
-                        child: Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      );
-                    },
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      );
-                    },
-                    errorWidget: (context, url, error) {
-                      return Shimmer.fromColors(
-                        baseColor: Theme.of(context).hoverColor,
-                        highlightColor: Theme.of(context).highlightColor,
-                        enabled: true,
-                        child: Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Icon(Icons.error),
-                        ),
-                      );
-                    },
-                  ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Container(
+                  // decoration: BoxDecoration(
+                  //   borderRadius: BorderRadius.circular(10.0),
+                  //   border: Border.all(width: 1, color: ThemeColors.buttonColor),
+                  //   // color: Colors.black12,
+                  // ),
+                  child: Row(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Delivered on Jan 25",
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                            //color: Theme.of(context).accentColor
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
-                        style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          color: ThemeColors.textFieldBgColor,
-                          fontSize: 10.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        "\u{20B9} 15,000",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        ),
-                      ),
+                      CachedNetworkImage(
+                        height: 80,
+                        width: 85,
 
+                        filterQuality: FilterQuality.medium,
+                        // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                        // imageUrl: "https://picsum.photos/250?image=9",
+                        imageUrl: "https://picsum.photos/250?image=9",
+                        placeholder: (context, url) {
+                          return Shimmer.fromColors(
+                            baseColor: Theme.of(context).hoverColor,
+                            highlightColor: Theme.of(context).highlightColor,
+                            enabled: true,
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          );
+                        },
+                        imageBuilder: (context, imageProvider) {
+                          return Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          );
+                        },
+                        errorWidget: (context, url, error) {
+                          return Shimmer.fromColors(
+                            baseColor: Theme.of(context).hoverColor,
+                            highlightColor: Theme.of(context).highlightColor,
+                            enabled: true,
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(Icons.error),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Delivered on Jan 25",
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.0,
+                                  fontFamily: 'SF-Pro-Display-Bold'
+                                  //color: Theme.of(context).accentColor
+                                  ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width / 1.9,
+                            child: Text(
+                              "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: ThemeColors.greyTextColor
+                                      .withOpacity(0.7),
+                                  fontSize: 10.0,
+                                  fontFamily: 'SF-Pro-Display-Regular'),
+                              maxLines: 3,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            "\u{20B9} 15,000",
+                            style: TextStyle(
+                              fontFamily: 'SF-Pro-Display-Bold',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-
+                ),
               ),
             ),
           ),

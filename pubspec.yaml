@@ -44,6 +44,7 @@ dependencies:
   timeline_tile: ^2.0.0
   expansion_card: ^0.1.0
   carousel_slider: ^4.1.1
+  font_awesome_flutter: ^10.2.1
 
 
 
@@ -115,6 +116,13 @@ flutter:
           weight: 600
         - asset: assets/fonts/Roboto-Black.ttf
         - asset: assets/fonts/Roboto-Thin.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
 
   #
   # For details regarding fonts from package dependencies,

@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Constant/theme_colors.dart';
+import '../Widget/app_button.dart';
 import '../image_file.dart';
 
 class MyProfile extends StatefulWidget {
@@ -105,6 +106,13 @@ _mobileController.clear();
         backgroundColor: ThemeColors.baseThemeColor,
         elevation: 0.0,
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios,color: ThemeColors.whiteTextColor),
+        ),
         title: Column(
           children: [
             Row(
@@ -130,48 +138,66 @@ _mobileController.clear();
                   height: 15,
                 ),
                 Center(
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundColor: ThemeColors.whiteTextColor,
-                    child: ClipOval(
-                      child: new SizedBox(
-                        width: 150.0,
-                        height: 150.0,
-                        child: (_image != null)
-                            ? Image.file(
-                                _image!,
-                                fit: BoxFit.fill,
-                              )
-                            : Image.network(
-                                "https://picsum.photos/250?image=9",
-                                fit: BoxFit.fill,
-                              ),
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        radius: 80,
+                        backgroundColor: ThemeColors.whiteTextColor,
+                        child: ClipOval(
+                          child: new SizedBox(
+                            width: 150.0,
+                            height: 150.0,
+                            child: (_image != null)
+                                ? Image.file(
+                                    _image!,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.network(
+                                    "https://picsum.photos/250?image=9",
+                                    fit: BoxFit.fill,
+                                  ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    //image picker
-                    // getImage();
-                    _openGallery(context);
+                      Positioned(
+                        bottom: 5,
+                        right: 8,
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: ThemeColors.buttonColor,
+                          child: IconButton(
+                          onPressed: () {
+                            //image picker
+                            // getImage();
+                            _openGallery(context);
 
-                  },
-                  icon: Icon(
-                    Icons.camera,
-                    size: 30,
-                    color: ThemeColors.buttonColor,
+                          },
+                          icon:
+                          Icon(
+                            Icons.edit,
+                            size: 25,
+                            color: ThemeColors.whiteTextColor,
+                          ),
+                      ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
+
                 Container(
                   child: Form(
                     child: Padding(
-                      padding: const EdgeInsets.all(12.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         children: [
                           Column(
                             children: [
-                              Align(alignment: Alignment.topLeft, child: Text("Name")),
+                              Align(alignment: Alignment.topLeft, child: Text("Name",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'SF-Pro-Display-Regular'
+                              ),)),
                               SizedBox(
                                 height: 5,
                               ),
@@ -235,7 +261,12 @@ _mobileController.clear();
                           ),
                           Column(
                             children: [
-                              Align(alignment: Alignment.topLeft, child: Text("Mobile Number")),
+                              Align(alignment: Alignment.topLeft, child: Text("Mobile Number",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  )
+                              )),
                               SizedBox(
                                 height: 5,
                               ),
@@ -299,7 +330,11 @@ _mobileController.clear();
                           ),
                           Column(
                             children: [
-                              Align(alignment: Alignment.topLeft, child: Text("Email")),
+                              Align(alignment: Alignment.topLeft, child: Text("Email",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  ))),
                               SizedBox(
                                 height: 5,
                               ),
@@ -366,19 +401,19 @@ _mobileController.clear();
                 SizedBox(
                   height: 15,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    onPressed: () {  },
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(ThemeColors.buttonColor)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-
-                        Text("Update",style: TextStyle(fontSize: 18),)
-
-                      ],
-                    ),
+                Center(
+                  child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:
+                      AppButton(
+                        onPressed: () async {},
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10))),
+                        text: 'Update',
+                        // loading: login is LoginLoading,
+                        disableTouchWhenLoading: true,
+                      )
                   ),
                 ),
               ],

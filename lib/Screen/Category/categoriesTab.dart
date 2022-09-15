@@ -171,6 +171,9 @@ class _CategoriesTabState extends State<CategoriesTab> {
             padding: const EdgeInsets.all(8.0),
             child: ExpansionTile(
               // collapsedBackgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+              trailing: Icon(
+                Icons.arrow_drop_down,size: 27,
+              ),
               leading: CachedNetworkImage(
                 filterQuality: FilterQuality.medium,
                 // imageUrl: Api.PHOTO_URL + widget.users.avatar,
@@ -224,8 +227,10 @@ class _CategoriesTabState extends State<CategoriesTab> {
               title: Text(
                 "Fruits & Vegetables",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
+                  fontFamily: 'Poppins-SemiBold',
                   color: Colors.black,
+                  fontWeight: FontWeight.w500
                 ),
               ),
               children: <Widget>[

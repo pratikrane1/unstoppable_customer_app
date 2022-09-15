@@ -144,6 +144,8 @@ class _DrawerWidgetState extends State<DrawerWidget>{
             _MyOrders(context),
             _ChangePassword(context),
             _ContactUs(context),
+            _RFR(context),
+            _GDTDetails(context),
 
             _LogOutButton(context)
           ],
@@ -296,6 +298,74 @@ Widget _ContactUs(BuildContext context) {
     ),
   );
 }
+Widget _RFR(BuildContext context) {
+  return InkWell(
+    onTap: () {
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => ContactUs()));
+    },
+    child: Card(
+      elevation: 1,
+      margin: EdgeInsets.all(10),
+      color: Colors.white,
+      shadowColor: Colors.blueGrey,
+      shape: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.white, width: 1)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: Icon(
+              Icons.shopping_cart,
+              color: ThemeColors.drawerTextColor,
+            ),
+            title: const Text(
+              'Rfr',
+              style:
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+                  fontFamily: 'SF-Pro-Display'),
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+Widget _GDTDetails(BuildContext context) {
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ContactUs()));
+    },
+    child: Card(
+      elevation: 1,
+      margin: EdgeInsets.all(10),
+      color: Colors.white,
+      shadowColor: Colors.blueGrey,
+      shape: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.white, width: 1)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            leading: Icon(
+              Icons.person_rounded,
+              color: ThemeColors.drawerTextColor,
+            ),
+            title: const Text(
+              'Add your GST details',
+              style:
+              TextStyle(color: ThemeColors.drawerTextColor, fontSize: 16,fontWeight: FontWeight.w400,
+                  fontFamily: 'SF-Pro-Display'),
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
 
 Widget _LogOutButton(BuildContext context) {
   // LoginBloc? _loginBloc;
@@ -304,16 +374,17 @@ Widget _LogOutButton(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               child:
 
+
             ElevatedButton(
               onPressed: () {  },
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xffE31F1F))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.logout,color: Colors.white,),
+                  Icon(Icons.logout,color: ThemeColors.whiteTextColor,),
                   SizedBox(width: 10,),
                   Text("Logout",style:
-                  TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w400,
+                  TextStyle(color: ThemeColors.whiteTextColor, fontSize: 16,fontWeight: FontWeight.w400,
                       fontFamily: 'SF-Pro-Display'),)
 
                 ],

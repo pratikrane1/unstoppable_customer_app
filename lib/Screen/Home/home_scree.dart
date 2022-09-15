@@ -309,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Hi OM",
                   style: TextStyle(color: ThemeColors.whiteTextColor),
                 ),
-                notificationIcon(),
+                notificationIcon(context),
               ],
             ),
           ],

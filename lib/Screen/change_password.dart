@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Widget/app_button.dart';
 import '../config/image.dart';
 import '../constant/theme_colors.dart';
 
@@ -34,17 +35,19 @@ class _ChangePasswordState extends State<ChangePassword> {
         // builder: (profile) =>
         Scaffold(
       appBar: AppBar(
-        // leading: GestureDetector(
-        //   onTap: () {
-        //     Navigator.pushReplacement(context,
-        //         MaterialPageRoute(builder: (context) => DrawerWidget()));
-        //   },
-        //   child: Icon(Icons.arrow_back_ios),
-        // ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios, color: ThemeColors.whiteTextColor,),
+        ),
         backgroundColor: ThemeColors.baseThemeColor,
         elevation: 0.0,
         centerTitle: true,
-        title: Text('Change Password'),
+        title: Text('Change Password',
+        style: TextStyle(
+          color: ThemeColors.whiteTextColor
+        ),),
       ),
       body: SingleChildScrollView(
           child: Container(
@@ -70,7 +73,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Current Password'),
+                      Text('Current Password', style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'SF-Pro-Display-Regular'
+                      ),),
                       SizedBox(
                         height: 5,
                       ),
@@ -120,7 +126,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('New Password'),
+                      Text('New Password', style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'SF-Pro-Display-Regular'
+                      ),),
                       SizedBox(
                         height: 5,
                       ),
@@ -173,7 +182,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text('Confirm password'),
+                      Text('Confirm password', style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'SF-Pro-Display-Regular'
+                      ),),
                       SizedBox(
                         height: 5,
                       ),
@@ -239,39 +251,19 @@ class _ChangePasswordState extends State<ChangePassword> {
             padding: const EdgeInsets.all(10.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
-              child: SizedBox(
+              child:
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 40,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: ThemeColors.buttonColor,
-                  ),
-                  onPressed: () async {
-                    // isconnectedToInternet =
-                    // await ConnectivityCheck
-                    //     .checkInternetConnectivity();
-                    // if (isconnectedToInternet == true) {
-                    //   if (_formKey.currentState!.validate()) {
-                    //     settingsBloc!.add(OnChangePassword(
-                    //         currentPwd:
-                    //         _textCurrentPasswordController
-                    //             .text,
-                    //         newPwd: _textNewPasswordController
-                    //             .text));
-                    //   }
-                    // } else {
-                    //   CustomDialogs.showDialogCustom(
-                    //       "Internet",
-                    //       "Please check your Internet Connection!",
-                    //       context);
-                    // }
-                  },
-                  child: Text(
-                    'Update',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                    ),
+                child: Center(
+                  child: AppButton(
+                    onPressed: () async {},
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(10))),
+                    text: 'Update',
+                    // loading: login is LoginLoading,
+                    disableTouchWhenLoading: true,
                   ),
                 ),
               ),

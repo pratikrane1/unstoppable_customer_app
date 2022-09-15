@@ -7,14 +7,19 @@ class ThemeColors {
   static const Color textFieldBgColor = Colors.grey;
   static const Color textFieldHintColor = Colors.grey;
   static const Color whiteTextColor = Colors.white;
-  static const Color greyTextColor = Color(0xFF595959);
+  static const Color greyTextColor = Color(0xFF3F3F3F);
+  static const Color orderIdTextColor = Color(0xFF888888);
+  static const Color orderDetailBGColor = Color(0xFFF3F3F3);
   // static const Color baseThemeColor = Color(0xffEE1D48);
   static const Color baseThemeColor = Color(0xffEF8642);
-  static const Color drawerTextColor = Color(0xff00008c);
-  static const Color buttonColor = Color(0xff00008c);
+  static const Color drawerTextColor = Color(0xff00008C);
+  static const Color buttonColor = Color(0xff00008C);
   static const Color cardColor = Color(0xfffcf8f8);
+  static const Color bottomNavColor = Color(0xff389B4B);
   static Color backgroundColor=Color(0xFFE2E7EE);
   static Color textColor=Color(0xff333333);
+  static Color logOutButtonColor=Color(0xffE31F1F);
+
 
 
 }

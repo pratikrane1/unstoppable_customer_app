@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unstoppable_customer_app/Constant/theme_colors.dart';
 import 'package:unstoppable_customer_app/Screen/profile.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
@@ -65,33 +66,37 @@ class _BottomNavigationState extends State<BottomNavigation> {
         child: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                backgroundColor: Colors.green,
+                backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.green,
+                backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.shopping_cart),
                 label: 'My Orders',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.green,
+                backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.category),
                 label: 'Category',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Colors.green,
+                backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.person),
                 label: 'My Profile',
               ),
 
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.white,
+            selectedItemColor: ThemeColors.whiteTextColor,
+            selectedLabelStyle: TextStyle(
+              fontFamily: 'SF-Pro-Display-Regular',
+                  fontSize: 10
+            ),
             showUnselectedLabels: true,
-            unselectedItemColor: Colors.black,
+            unselectedItemColor: ThemeColors.scaffoldBgColor,
 
-            backgroundColor: Colors.red,
+            // backgroundColor: Colors.red,
             onTap: _onItemTapped,
             elevation: 20,
         ),

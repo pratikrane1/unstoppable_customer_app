@@ -329,7 +329,7 @@ class _SignInPageState extends State<SignInPage> {
                         child: Text(
                           "Register Here",
                           style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w600,
-                              fontSize: 14.0),
+                              fontSize: 14.0,color: ThemeColors.drawerTextColor),
                         ),
                       ),
                     ],

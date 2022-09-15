@@ -6,6 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../Constant/theme_colors.dart';
+import '../Widget/app_button.dart';
 import '../image_file.dart';
 
 class ContactUs extends StatefulWidget {
@@ -52,6 +53,13 @@ class _ContactUsState extends State<ContactUs> {
         backgroundColor: ThemeColors.baseThemeColor,
         elevation: 0.0,
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios,color: ThemeColors.whiteTextColor),
+        ),
         title: Column(
           children: [
             Row(
@@ -89,7 +97,11 @@ class _ContactUsState extends State<ContactUs> {
                           children: [
                             Column(
                               children: [
-                                Align(alignment: Alignment.topLeft, child: Text("Name")),
+                                Align(alignment: Alignment.topLeft, child: Text("Name",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  ),)),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -153,7 +165,11 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             Column(
                               children: [
-                                Align(alignment: Alignment.topLeft, child: Text("Mobile Number")),
+                                Align(alignment: Alignment.topLeft, child: Text("Mobile Number",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  ),)),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -217,7 +233,11 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             Column(
                               children: [
-                                Align(alignment: Alignment.topLeft, child: Text("Email")),
+                                Align(alignment: Alignment.topLeft, child: Text("Email",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  ),)),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -281,7 +301,11 @@ class _ContactUsState extends State<ContactUs> {
                             ),
                             Column(
                               children: [
-                                Align(alignment: Alignment.topLeft, child: Text('Message')),
+                                Align(alignment: Alignment.topLeft, child: Text('Message',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'SF-Pro-Display-Regular'
+                                  ),)),
                                 SizedBox(
                                   height: 5,
                                 ),
@@ -336,30 +360,33 @@ class _ContactUsState extends State<ContactUs> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 40,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: ElevatedButton(
-                      onPressed: () {  },
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(ThemeColors.buttonColor)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
 
-                          Text("Update",style: TextStyle(fontSize: 18),)
-
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child:
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            child: Center(
+              child: AppButton(
+                onPressed: () async {},
+                shape: const RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(10))),
+                text: 'Submit',
+                // loading: login is LoginLoading,
+                disableTouchWhenLoading: true,
+              ),
+            ),
+          ),
         ),
       ),
     );

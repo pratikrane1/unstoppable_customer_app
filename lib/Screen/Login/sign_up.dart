@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unstoppable_customer_app/Screen/Login/sign_in.dart';
+import 'package:unstoppable_customer_app/Utils/connectivity_check.dart';
+import 'package:unstoppable_customer_app/Widget/app_button.dart';
+import 'package:unstoppable_customer_app/Widget/app_dialogs.dart';
 
 import '../../Config/image.dart';
 import '../../Constant/font_size.dart';
@@ -90,8 +93,7 @@ class _SignUpPageState extends State<SignUpPage>{
                 const SizedBox(height: 10,),
                 Center(
                   child: Container(
-                    width: 325,
-                    // height: 270,
+                   margin: EdgeInsets.all(15.0),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -108,33 +110,34 @@ class _SignUpPageState extends State<SignUpPage>{
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Align(alignment: Alignment.bottomLeft,
-                              child: Text("Register Here",
-                                style: TextStyle(
-                                    fontSize: 28,
-                                    fontWeight:FontWeight.bold
-                                ),),
-                            ),
+                            Text("Register Here",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                fontFamily: 'SF-Pro_display'
+                              ),),
                             const SizedBox(height: 15,),
 
 
                             //First Name
 
-                            const Align(alignment: Alignment.topLeft,
-                                child: Text("First Name:", textAlign: TextAlign.start,)),
+                            Text("First Name:",style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
                             const SizedBox(height: 5,),
                             SizedBox(
                               width: MediaQuery.of(context).size.width ,
                               child: TextFormField(
+                                style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                    fontSize: 14.0,color: ThemeColors.textColor),
                                 controller: _firstNameController,
                                 obscureText: false,
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+
                                 decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -172,8 +175,8 @@ class _SignUpPageState extends State<SignUpPage>{
                             const SizedBox(height: 15,),
 
                             //Last Name
-                            const Align(alignment: Alignment.topLeft,
-                                child: Text("Last Name:", textAlign: TextAlign.start,)),
+                            Text("Last Name:", style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
                             const SizedBox(height: 5,),
                             SizedBox(
                               width: MediaQuery.of(context).size.width ,
@@ -183,9 +186,8 @@ class _SignUpPageState extends State<SignUpPage>{
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+                                style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                    fontSize: 14.0,color: ThemeColors.textColor),
                                 decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -221,11 +223,9 @@ class _SignUpPageState extends State<SignUpPage>{
                             ),
 
                             const SizedBox(height: 15,),
-
-
                             //Mobile No:
-                            const Align(alignment: Alignment.topLeft,
-                                child: Text("Mobile No:", textAlign: TextAlign.start,)),
+                            Text("Mobile No:",style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
                             const SizedBox(height: 5,),
                             SizedBox(
                               width: MediaQuery.of(context).size.width ,
@@ -235,9 +235,8 @@ class _SignUpPageState extends State<SignUpPage>{
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+                                style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                    fontSize: 14.0,color: ThemeColors.textColor),
                                 decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -272,10 +271,9 @@ class _SignUpPageState extends State<SignUpPage>{
                               ),
                             ),
                             const SizedBox(height: 15,),
-
                             //Email:
-                            const Align(alignment: Alignment.topLeft,
-                                child: Text("Email:", textAlign: TextAlign.start,)),
+                            Text("Email:", style: TextStyle(fontSize: 12.0,
+                                fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
                             const SizedBox(height: 5,),
                             SizedBox(
                               width: MediaQuery.of(context).size.width ,
@@ -285,9 +283,8 @@ class _SignUpPageState extends State<SignUpPage>{
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
                                 keyboardType: TextInputType.text,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600),
+                                style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
+                                    fontSize: 14.0,color: ThemeColors.textColor),
                                 decoration: const InputDecoration(
                                   contentPadding:
                                   EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -335,95 +332,31 @@ class _SignUpPageState extends State<SignUpPage>{
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 40,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ThemeColors.drawerTextColor,
-                            ),
-                            onPressed: () async{
-                              // isconnectedToInternet = await ConnectivityCheck
-                              //     .checkInternetConnectivity();
-                              // if (isconnectedToInternet == true) {
-                              //   if(_nameController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter name");
-                              //   }
-                              //   else if(categoryModelselected==null){
-                              //     Fluttertoast.showToast(msg: "Please select category");
-                              //   }else if(subcategoryModelselected==null){
-                              //     Fluttertoast.showToast(msg: "Please select sub category");
-                              //   }else if(subsubcategoryModelselected==null){
-                              //     Fluttertoast.showToast(msg: "Please select sub sub category");
-                              //   }else if(_businessController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter business name");
-                              //   }else if(_ownershipController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter ownership type");
-                              //   }else if(_establishmentController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter year of establishment");
-                              //   }else if(_totalEmpController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter total number of employees");
-                              //   }else if(_annualTurnController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter annual turnover");
-                              //   }else if(_gSTNController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter GSTN Number");
-                              //   }else if(_BusinessAddressController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter business address");
-                              //   }else if(_pinController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter pin code");
-                              //   }
-                              //   else if(_mobNoController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter mobile number");
-                              //   }else if(_emailController==null){
-                              //     Fluttertoast.showToast(msg: "Please enter email");
-                              //   }
-                              //   else
-                              //   if (_formKey.currentState!.validate()) {
-                              //     // Fluttertoast.showToast(msg: "Registered Successfully");
-                              //
-                              //     _userLoginBloc!.add(OnRegistration(
-                              //       userType: _value,
-                              //       fullName: _nameController.text,
-                              //       businessName: _businessController.text,
-                              //       catId: categoryModelselected!.catId.toString(),
-                              //       subId: subcategoryModelselected!.subcatId.toString(),
-                              //       subSubId: subsubcategoryModelselected!.sscatId.toString(),
-                              //       ownershipType: _ownershipController.text,
-                              //       estYear: _establishmentController.text,
-                              //       totalEmp: _totalEmpController.text,
-                              //       annualTurnover: _annualTurnController.text,
-                              //       gSTIN: _gSTNController.text,
-                              //       address: _BusinessAddressController.text,
-                              //       pinCode: _pinController.text,
-                              //       mobile: _mobNoController.text,
-                              //       email: _emailController.text,
-                              //       comLogo: _image!.path,
-                              //       referby: _referBy.text,
-                              //     ));
-                              //   }
-                              //   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavigation()));
-                              //
-                              // } else {
-                              //   CustomDialogs.showDialogCustom(
-                              //       "Internet",
-                              //       "Please check your Internet Connection!",
-                              //       context);
-                              // }
+                    child:
+                    AppButton(
+                      onPressed: () async {
+                        isconnectedToInternet = await ConnectivityCheck
+                            .checkInternetConnectivity();
+                        if (isconnectedToInternet == true) {
+                          // if (_formKey.currentState!.validate()) {
+                          //   _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
+                          // }
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage()));
 
-                            },
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )
-
-                      ),
-                    ),
+                        } else {
+                          CustomDialogs.showDialogCustom(
+                              "Internet",
+                              "Please check your Internet Connection!",
+                              context);
+                        }
+                      },
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(10))),
+                      text: 'Sign Up',
+                      // loading: login is LoginLoading,
+                      disableTouchWhenLoading: true,
+                    )
                   ),
                 ),
 
@@ -431,13 +364,14 @@ class _SignUpPageState extends State<SignUpPage>{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
 
-                    Text("Already User?",style: TextStyle(fontWeight: FontWeight.normal),),
+                    Text("Already User?",style: TextStyle(fontWeight: FontWeight.w400,fontFamily: 'SF-Pro-Display',fontSize: 14.0),),
                     SizedBox(width: 8,),
                     InkWell(
                       onTap: (){
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignInPage()));
                       },
-                      child: Text("Login", style: TextStyle(color: ThemeColors.drawerTextColor, fontSize: FontSize.medium,fontWeight: FontWeight.bold),),),
+                      child: Text("Login", style: TextStyle(color: ThemeColors.drawerTextColor,
+                          fontSize: 14.0,fontFamily:'SF-Pro-Display',fontWeight: FontWeight.w600),),),
 
 
                   ],

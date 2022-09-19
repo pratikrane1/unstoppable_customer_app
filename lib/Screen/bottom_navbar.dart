@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unstoppable_customer_app/Constant/theme_colors.dart';
+import 'package:unstoppable_customer_app/Screen/Cart/cart.dart';
 import 'package:unstoppable_customer_app/Screen/profile.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
@@ -22,6 +23,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
     HomeScreen(index: 0,),
     MyOrders(),
     Category(),
+    CartPage(),
     MyProfile(),
   ];
 
@@ -79,6 +81,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.category),
                 label: 'Category',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: ThemeColors.bottomNavColor,
+                icon: Icon(Icons.shopping_cart),
+                label: 'Cart',
               ),
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,

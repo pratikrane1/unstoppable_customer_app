@@ -381,7 +381,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             image: imageProvider,
                             fit: BoxFit.cover,
                           ),
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       );
                     },
@@ -514,6 +514,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             color: ThemeColors.buttonColor, style: BorderStyle.solid, ),
                       ),
                       child: DropdownButton(
+                        underline: DropdownButtonHideUnderline(child: Container()),
 
                         // Initial Value
                         value: dropdownvalue,

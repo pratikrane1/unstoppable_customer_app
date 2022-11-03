@@ -20,7 +20,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(index: 0,),
+    HomeScreen(),
     MyOrders(),
     Category(),
     CartPage(),

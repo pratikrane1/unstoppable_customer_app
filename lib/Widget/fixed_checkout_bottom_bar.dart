@@ -1,10 +1,16 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../Constant/theme_colors.dart';
+import '../Screen/Cart/address_screen.dart';
+import '../Screen/Cart/checkout_page.dart';
 import 'app_button.dart';
 
 
 class CheckoutBottomBar extends StatefulWidget {
-  const CheckoutBottomBar({Key? key}) : super(key: key);
+  int value;
+  int total;
+  CheckoutBottomBar({Key? key,required this.value,required this.total}) : super(key: key);
 
   @override
   _CheckoutBottomBarState createState() => _CheckoutBottomBarState();
@@ -12,8 +18,23 @@ class CheckoutBottomBar extends StatefulWidget {
 
 class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
   var mainHeight, mainWidth;
-  var cartValue = 2;
+  var totalValue = 0;
   // final cartController = Get.put(CartController());
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+  int total(){
+    setState(() {
+      if(widget.value>0) {
+        widget.total = widget.total * widget.value;
+      }
+    });
+    return widget.total;
+  }
+
   @override
   Widget build(BuildContext context) {
     mainWidth = MediaQuery.of(context).size.width;
@@ -44,7 +65,7 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
                       )),
                   Container(
                       child: Text(
-                        "x0",
+                        "x${widget. value.toString()}",
                         style: TextStyle(
                           fontFamily: "SF-Pro-Display-Regular",
                           // fontWeight: FontWeight.w700,
@@ -70,7 +91,7 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
                     ),
                   ),
                   Text(
-                    "00.00",
+                    total().toString(),
                     style: TextStyle(
                       fontFamily: "SF-Pro-Display-Regular",
                       // fontWeight: FontWeight.w700,
@@ -90,7 +111,9 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
                       padding: const EdgeInsets.all(8.0),
                       child:
                       AppButton(
-                        onPressed: () async {},
+                        onPressed: () async {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage()));
+                        },
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                             BorderRadius.all(Radius.circular(10))),

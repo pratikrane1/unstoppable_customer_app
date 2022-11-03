@@ -15,9 +15,8 @@ import '../Cart/cart.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  int index;
 
-  HomeScreen({Key? key, required this.index}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

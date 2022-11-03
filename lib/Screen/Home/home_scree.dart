@@ -11,11 +11,12 @@ import '../../Constant/theme_colors.dart';
 import '../../Widget/common.dart';
 import '../../Widget/drawer.dart';
 import '../../Widget/product_Card.dart';
+import '../Cart/cart.dart';
+import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  int index;
 
-  HomeScreen({Key? key, required this.index}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List dummyData = List.generate(10000, (index) => '$index');
+
 
   Widget buildCategory() {
     if (dummyData.length <= 0) {
@@ -79,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.only(right: 15),
             child: GestureDetector(
                 onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> CategoryScreen()));
                   // print('clicked category');
                   // setState(() {
                   //   producerListIndex = index;
@@ -280,6 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -363,6 +367,11 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget buildProductCard(BuildContext context) {
+  var size = MediaQuery.of(context).size;
+
+  /*24 is for notification bar on Android*/
+  final double itemHeight = (size.height - kToolbarHeight - 24) / 3;
+  final double itemWidth = size.width / 2.5;
   return InkWell(
     onTap: (){
       Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail()));
@@ -372,6 +381,8 @@ Widget buildProductCard(BuildContext context) {
       padding: const EdgeInsets.all(8),
       child:
       GridView.count(
+        childAspectRatio: (itemWidth / itemHeight),
+
         scrollDirection: Axis.vertical,
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
@@ -383,14 +394,14 @@ Widget buildProductCard(BuildContext context) {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 5,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 10,
                 ),
                 CachedNetworkImage(
-                  width: 100,
-                  height: 100,
+                  width: 150,
+                  height: 150,
                   filterQuality: FilterQuality.medium,
                   // imageUrl: Api.PHOTO_URL + widget.users.avatar,
                   // imageUrl: "https://picsum.photos/250?image=9",
@@ -419,7 +430,7 @@ Widget buildProductCard(BuildContext context) {
                           image: imageProvider,
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                     );
                   },
@@ -441,7 +452,7 @@ Widget buildProductCard(BuildContext context) {
                   },
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(left: 15,top: 10,right: 5),
                   child: Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +462,7 @@ Widget buildProductCard(BuildContext context) {
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: ThemeColors.textColor,
-                            fontSize: 12.0,
+                            fontSize: 15.0,
                             fontFamily: 'SF-Pro-Display-Regular'
                           ),
                         ),
@@ -462,9 +473,33 @@ Widget buildProductCard(BuildContext context) {
                           "\u{20B9} 15,000",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 14.0,
-                            fontFamily: 'SF-Pro-Display'
+                            fontSize: 20.0,
+                            fontFamily: 'SF-Pro-Display-Bold'
                           ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "\u{20B9} 20,000.00",
+                              style: TextStyle(
+                                  decoration: TextDecoration.lineThrough,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.0,
+                                  fontFamily: 'SF-Pro-Display-Regular',
+                                color: ThemeColors.textFieldHintColor
+
+                              ),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                              },
+                                child: Icon(Icons.add_shopping_cart,color: ThemeColors.baseThemeColor,))
+                          ],
                         ),
 
                       ],

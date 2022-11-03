@@ -15,14 +15,22 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   var mainHeight, mainWidth;
   // final cartController = Get.put(CartController());
-  var value = 0;
-  var qtyValue = 0;
+  var quantity = 0;
+  var totalValue = 0;
+  int prodValue = 15000;
+  @override
+  void initState(){
+    super.initState();
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     mainHeight = MediaQuery.of(context).size.height;
     mainWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      bottomNavigationBar: CheckoutBottomBar(),
+      bottomNavigationBar: CheckoutBottomBar( total: prodValue, value: quantity,),
       appBar: AppBar(
         title: Text(
           "Cart",
@@ -94,7 +102,7 @@ class _CartPageState extends State<CartPage> {
               ),
 
               subtitle: Text(
-                  "\u{20B9} 15,000",
+                  "\u{20B9} $prodValue x $quantity",
                 style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: ThemeColors.greyTextColor
@@ -114,6 +122,11 @@ class _CartPageState extends State<CartPage> {
                       ),
                       onPressed: () {
                         setState(() {
+                          if(quantity>0) {
+                            quantity--;
+                            totalValue = prodValue * quantity;
+
+                          }
                           // var qty = cert.cart[index].qty! - 1;
                           // cert.updateProduct(
                           //     cert.cart[index].id,
@@ -123,7 +136,7 @@ class _CartPageState extends State<CartPage> {
                       },
                     ),
                     Text(
-                      '0',
+                      quantity.toString(),
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 18),
@@ -131,6 +144,9 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                       onPressed: () {
                         setState(() {
+                          quantity++;
+                          totalValue = prodValue * quantity;
+
                           // var qty = cert.cart[index].qty! + 1;
                           // cert.updateProduct(
                           //     cert.cart[index].id,

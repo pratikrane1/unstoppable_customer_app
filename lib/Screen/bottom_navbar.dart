@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unstoppable_customer_app/Constant/theme_colors.dart';
+import 'package:unstoppable_customer_app/Screen/Cart/cart.dart';
 import 'package:unstoppable_customer_app/Screen/profile.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
@@ -19,9 +20,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(index: 0,),
+    HomeScreen(),
     MyOrders(),
     Category(),
+    CartPage(),
     MyProfile(),
   ];
 
@@ -79,6 +81,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
                 backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.category),
                 label: 'Category',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: ThemeColors.bottomNavColor,
+                icon: Icon(Icons.shopping_cart),
+                label: 'Cart',
               ),
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,

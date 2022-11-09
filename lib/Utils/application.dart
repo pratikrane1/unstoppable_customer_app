@@ -1,6 +1,8 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Model/vendor_login.dart';
+import '../Model/customer_login.dart';
+
+
 
 
 class Application {
@@ -11,8 +13,7 @@ class Application {
   static String googleMapsKey="AIzaSyC08LZ461W_8xfd0alHTiPz8iLcYYrUdps";
   static SharedPreferences? preferences;
 
-
-  static VendorLogin? vendorLogin;
+  static CustomerLogin? customerLogin;
   // static DashBoardCountResp? dashBoardCountResp;
   // static ProductModel? productModel;
 

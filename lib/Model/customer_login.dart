@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class CustomerLoginRepo {
   dynamic status;
   dynamic msg;
@@ -43,9 +45,8 @@ class CustomerLogin {
   String? name;
   String? email;
   String? mobileNo;
-  String? address;
 
-  CustomerLogin({this.status, this.userId, this.name, this.email, this.mobileNo, this.address});
+  CustomerLogin({this.status, this.userId, this.name, this.email, this.mobileNo});
 
   CustomerLogin.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -53,7 +54,6 @@ class CustomerLogin {
     name = json['name'];
     email = json['email'];
     mobileNo = json['mobile_no'];
-    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -63,7 +63,6 @@ class CustomerLogin {
     data['name'] = this.name;
     data['email'] = this.email;
     data['mobile_no'] = this.mobileNo;
-    data['address'] = this.address;
     return data;
   }
 }

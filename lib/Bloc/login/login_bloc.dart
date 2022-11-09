@@ -43,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ///Login API success
        //  CustomerLogin user = CustomerLogin.fromJson(result.data);
        CustomerLogin user = new CustomerLogin();
-        user.status = result.data!.result.toString();
+        user.status = result.data!.status.toString();
         user = result.data!;
         AppBloc.authBloc.add(OnSaveUser(user));
         try {

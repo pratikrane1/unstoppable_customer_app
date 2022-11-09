@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'Bloc/authentication/authentication_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
+import 'Bloc/profile/profile_bloc.dart';
 import 'Bloc/theme/theme_bloc.dart';
 import 'Repository/UserRepository.dart';
 
@@ -13,6 +14,7 @@ class AppBloc {
 
   static final authBloc = AuthBloc(userRepository: userRepository);
   static final loginBloc = LoginBloc(userRepository: userRepository);
+  static final profileBloc = ProfileBloc(profileRepo: userRepository);
 
 
 
@@ -33,6 +35,9 @@ class AppBloc {
     BlocProvider<LoginBloc>(
       create: (context) => loginBloc,
     ),
+    BlocProvider<ProfileBloc>(
+      create: (context) => profileBloc,
+    ),
 
 
   ];
@@ -43,6 +48,7 @@ class AppBloc {
     themeBloc.close();
     authBloc.close();
     loginBloc.close();
+    profileBloc.close();
   }
 
   ///Singleton factory

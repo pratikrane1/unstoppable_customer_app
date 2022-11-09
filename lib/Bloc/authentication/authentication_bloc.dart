@@ -1,11 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../Model/vendor_login.dart';
+import '../../Model/customer_login.dart';
 import '../../Utils/application.dart';
 import '../../app_bloc.dart';
 import 'authentication_event.dart';
@@ -26,7 +22,7 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
 
       if (hasUser!=null ) {
         ///Getting data from Storage
-        final vendorModel = VendorLogin.fromJson(jsonDecode(hasUser));
+        final customerModel = CustomerLogin.fromJson(jsonDecode(hasUser));
 
         ///Set token network
         // httpManager.getOption.headers["Authorization"] = "Bearer " + user.token;
@@ -37,9 +33,9 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
         // final ResultApiModel result = await userRepository.validateToken(); //commented on 17/12/2020
 
         ///Fetch api success
-        if (vendorModel.userId!=null ) {
+        if (customerModel.userId!=null ) {
           ///Set user
-          Application.vendorLogin = vendorModel;
+          Application.customerLogin = customerModel;
           yield AuthenticationSuccess();
 
         } else {
@@ -73,11 +69,11 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
         //     "Bearer " + event.user.token;
 
         ///Set user
-        Application.vendorLogin = event.user;
+        Application.customerLogin= event.user;
         // UtilPreferences.setString(Preferences.user, Application.user.toString());
 
         ///Notify loading to UI
-        if(Application.vendorLogin!.userId!=null) {
+        if(Application.customerLogin!.userId!=null) {
           yield AuthenticationSuccess();
         }else{
           yield AuthenticationFail();
@@ -128,7 +124,7 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
       final deletePreferences = await userRepository!.deleteUser();
 
       ///Clear user Storage user via repos itory
-      Application.vendorLogin = null;
+      Application.customerLogin = null;
 
       ///Check result delete user
       if (deletePreferences) {

@@ -1,14 +1,16 @@
 
 
 
-import '../../Model/vendor_login.dart';
+
+
+import '../../Model/customer_login.dart';
 
 abstract class AuthenticationEvent {}
 
 class OnAuthCheck extends AuthenticationEvent {}
 
 class OnSaveUser extends AuthenticationEvent {
-  final VendorLogin user;
+  final CustomerLogin user;
   OnSaveUser(this.user);
 
 }

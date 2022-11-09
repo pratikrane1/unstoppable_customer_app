@@ -9,6 +9,7 @@ import 'Bloc/authentication/authentication_state.dart';
 import 'Config/language.dart';
 import 'Screen/Login/sign_in.dart';
 import 'Screen/SplashScreen/splash_screen.dart';
+import 'Screen/bottom_navbar.dart';
 import 'Utils/routes.dart';
 import 'Utils/translate.dart';
 import 'app_bloc.dart';
@@ -31,7 +32,7 @@ class _AppState extends State<App> {
 
   @override
   void dispose() {
-    // AppBloc.dispose();
+    AppBloc.dispose();
     super.dispose();
   }
 
@@ -74,10 +75,11 @@ class _AppState extends State<App> {
             builder: (context, app) {
 
               if (app is AuthenticationSuccess) {
-              //   return BottomNavigation(index: 0,);
-              // }
-              // if (app is AuthenticationFail) {
-                return SignInPage();
+                return BottomNavigation(index: 0,);
+              }
+              if (app is AuthenticationFail) {
+               return SignInPage();
+              //  return BottomNavigation(index: 0,);
               }
               return SplashScreen();
 

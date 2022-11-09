@@ -1,6 +1,6 @@
 import 'dart:convert';
 import '../Api/api.dart';
-import '../Model/vendor_login.dart';
+import '../Model/customer_login.dart';
 import '../Utils/preferences.dart';
 import '../Utils/util_preferences.dart';
 
@@ -16,7 +16,7 @@ class UserRepository {
 
 
   ///Save Storage
-  Future<dynamic> saveUser(VendorLogin user) async {
+  Future<dynamic> saveUser(CustomerLogin user) async {
     return await UtilPreferences.setString(
       Preferences.user,
       jsonEncode(user.toJson()),

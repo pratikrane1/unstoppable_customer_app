@@ -10,6 +10,7 @@ import 'package:unstoppable_customer_app/Widget/app_dialogs.dart';
 import '../../Config/image.dart';
 import '../../Constant/font_size.dart';
 import '../../Constant/theme_colors.dart';
+import '../bottom_navbar.dart';
 
 
 class SignUpPage extends StatefulWidget {
@@ -341,7 +342,8 @@ class _SignUpPageState extends State<SignUpPage>{
                           // if (_formKey.currentState!.validate()) {
                           //   _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
                           // }
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage()));
+                         // Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
 
                         } else {
                           CustomDialogs.showDialogCustom(

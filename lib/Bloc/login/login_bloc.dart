@@ -39,7 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       print(result);
 
       ///Case API fail but not have token
-      if (result.status == "Success") {
+      if (result.status == true) {
         ///Login API success
        //  CustomerLogin user = CustomerLogin.fromJson(result.data);
        CustomerLogin user = new CustomerLogin();

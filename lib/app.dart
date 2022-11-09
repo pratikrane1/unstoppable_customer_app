@@ -32,7 +32,7 @@ class _AppState extends State<App> {
 
   @override
   void dispose() {
-    // AppBloc.dispose();
+    AppBloc.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class _AppState extends State<App> {
               }
               if (app is AuthenticationFail) {
                return SignInPage();
-               // return BottomNavigation(index: 0,);
+              //  return BottomNavigation(index: 0,);
               }
               return SplashScreen();
 

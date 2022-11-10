@@ -32,8 +32,7 @@ class _SignInPageState extends State<SignInPage> {
   final _formKey = GlobalKey<FormState>();
   bool loading = true;
 
-  final timer =
-  Timer(const Duration(seconds: 5), () => print('Timer finished'));
+  Timer? timer;
 
   @override
   void initState() {
@@ -48,6 +47,7 @@ class _SignInPageState extends State<SignInPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    timer!.cancel();
 
   }
 
@@ -58,18 +58,25 @@ class _SignInPageState extends State<SignInPage> {
       body: SingleChildScrollView(
         child: BlocBuilder<LoginBloc,LoginState>(builder: (context,login){
           return BlocListener<LoginBloc,LoginState>(listener: (context,state){
+            if(state is LoginLoading){
+              loading = false;
+            }
             if(state is LoginSuccess)
             {
-              loading = false;
               SchedulerBinding.instance.addPostFrameCallback((_) {
 
                 // add your code here.
 
-                Timer.periodic(const Duration(seconds: 10), (timer) {
+               timer = Timer.periodic(const Duration(seconds: 10), (timer) {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
                   Fluttertoast.showToast(msg: state.message.toString());
-                  timer.cancel();
+                  loading = true;
+                  // if(DateTime.now().second == 10){
+                    timer.cancel();
+                    print("Timer Cancelled");
+                  // }
                 });
+
               });
 
               // Timer.periodic(const Duration(seconds: 10), (_) {

@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
       margin: EdgeInsets.only(left: 10, right: 10),
       width: 14,
       height: 14,
-      child: CircularProgressIndicator(strokeWidth: 2),
+      child: CircularProgressIndicator(strokeWidth: 2,color: Colors.white,),
     );
   }
 
@@ -60,7 +60,7 @@ class AppButton extends StatelessWidget {
                 .button!
                 .copyWith(color: Colors.white, fontWeight: FontWeight.w600),
           ),
-          // _buildLoading()
+          _buildLoading()
         ],
       ),
     )

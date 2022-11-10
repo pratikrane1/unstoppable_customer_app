@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../Bloc/authentication/authentication_bloc.dart';
+import '../../Bloc/authentication/authentication_event.dart';
 import '../../Config/image.dart';
 import '../Login/sign_in.dart';
 
@@ -15,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final int splashDuration = 5;
-  // AuthBloc? authBloc;
+  AuthBloc? authBloc;
 
   @override
   void initState() {
@@ -26,10 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
   startTime() async {
     return Timer(await Duration(seconds: splashDuration), () {
       SystemChannels.textInput.invokeMethod('TextInput.hide');
-      // authBloc = BlocProvider.of<AuthBloc>(context);
-      // authBloc!.add(OnAuthCheck());
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => SignInPage()));
+      authBloc = BlocProvider.of<AuthBloc>(context);
+      authBloc!.add(OnAuthCheck());
+      // Navigator.pushReplacement(context,
+      //     MaterialPageRoute(builder: (context) => SignInPage()));
     });
   }
 

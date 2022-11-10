@@ -6,6 +6,7 @@ import 'package:unstoppable_customer_app/Screen/contactUs.dart';
 import '../Screen/Login/sign_in.dart';
 import '../Screen/bottom_navbar.dart';
 import '../Screen/change_password.dart';
+import '../Screen/profile.dart';
 import '../Utils/application.dart';
 import '../constant/theme_colors.dart';
 import 'app_button.dart';
@@ -19,6 +20,7 @@ class DrawerWidget extends StatefulWidget {
 }
 class _DrawerWidgetState extends State<DrawerWidget>{
 
+  bool loading = true;
 
   // CompanyProfileBloc? _companyProbileBloc;
   // List<CompanyProfileModel>? companyData;
@@ -161,7 +163,7 @@ Widget _MyProfile(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BottomNavigation(index: 3,)));
+          context, MaterialPageRoute(builder: (context) => MyProfile()));
     },
     child: Card(
       elevation: 1,
@@ -373,22 +375,21 @@ Widget _LogOutButton(BuildContext context) {
           child:Padding(
               padding: EdgeInsets.all(20.0),
               child:
-
-            ElevatedButton(
-              onPressed: () {  },
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xffE31F1F))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.logout,color: ThemeColors.whiteTextColor,),
-                  SizedBox(width: 10,),
-                  Text("Logout",style:
-                  TextStyle(color: ThemeColors.whiteTextColor, fontSize: 16,fontWeight: FontWeight.w400,
-                      fontFamily: 'SF-Pro-Display'),)
-
-                ],
-              ),
-            )
+              AppButton(
+                onPressed: (){
+                  Application.preferences!.remove('user');
+                  // _RemoverUser();
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignInPage()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+                text: 'Logout',
+                loading: true,
+                // disableTouchWhenLoading: true,
+              )
           )
       );
     // )

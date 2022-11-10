@@ -374,7 +374,6 @@ Widget _LogOutButton(BuildContext context) {
               padding: EdgeInsets.all(20.0),
               child:
 
-
             ElevatedButton(
               onPressed: () {  },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xffE31F1F))),

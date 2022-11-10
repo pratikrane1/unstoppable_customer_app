@@ -11,7 +11,7 @@ class Api {
   //static const String HOST_URL="https://unstoppabletrade.in/App_details/";
   static const String HOST_URL="https://unstoppabletrade.in/customer_app/";
   static const String CUSTOMER_LOGIN="app_login";
-  static const String CUSTOMER_REGISTER="register_customer";
+  static const String CUSTOMER_REGISTER=HOST_URL+"register_customer";
 
 
   ///Login api

@@ -2,11 +2,15 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:unstoppable_customer_app/Screen/Login/sign_in.dart';
 import 'package:unstoppable_customer_app/Utils/connectivity_check.dart';
 import 'package:unstoppable_customer_app/Widget/app_button.dart';
 import 'package:unstoppable_customer_app/Widget/app_dialogs.dart';
 
+import '../../Bloc/login/login_bloc.dart';
+import '../../Bloc/login/login_event.dart';
+import '../../Bloc/login/login_state.dart';
 import '../../Config/image.dart';
 import '../../Constant/font_size.dart';
 import '../../Constant/theme_colors.dart';
@@ -19,15 +23,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage>{
-  // LoginBloc? _userLoginBloc;
+   LoginBloc? _userLoginBloc;
   bool isconnectedToInternet = false;
 
 
   ListItem? supplierValue;
  final _formKey = GlobalKey<FormState>();
- final _firstNameController = TextEditingController();
- final _lastNameController = TextEditingController();
-
+ final _fnameController = TextEditingController();
+ final _lnameController = TextEditingController();
  final _mobNoController = TextEditingController();
  final _emailController = TextEditingController();
 
@@ -37,10 +40,7 @@ class _SignUpPageState extends State<SignUpPage>{
 
   void initState(){
     super.initState();
-
-    // _userLoginBloc = BlocProvider.of<LoginBloc>(context);
-
-
+    _userLoginBloc = BlocProvider.of<LoginBloc>(context);
 
   }
 
@@ -49,8 +49,8 @@ class _SignUpPageState extends State<SignUpPage>{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _firstNameController.clear();
-    _lastNameController.clear();
+    _fnameController.clear();
+    _lnameController.clear();
     _emailController.clear();
     _mobNoController.clear();
 
@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage>{
 
                             //First Name
 
-                            Text("First Name:",style: TextStyle(fontSize: 12.0,
+                            Text("First  Name:",style: TextStyle(fontSize: 12.0,
                                 fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
                             const SizedBox(height: 5,),
                             SizedBox(
@@ -133,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage>{
                               child: TextFormField(
                                 style: TextStyle(fontFamily: 'SF-Pro-Display',fontWeight: FontWeight.w400,
                                     fontSize: 14.0,color: ThemeColors.textColor),
-                                controller: _firstNameController,
+                                controller: _fnameController,
                                 obscureText: false,
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
@@ -182,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage>{
                             SizedBox(
                               width: MediaQuery.of(context).size.width ,
                               child: TextFormField(
-                                controller: _lastNameController,
+                                controller: _lnameController,
                                 obscureText: false,
                                 //initialValue: widget.userdata['name'],
                                 textAlign: TextAlign.start,
@@ -224,6 +224,7 @@ class _SignUpPageState extends State<SignUpPage>{
                             ),
 
                             const SizedBox(height: 15,),
+
                             //Mobile No:
                             Text("Mobile No:",style: TextStyle(fontSize: 12.0,
                                 fontWeight: FontWeight.w400,fontFamily: 'SF-Pro_display'),),
@@ -330,36 +331,68 @@ class _SignUpPageState extends State<SignUpPage>{
                 ),
 
 
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child:
-                    AppButton(
-                      onPressed: () async {
-                        isconnectedToInternet = await ConnectivityCheck
-                            .checkInternetConnectivity();
-                        if (isconnectedToInternet == true) {
-                          // if (_formKey.currentState!.validate()) {
-                          //   _userLoginBloc!.add(OnLogin(email: _textEmailController.text,password: _textPasswordController.text));
-                          // }
-                         // Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage()));
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
+                BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, signup) {
+                      return BlocListener<LoginBloc, LoginState>(
+                        listener: (context, state) {
+                          if (state is CustomerRegistrationSuccess) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInPage()));
+                            Fluttertoast.showToast(msg: state.msg);
 
-                        } else {
-                          CustomDialogs.showDialogCustom(
-                              "Internet",
-                              "Please check your Internet Connection!",
-                              context);
-                        }
-                      },
-                      shape: const RoundedRectangleBorder(
-                          borderRadius:
-                          BorderRadius.all(Radius.circular(10))),
-                      text: 'Sign Up',
-                      // loading: login is LoginLoading,
-                      disableTouchWhenLoading: true,
-                    )
-                  ),
+                          }
+
+                          if (state is CustomerRegistrationFail) {
+                            Fluttertoast.showToast(msg: state.msg);
+                          }
+                        },
+                        child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: AppButton(
+                              loading: true,
+                              onPressed: () async {
+                                isconnectedToInternet =
+                                await ConnectivityCheck
+                                    .checkInternetConnectivity();
+                                if (isconnectedToInternet == true) {
+                                  if (_fnameController == null) {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter first name");
+                                  }
+                                  else if (_mobNoController == null) {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter mobile number");
+                                  } else if (_emailController == null) {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter email");
+                                  }else if (_lnameController == null) {
+                                    Fluttertoast.showToast(
+                                        msg: "Please enter last name");
+                                  }
+                                 else
+                                  if (_formKey.currentState!.validate()) {
+                                    _userLoginBloc!.add(OnRegistration(
+                                      fname: _fnameController.text,
+                                      mobileNo: _mobNoController.text,
+                                      email: _emailController.text,
+                                      lname: _lnameController.text,
+                                    ));
+                                  }
+                                } else {
+                                  CustomDialogs.showDialogCustom(
+                                      "Internet",
+                                      "Please check your Internet Connection!",
+                                      context);
+                                }
+                              },
+                              text: 'Register',
+                            )
+
+                        ),
+                      );
+                    }
                 ),
 
                 Row(

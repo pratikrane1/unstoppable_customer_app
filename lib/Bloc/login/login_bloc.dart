@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:unstoppable_customer_app/Model/customer_login.dart';
+import '../../Api/api.dart';
 import '../../Repository/UserRepository.dart';
 import '../../Utils/application.dart';
 
@@ -43,7 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         ///Login API success
        //  CustomerLogin user = CustomerLogin.fromJson(result.data);
        CustomerLogin user = new CustomerLogin();
-        user.status = result.data!.result.toString();
+        user.status = result.data!.status.toString();
         user = result.data!;
         AppBloc.authBloc.add(OnSaveUser(user));
         try {
@@ -85,42 +86,39 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     //   yield LogoutFail("error");
     // }
 
-
-    Uri url = Uri.parse(
-        "https://unstoppabletrade.in/customer_app/register_customer");
     if (event is OnRegistration) {
       yield CustomerRegistrationLoading();
 
-      Map<String, String> params = {
-        'name': event.name,
-        'email': event.email,
-        'address': event.address,
-        'mobile_no': event.mobileNo
-      };
 
-      var response;
+      MultipartRequest request = new MultipartRequest(
+          'POST', Uri.parse(Api.CUSTOMER_REGISTER));
+      request.fields['first_name'] = event.fname;
+      request.fields['last_name'] = event.lname;
+      request.fields['mobile_no'] = event.mobileNo;
+      request.fields['email'] = event.email;
 
+     // List<MultipartFile> imageUpload = <MultipartFile>[];
+
+      // final multipartFile = await http.MultipartFile.fromPath(
+      //   'com_logo', event.comLogo!.imagePath.toString(),
+      //   // contentType: MediaType(mimeTypeData[0], mimeTypeData[1])
+      // );
+
+     // imageUpload.add(multipartFile);
+    //  request.files.addAll(imageUpload);
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+      var resp = json.decode(response.body);
       try {
-        response = await http.post(
-          url,
-          body: params,
-        );
-        if (response.statusCode == 200) {
-          final resp = json.decode(response.body);
+        if (resp['status'] == true) {
+          yield CustomerRegistrationSuccess(msg: resp['msg']);
+        }else{
+          yield CustomerRegistrationFail(msg: resp['msg']);
 
-          final CustomerLoginRepo userModel = CustomerLoginRepo.fromJson(resp);
-
-          ///Begin start AuthBloc Event AuthenticationSave
-          AppBloc.authBloc.add(OnSaveUser(userModel.data));
-
-
-          ///Notify loading to UI
-          yield CustomerRegistrationSuccess(
-              msg: "Registered Successfully"
-          );
         }
       } catch (e) {
-        yield CustomerRegistrationFail(msg: "Registered fail");
+        yield CustomerRegistrationFail(msg: resp['msg']);
+        rethrow;
       }
     }
   }

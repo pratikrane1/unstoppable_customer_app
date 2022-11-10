@@ -11,9 +11,9 @@ class OnLogin extends LoginEvent {
 
 class OnRegistration extends LoginEvent {
 
-  var name,email,mobileNo,address;
+  var fname,email,mobileNo,lname;
 
-  OnRegistration({this.name,this.email,this.address,this.mobileNo});
+  OnRegistration({this.fname,this.email,this.lname,this.mobileNo});
 
 }
 

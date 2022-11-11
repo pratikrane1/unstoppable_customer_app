@@ -2,24 +2,24 @@ import 'package:meta/meta.dart';
 
 
 @immutable
-abstract class ProductEvent {}
+abstract class CategoryEvent {}
 
 
-class OnLoadingProductList extends ProductEvent {
+class OnLoadingCategoryList extends CategoryEvent {
 
-  OnLoadingProductList();
+  OnLoadingCategoryList();
 }
 
-class DeleteProduct extends ProductEvent{
-  String productid;
+class DeleteCategory extends CategoryEvent{
+  String Categoryid;
 
 
-  DeleteProduct({required this.productid});
+  DeleteCategory({required this.Categoryid});
 }
 
 
 
-class OnLoadingProductDetail extends ProductEvent {
-  String prodId;
-  OnLoadingProductDetail({required this.prodId});
+class OnLoadingCategoryDetail extends CategoryEvent {
+  String CategoryId;
+  OnLoadingCategoryDetail({required this.CategoryId});
 }

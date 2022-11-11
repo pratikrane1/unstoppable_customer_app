@@ -18,7 +18,7 @@ class AppBloc {
   static final loginBloc = LoginBloc(userRepository: userRepository);
   static final profileBloc = ProfileBloc(profileRepo: userRepository);
   static final settingsBloc = SettingsBloc(settingsRepo: userRepository);
-  static final productBloc = ProductBloc(productRepo: userRepository);
+  static final categoryBloc = CategoryBloc(categoryRepo: userRepository);
 
 
 
@@ -45,8 +45,8 @@ class AppBloc {
     BlocProvider<SettingsBloc>(
       create: (context) => settingsBloc,
     ),
-    BlocProvider<ProductBloc>(
-      create: (context) => productBloc,
+    BlocProvider<CategoryBloc>(
+      create: (context) => categoryBloc,
     ),
 
 
@@ -59,7 +59,7 @@ class AppBloc {
     authBloc.close();
     loginBloc.close();
     profileBloc.close();
-    productBloc.close();
+    categoryBloc.close();
     settingsBloc.close();
   }
 

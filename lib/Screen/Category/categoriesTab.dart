@@ -27,7 +27,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
 
   List<CategoryModel> productList = [];
   late CategoryModel catModel;
-  ProductBloc? _productBloc;
+  CategoryBloc? _CategoryBloc;
   int offset = 0;
   int _rowsPerPage = 10;
   double pageCount = 0;
@@ -40,8 +40,8 @@ class _CategoriesTabState extends State<CategoriesTab> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _productBloc = BlocProvider.of<ProductBloc>(context);
-    _productBloc!.add(OnLoadingProductList());
+    _CategoryBloc = BlocProvider.of<CategoryBloc>(context);
+    _CategoryBloc!.add(OnLoadingCategoryList());
 
 
   }
@@ -182,17 +182,17 @@ class _CategoriesTabState extends State<CategoriesTab> {
   Widget build(BuildContext context ) {
     // TODO: implement build
     return Scaffold(
-        body: BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-          if (state is ProductListSuccess) {
-            productList = state.productList!;
+        body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+          if (state is CategoryListSuccess) {
+            productList = state.CategoryList!;
             // pageCount = (productList.length / rowsPerPage).ceilToDouble();
             // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
           }
-          if (state is ProductLoading) {
+          if (state is CategoryLoading) {
             flagNoDataAvailable = false;
           }
 
-          if (state is ProductListLoadFail) {
+          if (state is CategoryListLoadFail) {
             flagNoDataAvailable = true;
           }
           // if(state is ProductPageCntSucess){

@@ -1,8 +1,10 @@
 
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 
 import 'Bloc/authentication/authentication_bloc.dart';
+import 'Bloc/contactUs/contactUs_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
 import 'Bloc/profile/profile_bloc.dart';
 import 'Bloc/theme/theme_bloc.dart';
@@ -15,6 +17,7 @@ class AppBloc {
   static final authBloc = AuthBloc(userRepository: userRepository);
   static final loginBloc = LoginBloc(userRepository: userRepository);
   static final profileBloc = ProfileBloc(profileRepo: userRepository);
+  static final contactUsBloc = ContactUsBloc(contactUsRepo: userRepository);
 
 
 
@@ -38,6 +41,9 @@ class AppBloc {
     BlocProvider<ProfileBloc>(
       create: (context) => profileBloc,
     ),
+    BlocProvider<ContactUsBloc>(
+      create: (context) => contactUsBloc,
+    ),
 
 
   ];
@@ -49,6 +55,7 @@ class AppBloc {
     authBloc.close();
     loginBloc.close();
     profileBloc.close();
+    contactUsBloc.close();
   }
 
   ///Singleton factory

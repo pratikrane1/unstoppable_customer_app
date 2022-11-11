@@ -9,6 +9,7 @@ import 'package:unstoppable_customer_app/Bloc/profile/profile_event.dart';
 import 'package:unstoppable_customer_app/Bloc/profile/profile_state.dart';
 
 import '../../Api/api.dart';
+import '../../Model/user_profile_model.dart';
 import '../../Repository/UserRepository.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
@@ -21,31 +22,53 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
 
 
-    // if (event is OnLoadingUserProfile) {
-    //   ///Notify loading to UI
-    //   yield UserProfileLoading();
-    //
-    //   ///Fetch API via repository
-    //   final UserProfileRepo response = await userProfileRepo!
-    //       .fetchUserProfile(
-    //     userId: event.userid,
-    //     // userId: "874",
-    //   );
-    //
-    //   final Iterable refactorProduct = response.data ?? [];
-    //   final userProfileData = refactorProduct.map((item) {
-    //     return UserProfileModel.fromJson(item);
-    //   }).toList();
-    //   if(refactorProduct.length>0){
-    //     yield UserProfileSuccess(userProfileData: userProfileData);
-    //
-    //   }else{
-    //     yield UserProfileLoadFail();
-    //
-    //   }
-    //
-    //
-    // }
+    if (event is GetProfile) {
+      ///Notify loading to UI
+      yield ProfileLoading();
+
+      ///Fetch API via repository
+      final UserProfile response = await profileRepo!
+          .fetchUserProfile(
+        user_id: event.user_id,
+      );
+
+      print(response);
+      print(response.data.name);
+
+      // final Iterable refactorProduct = response.data ?? [];
+      // final profileData = refactorProduct.map((item) {
+      //   return UserProfileRepo.fromJson(item);
+      // }).toList();
+      if(response.data!=null){
+        yield ProfileSuccess(message: response.msg.toString(), profileData: response.data);
+
+      }else{
+        yield Profilefail(message: response.msg.toString());
+
+      }
+
+      // ///Case API fail but not have token
+      // if (result.status == true) {
+      //   // UserProfileRepo user = UserProfileRepo.fromJson(result.data);
+      //   UserProfileRepo user = new UserProfileRepo();
+      //   user.status = result.data!.status.toString();
+      //   user = result.data!;
+      //   // AppBloc.authBloc.add(OnSaveUser(user));
+      //   try {
+      //     ///Begin start AuthBloc Event AuthenticationSave
+      //
+      //     yield ProfileSuccess(message: result.msg.toString());
+      //   } catch (error) {
+      //     ///Notify loading to UI
+      //     yield Profilefail(message: result.msg.toString());
+      //   }
+      // } else {
+      //   ///Notify loading to UI
+      //   yield Profilefail(message: result.msg.toString());
+      // }
+
+
+    }
 
     if (event is ProfileUpdate) {
       yield ProfileUpdateLoading();

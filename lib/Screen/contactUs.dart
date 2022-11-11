@@ -2,36 +2,42 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_bloc.dart';
+import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
+import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_state.dart';
 
 import '../Constant/theme_colors.dart';
 import '../Widget/app_button.dart';
 import '../image_file.dart';
 
-class ContactUs extends StatefulWidget {
-  ContactUs({
+class ContactUsPage extends StatefulWidget {
+  ContactUsPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ContactUs> createState() => _ContactUsState();
+  State<ContactUsPage> createState() => _ContactUsPageState();
 }
 
-class _ContactUsState extends State<ContactUs> {
+class _ContactUsPageState extends State<ContactUsPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _mobileController = TextEditingController();
   final _emailController = TextEditingController();
   final _messageController = TextEditingController();
+  bool loading = true;
 
-
+  ContactUsBloc? _contactUsBloc;
 
 
 
   @override
   void initState() {
     super.initState();
+    loading;
+    _contactUsBloc = BlocProvider.of<ContactUsBloc>(context);
   }
 
   void dispose(){
@@ -91,6 +97,7 @@ class _ContactUsState extends State<ContactUs> {
                     elevation: 10,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child: Form(
+                      key: _formKey,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Column(
@@ -351,6 +358,70 @@ class _ContactUsState extends State<ContactUs> {
                                     });
                                   },
                                 ),
+
+                                BlocBuilder<ContactUsBloc, ContactUsState>(
+                                    builder: (context, contactUs) {
+                                      return BlocListener<ContactUsBloc, ContactUsState>(
+                                          listener: (context, state) {
+                                            if (state is ContactUsSuccess) {
+                                              // Navigator.of(context).pop();
+                                              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> DrawerWidget()));
+                                              Fluttertoast.showToast(
+                                                  msg: state.message.toString());
+                                              loading = true;
+                                            }
+                                            if (state is ContactUsLoading) {
+                                              loading = false;
+                                            }
+
+                                            if (state is ContactUsfail) {
+                                              Fluttertoast.showToast(
+                                                  msg: state.message.toString());
+                                              loading = false;
+                                            }
+                                          },
+                                          child: Center(
+                                            child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: AppButton(
+                                                  onPressed: () async {
+                                                    if (_formKey.currentState!.validate()) {
+                                                      if (_nameController == null) {
+                                                        Fluttertoast.showToast(
+                                                            msg: "Please enter name");
+                                                      } else if (_mobileController == null) {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                            "Please enter mobile number");
+                                                      } else if (_emailController == null) {
+                                                        Fluttertoast.showToast(
+                                                            msg: "Please enter email");
+                                                      } else if (_messageController == null) {
+                                                        Fluttertoast.showToast(
+                                                            msg: "Please enter message");
+                                                      } else if (_formKey.currentState!
+                                                          .validate()) {
+                                                        _contactUsBloc!.add(ContactUs(
+                                                          name: _nameController.text,
+                                                          mobileNo: _mobileController.text,
+                                                            email: _emailController.text,
+                                                           msg: _messageController.text
+                                                        ));
+                                                      }
+                                                    } else {
+                                                      Fluttertoast.showToast(
+                                                          msg: "Please fill the data");
+                                                    }
+                                                  },
+                                                  shape: const RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.all(
+                                                          Radius.circular(10))),
+                                                  text: 'Update',
+                                                  loading: loading,
+                                                )),
+                                          ));
+                                    })
+
                               ],
                             ),
                           ],
@@ -366,29 +437,29 @@ class _ContactUsState extends State<ContactUs> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(0),
-          child:
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 40,
-            child: Center(
-              child: AppButton(
-                onPressed: () async {},
-                shape: const RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(10))),
-                text: 'Submit',
-                // loading: login is LoginLoading,
-                disableTouchWhenLoading: true,
-              ),
-            ),
-          ),
-        ),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: Padding(
+      //   padding: const EdgeInsets.all(10.0),
+      //   child: ClipRRect(
+      //     borderRadius: BorderRadius.circular(0),
+      //     child:
+      //     SizedBox(
+      //       width: MediaQuery.of(context).size.width,
+      //       height: 40,
+      //       child: Center(
+      //         child: AppButton(
+      //           onPressed: () async {},
+      //           shape: const RoundedRectangleBorder(
+      //               borderRadius:
+      //               BorderRadius.all(Radius.circular(10))),
+      //           text: 'Submit',
+      //           // loading: login is LoginLoading,
+      //           disableTouchWhenLoading: true,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

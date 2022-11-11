@@ -62,7 +62,7 @@ class Api {
       return ContactUsRepo.fromJson(responseJson);
     }
   }
-  ///Register api
+  ///Category api
   static Future<dynamic> getProduct() async {
     final response = await http.post(
       Uri.parse(Category),

@@ -24,6 +24,8 @@ import '../../image_file.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../change_password.dart';
+
 
 class MyProfile extends StatefulWidget {
   // UserProfileRepo? profileData;
@@ -338,9 +340,7 @@ class _MyProfileState extends State<MyProfile> {
                               ),
                             ),
                             onTap: () {
-                              // Get.to(() => EditPasswordPage())?.then(
-                              //         (_) => profileController
-                              //         .getUserProfile());
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>EditPasswordPage()));
                             },
                           ),
                         ],

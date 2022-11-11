@@ -6,7 +6,10 @@ import '../../Widget/fixed_checkout_bottom_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({Key? key}) : super(key: key);
+  // bool backIcon;
+  CartPage({Key? key,
+    // required this.backIcon
+  }) : super(key: key);
 
   @override
   _CartPageState createState() => _CartPageState();
@@ -18,6 +21,8 @@ class _CartPageState extends State<CartPage> {
   var quantity = 0;
   var totalValue = 0;
   int prodValue = 15000;
+  bool backIcon = false;
+
   @override
   void initState(){
     super.initState();
@@ -43,14 +48,18 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: ThemeColors.baseThemeColor,
         centerTitle: true,
         elevation: 0.0,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
+        leading: Container(
+          child: backIcon ?
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
               },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )) : Container()
+        )
+
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10),

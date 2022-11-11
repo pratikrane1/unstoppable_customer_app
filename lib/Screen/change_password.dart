@@ -10,6 +10,7 @@ import '../Bloc/changePassword/changePassword_state.dart';
 import '../Widget/app_button.dart';
 import '../Widget/app_dialogs.dart';
 import '../Widget/drawer.dart';
+import 'bottom_navbar.dart';
 
 
 
@@ -47,38 +48,26 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
         appBar: AppBar(
           leading: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
-              // Navigator.pushReplacement(context,
-              //     MaterialPageRoute(builder: (context) => DrawerWidget()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 4,)));
+
             },
-            child: Icon(Icons.arrow_back_ios),
+            child: Icon(Icons.arrow_back_ios, color: ThemeColors.whiteTextColor),
           ),
           backgroundColor: ThemeColors.baseThemeColor,
           elevation: 0.0,
           centerTitle: true,
-          title: Text('Change Password'),
+          title: Text('Change Password',
+            style: TextStyle(color: ThemeColors.whiteTextColor),),
         ),
         body: SingleChildScrollView(
             child: Container(
-              // decoration: const BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage(Images.bg),
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
-                      height: 150,
-                      width: 200,
-                      child: Center(
-                        child: Image.asset('assets/images/Logo.png'),
-                        // Text(
-                        //   "Unstoppable",
-                        //   style: TextStyle(fontSize: FontSize.xxLarge),
-                        // ),
-                      )),
+                      height: 20,
+
+                      ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 15),
                     child: Padding(

@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unstoppable_customer_app/Screen/contactUs.dart';
+import '../Bloc/profile/profile_bloc.dart';
+import '../Bloc/profile/profile_event.dart';
+import '../Bloc/profile/profile_state.dart';
+import '../Model/user_profile_model.dart';
 import '../Screen/Login/sign_in.dart';
 import '../Screen/bottom_navbar.dart';
 import '../Screen/change_password.dart';
-import '../Screen/profile.dart';
+import '../Screen/Profile/edit_profile.dart';
 import '../Utils/application.dart';
 import '../constant/theme_colors.dart';
 import 'app_button.dart';
@@ -22,21 +26,11 @@ class _DrawerWidgetState extends State<DrawerWidget>{
 
   bool loading = true;
 
-  // CompanyProfileBloc? _companyProbileBloc;
-  // List<CompanyProfileModel>? companyData;
-  // List<UserProfileModel>? userProfileData;
-  //
-  // late Future<UserProfileModel> profileData;
-
 
   @override
   void initState() {
     super.initState();
-    // _companyProbileBloc = BlocProvider.of<CompanyProfileBloc>(context);
-    // // _companyProbileBloc!.add(OnLoadingUserProfile(userid: Application.vendorLogin!.userId.toString()));
-    // _companyProbileBloc!.add(OnLoadingCompanyProfileList(userid: Application.vendorLogin!.userId.toString()));
-    //
-    // profileData = getUserProfile();
+
 
   }
 
@@ -60,57 +54,7 @@ class _DrawerWidgetState extends State<DrawerWidget>{
           title: Text('More',style: TextStyle(fontFamily: 'SF-Pro_display',fontSize: 16.0,
           fontWeight: FontWeight.w600,color: Colors.white),),
         ),
-        body:
-        // BlocBuilder<CompanyProfileBloc, CompanyProfileState>(builder: (context, state) {
-        //   if (state is CompanyProfileSuccess) {
-        //     companyData = state.companyProfileData;
-        //     // setData(companyData!);
-        //   }
-        //
-        //
-        //   if(state is CompanyProfileListLoadFail){
-        //     companyData=[];
-        //     // setData(companyData!);
-        //   }
-        //
-        //   //
-        //   if(state is UserProfileLoadFail){
-        //     userProfileData=[];
-        //     // setData(companyData!);
-        //   }
-        //
-        //   return (companyData!=null)
-        //     ?
-        //       FutureBuilder<UserProfileModel>(
-        //           future: profileData,
-        //           builder: (context, snapshot){
-        //             if(snapshot.hasData){
-        //
-        //             }
-        //             else if (snapshot.hasError){
-        //               return Text("${snapshot.error}");
-        //             }
-        //             return Container(
-        //           // decoration: const BoxDecoration(
-        //           //   image: DecorationImage(
-        //           //     image: AssetImage(Images.bg),
-        //           //     fit: BoxFit.cover,
-        //           //   ),
-        //           // ),
-        //           child:(snapshot.hasData)
-        //               ?
-        //               :
-        //               Center(
-        //                 child: CircularProgressIndicator(),
-        //               )
-        //         );
-        //       })
-        //
-        //       :
-        //       Center(child: CircularProgressIndicator());
-        // }
-        // )
-        ListView(
+        body:ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
@@ -142,16 +86,72 @@ class _DrawerWidgetState extends State<DrawerWidget>{
             SizedBox(
               height: 0,
             ),
-            _MyProfile(context),
-            _MyOrders(context),
-            _ChangePassword(context),
+            // _MyProfile(context,),
+            // _MyOrders(context),
+            // _ChangePassword(context),
             _ContactUs(context),
             _RFR(context),
             _GDTDetails(context),
 
-            _LogOutButton(context)
+            // _LogOutButton(context)
           ],
         )
+        // BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
+        //   return BlocListener<ProfileBloc, ProfileState>(
+        //       listener: (context, state) {
+        //         if (state is ProfileSuccess) {
+        //           profileData = state.profileData;
+        //           // setData(companyData!);
+        //         }
+        //
+        //
+        //         if (state is ProfileLoading) {
+        //           // profileData = [];
+        //           // setData(companyData!);
+        //         }
+        //
+        //         //
+        //         if (state is Profilefail) {
+        //           // profileData = [];
+        //           // setData(companyData!);
+        //         }
+        //       },
+        //
+        //   child:
+        //
+        //   // (companyData!=null)
+        //     // ?
+        //     //   FutureBuilder<UserProfileModel>(
+        //     //       future: profileData,
+        //     //       builder: (context, snapshot){
+        //     //         if(snapshot.hasData){
+        //     //
+        //     //         }
+        //     //         else if (snapshot.hasError){
+        //     //           return Text("${snapshot.error}");
+        //     //         }
+        //     //         return Container(
+        //     //       // decoration: const BoxDecoration(
+        //     //       //   image: DecorationImage(
+        //     //       //     image: AssetImage(Images.bg),
+        //     //       //     fit: BoxFit.cover,
+        //     //       //   ),
+        //     //       // ),
+        //     //       child:(snapshot.hasData)
+        //     //           ?
+        //     //
+        //     //           :
+        //     //           Center(
+        //     //             child: CircularProgressIndicator(),
+        //     //           )
+        //     //     );
+        //     //   })
+        //     //
+        //     //   :
+        //     //   Center(child: CircularProgressIndicator());
+        //   );
+        // }
+        // )
 
       ),
     );
@@ -162,8 +162,8 @@ class _DrawerWidgetState extends State<DrawerWidget>{
 Widget _MyProfile(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyProfile()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => MyProfile()));
     },
     child: Card(
       elevation: 1,
@@ -270,7 +270,7 @@ Widget _ContactUs(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ContactUs()));
+          context, MaterialPageRoute(builder: (context) => ContactUsPage()));
     },
     child: Card(
       elevation: 1,
@@ -338,7 +338,7 @@ Widget _GDTDetails(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ContactUs()));
+          context, MaterialPageRoute(builder: (context) => ContactUsPage()));
     },
     child: Card(
       elevation: 1,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:unstoppable_customer_app/Constant/theme_colors.dart';
 import 'package:unstoppable_customer_app/Screen/Cart/cart.dart';
-import 'package:unstoppable_customer_app/Screen/profile.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
 import 'MyOrders/myOrders_Screen.dart';
+import 'Profile/profile_screen.dart';
 
 
 class BottomNavigation extends StatefulWidget {
@@ -17,6 +17,7 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
+  bool backIcon = false;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[

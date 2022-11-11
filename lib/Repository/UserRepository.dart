@@ -19,6 +19,18 @@ class UserRepository {
     return await Api.getProduct();
   }
 
+  //Fetch User Profile
+  Future<dynamic> fetchUserProfile({String? user_id}) async {
+    final params = {"user_id":user_id,};
+    return await Api.userProfile(params);
+  }
+
+  //Contact Us api
+  Future<dynamic> contactUs({String? name,String? email,String? mobileNo,String? message}) async {
+    final params = {"name":name, "email":email,"mobile_no":mobileNo,"message": message};
+    return await Api.contactUs(params);
+  }
+
   ///Save Storage
   Future<dynamic> saveUser(CustomerLogin user) async {
     return await UtilPreferences.setString(

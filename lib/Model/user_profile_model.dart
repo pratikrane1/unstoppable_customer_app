@@ -70,6 +70,8 @@ class UserProfileRepo {
   String? email;
   String? mobileNo;
   String? password;
+  String? address;
+  String? profile_img;
 
   UserProfileRepo(
       {this.status,
@@ -77,7 +79,9 @@ class UserProfileRepo {
         this.name,
         this.email,
         this.mobileNo,
-        this.password});
+        this.password,
+      this.address,
+      this.profile_img});
 
   UserProfileRepo.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -86,6 +90,8 @@ class UserProfileRepo {
     email = json['email'];
     mobileNo = json['mobile_no'];
     password = json['password'];
+    address = json['address'];
+    profile_img = json['profile_img'];
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +102,8 @@ class UserProfileRepo {
     data['email'] = this.email;
     data['mobile_no'] = this.mobileNo;
     data['password'] = this.password;
+    data['address'] = this.address;
+    data['profile_img'] = this.profile_img;
     return data;
   }
 }

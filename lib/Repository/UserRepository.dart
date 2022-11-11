@@ -39,6 +39,12 @@ class UserRepository {
     );
   }
 
+  ///Get Product
+  Future<dynamic> fetchHomeProduct({String? limit}) async {
+    final params = {"limit":limit};
+    return await Api.getHomeProduct(params);
+  }
+
 
   // //save image
   // Future<dynamic> saveImage(String image) async {

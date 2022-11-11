@@ -4,6 +4,7 @@ import 'dart:convert';
 import '../Model/category_list.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
+import '../Model/product_model.dart';
 import '../Model/user_profile_model.dart';
 
 
@@ -21,6 +22,7 @@ class Api {
 
   static const String CHANGE_PASS=HOST_URL+"change_password";
   static const String Category = HOST_URL+"category_list";
+  static const String GET_PRODUCT = HOST_URL+"home_products";
 
 
   ///Login api
@@ -71,6 +73,19 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return CategoryRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Product api
+  static Future<dynamic> getHomeProduct(params) async {
+    final response = await http.post(
+      Uri.parse(GET_PRODUCT),
+      body: params,
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return ProductRepo.fromJson(responseJson);
     }
   }
 

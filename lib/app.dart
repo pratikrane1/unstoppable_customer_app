@@ -55,7 +55,7 @@ class _AppState extends State<App> {
           // navigatorKey: PushNotify.navigatorKey, // imp nvigator key is used as navigation through context didnt worked
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          // darkTheme: AppTheme.darkTheme,
           locale: AppLanguage.defaultLanguage,
 
           localizationsDelegates: [

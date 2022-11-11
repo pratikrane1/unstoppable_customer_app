@@ -13,6 +13,8 @@ import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
 import '../../Model/category_list.dart';
 import '../../NetworkFunction/fetchCategory.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
 
 
 class CategoriesTab extends StatefulWidget {

@@ -5,8 +5,10 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 
 import 'Bloc/authentication/authentication_bloc.dart';
 import 'Bloc/contactUs/contactUs_bloc.dart';
+import 'Bloc/category/category_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
 import 'Bloc/profile/profile_bloc.dart';
+import 'Bloc/changePassword/changePassword_bloc.dart';
 import 'Bloc/theme/theme_bloc.dart';
 import 'Repository/UserRepository.dart';
 
@@ -18,6 +20,8 @@ class AppBloc {
   static final loginBloc = LoginBloc(userRepository: userRepository);
   static final profileBloc = ProfileBloc(profileRepo: userRepository);
   static final contactUsBloc = ContactUsBloc(contactUsRepo: userRepository);
+  static final settingsBloc = SettingsBloc(settingsRepo: userRepository);
+  static final productBloc = ProductBloc(productRepo: userRepository);
 
 
 
@@ -44,6 +48,12 @@ class AppBloc {
     BlocProvider<ContactUsBloc>(
       create: (context) => contactUsBloc,
     ),
+    BlocProvider<SettingsBloc>(
+      create: (context) => settingsBloc,
+    ),
+    BlocProvider<ProductBloc>(
+      create: (context) => productBloc,
+    ),
 
 
   ];
@@ -56,6 +66,8 @@ class AppBloc {
     loginBloc.close();
     profileBloc.close();
     contactUsBloc.close();
+    productBloc.close();
+    settingsBloc.close();
   }
 
   ///Singleton factory

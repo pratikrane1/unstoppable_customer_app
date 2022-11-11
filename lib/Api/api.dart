@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../Model/category_list.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
 import '../Model/user_profile_model.dart';
@@ -18,6 +19,8 @@ class Api {
   static const String CONTACT_US="contact_us";
   static const String GET_PROFILE="get_profile";
 
+  static const String CHANGE_PASS=HOST_URL+"change_password";
+  static const String Category = HOST_URL+"category_list";
 
 
   ///Login api
@@ -57,6 +60,17 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return ContactUsRepo.fromJson(responseJson);
+    }
+  }
+  ///Register api
+  static Future<dynamic> getProduct() async {
+    final response = await http.post(
+      Uri.parse(Category),
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CategoryRepo.fromJson(responseJson);
     }
   }
 

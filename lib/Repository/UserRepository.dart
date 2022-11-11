@@ -13,7 +13,11 @@ class UserRepository {
     final params = {"user_email":email,"password":password};
     return await Api.login(params);
   }
-
+  Future<dynamic> fetchProduct() async {
+    // final params = {"user_id":userId,
+    //   "offset":offset};
+    return await Api.getProduct();
+  }
 
   //Fetch User Profile
   Future<dynamic> fetchUserProfile({String? user_id}) async {

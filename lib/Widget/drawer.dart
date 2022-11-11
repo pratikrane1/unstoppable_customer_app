@@ -234,7 +234,7 @@ Widget _ChangePassword(BuildContext context) {
   return InkWell(
     onTap: () {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ChangePassword()));
+          context, MaterialPageRoute(builder: (context) => EditPasswordPage()));
     },
     child: Card(
       elevation: 1,

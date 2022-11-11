@@ -25,6 +25,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage>{
    LoginBloc? _userLoginBloc;
   bool isconnectedToInternet = false;
+  bool loading = true;
 
 
   ListItem? supplierValue;
@@ -41,6 +42,7 @@ class _SignUpPageState extends State<SignUpPage>{
   void initState(){
     super.initState();
     _userLoginBloc = BlocProvider.of<LoginBloc>(context);
+    loading;
 
   }
 
@@ -341,6 +343,7 @@ class _SignUpPageState extends State<SignUpPage>{
                                 MaterialPageRoute(
                                     builder: (context) => SignInPage()));
                             Fluttertoast.showToast(msg: state.msg);
+                            loading = false;
 
                           }
 
@@ -351,7 +354,7 @@ class _SignUpPageState extends State<SignUpPage>{
                         child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: AppButton(
-                              loading: true,
+                              loading: loading,
                               onPressed: () async {
                                 isconnectedToInternet =
                                 await ConnectivityCheck

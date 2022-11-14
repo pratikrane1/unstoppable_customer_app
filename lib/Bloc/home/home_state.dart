@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../Model/banner_model.dart';
+import '../../Model/category_list.dart';
 import '../../Model/product_model.dart';
 import '../../Model/user_profile_model.dart';
 
@@ -23,20 +25,33 @@ class Productfail extends HomeState {
   Productfail({required this.message});
 }
 
-// class ProfileUpdateLoading extends ProfileState {}
-//
-// class ProfileUpdateSuccess extends ProfileState {
-//   String message;
-//   ProfileUpdateSuccess({required this.message});
-// }
-//
-//
-// class ProfileUpdatefail extends ProfileState {
-//   String message;
-//   ProfileUpdatefail({required this.message});
-// }
-//
-//
-//
-//
-// class ProfileLoadFail extends ProfileState {}
+class BannerLoading extends HomeState {}
+
+class GetBannerSuccess extends HomeState {
+  String message;
+  List<BannerModel>? bannerList;
+  GetBannerSuccess({required this.message, required this.bannerList});
+}
+
+
+class GetBannerfail extends HomeState {
+  String message;
+  GetBannerfail({required this.message});
+}
+
+
+class CategoryLoading extends HomeState {}
+
+class GetCategorySuccess extends HomeState {
+  String message;
+  List<CategoryModel>? categoryList;
+  GetCategorySuccess({required this.message, required this.categoryList});
+}
+
+
+class GetCategoryfail extends HomeState {
+  String message;
+  GetCategoryfail({required this.message});
+}
+
+

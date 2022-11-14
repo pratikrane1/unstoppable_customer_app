@@ -13,10 +13,10 @@ class UserRepository {
     final params = {"user_email":email,"password":password};
     return await Api.login(params);
   }
-  Future<dynamic> fetchProduct() async {
-    // final params = {"user_id":userId,
-    //   "offset":offset};
-    return await Api.getProduct();
+  Future<dynamic> fetchProduct({String? perPage, String? startFrom}) async {
+    final params = {"per_page":perPage,
+      "start_from":startFrom};
+    return await Api.getProduct(params);
   }
 
   //Fetch User Profile
@@ -43,6 +43,11 @@ class UserRepository {
   Future<dynamic> fetchHomeProduct({String? limit}) async {
     final params = {"limit":limit};
     return await Api.getHomeProduct(params);
+  }
+
+  ///Get Banner
+  Future<dynamic> fetchHomeBanner() async {
+    return await Api.getHomeBanner();
   }
 
 

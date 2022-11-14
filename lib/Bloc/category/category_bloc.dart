@@ -11,12 +11,6 @@ import '../../Utils/application.dart';
 import 'category_event.dart';
 import 'category_state.dart';
 
-//for multipart
-import 'package:http_parser/http_parser.dart';
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
-
-
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc({this.productRepo}) : super(InitialProductListState());

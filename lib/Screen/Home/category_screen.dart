@@ -68,7 +68,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     final double itemWidth = size.width / 2.5;
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail()));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail()));
       },
       child: Padding(
         // padding: const EdgeInsets.only(left:8.0,right: 8.0),

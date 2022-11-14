@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../Model/banner_model.dart';
 import '../Model/category_list.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
@@ -23,6 +24,7 @@ class Api {
   static const String CHANGE_PASS=HOST_URL+"change_password";
   static const String Category = HOST_URL+"category_list";
   static const String GET_PRODUCT = HOST_URL+"home_products";
+  static const String GET_BANNER = HOST_URL+"home_banner";
 
 
   ///Login api
@@ -65,9 +67,10 @@ class Api {
     }
   }
   ///Category api
-  static Future<dynamic> getProduct() async {
+  static Future<dynamic> getProduct(params) async {
     final response = await http.post(
       Uri.parse(Category),
+      body: params
     );
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
@@ -86,6 +89,18 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return ProductRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Banner api
+  static Future<dynamic> getHomeBanner() async {
+    final response = await http.post(
+      Uri.parse(GET_BANNER),
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return BannerRepo.fromJson(responseJson);
     }
   }
 

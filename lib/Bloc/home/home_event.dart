@@ -11,3 +11,12 @@ class GetProduct extends HomeEvent{
   GetProduct({required this.limit});
 }
 
+class GetBanners extends HomeEvent{
+  GetBanners();
+}
+
+class GetHomeCategory extends HomeEvent{
+  String perPage;
+  String startFrom;
+  GetHomeCategory({required this.perPage, required this.startFrom});
+}

@@ -229,14 +229,13 @@ class _ProductDetailState extends State<ProductDetail> {
                           child:Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width /2.1,
+                              Expanded(
+                                // width: MediaQuery.of(context).size.width /2.1,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween
-                                      ,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                                       children: [
                                         Text(
@@ -288,6 +287,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                   ],
                                 ),
                               ),
+
+                              SizedBox(width: 5,),
 
                               Container(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0),

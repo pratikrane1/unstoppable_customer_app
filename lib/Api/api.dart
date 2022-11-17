@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../Model/banner_model.dart';
 import '../Model/category_list.dart';
-import '../Model/category_product_model.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
-import '../Model/product_model.dart';
 import '../Model/user_profile_model.dart';
 
 
@@ -69,7 +66,7 @@ class Api {
     }
   }
   ///Category api
-  static Future<dynamic> getProduct(params) async {
+  static Future<dynamic> getCategory(params) async {
     final response = await http.post(
       Uri.parse(CATEGORIES),
       body: params

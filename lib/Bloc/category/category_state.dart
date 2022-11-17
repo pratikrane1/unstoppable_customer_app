@@ -1,33 +1,35 @@
 import 'package:meta/meta.dart';
 
 import '../../Model/category_list.dart';
-import '../../Model/category_product_model.dart';
-import '../../Model/product_model.dart';
 
 
 @immutable
-abstract class ProductState {}
+abstract class CategoryState {}
 
 
-class InitialProductListState extends ProductState {}
+class InitialCategoryListState extends CategoryState {}
 
 
-class ProductLoading extends ProductState {}
+class CategoryLoading extends CategoryState {}
 
-class ProductListLoadFail extends ProductState {}
+class DeleteCategoryLoading extends CategoryState {}
 
-class ProductListSuccess extends ProductState {
- List<CategoryModel>? productList;
-  ProductListSuccess({this.productList});
+
+class CategoryListSuccess extends CategoryState {
+ List<CategoryModel>? CategoryList;
+ CategoryListSuccess({this.CategoryList});
 }
 
+class ProductListLoadFail extends ProductState {}
 
 class CategoryProductLoading extends ProductState {}
 
 
 
+
 class CategoryProductSuccess extends ProductState {
  List<ProductModel>? categoryProductList;
+
  CategoryProductSuccess({this.categoryProductList});
 }
 

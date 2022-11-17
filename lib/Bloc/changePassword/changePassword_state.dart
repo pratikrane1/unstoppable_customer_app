@@ -2,22 +2,22 @@ import 'package:meta/meta.dart';
 
 
 @immutable
-abstract class SettingsState {}
+abstract class ChangePassState {}
 
 
-class InitialSettingsState extends SettingsState {}
+class InitialSettingsState extends ChangePassState {}
 
 
-class ChangePassLoading extends SettingsState {}
+class ChangePassLoading extends ChangePassState {}
 
 
 
-class ChangePassSuccess extends SettingsState {
+class ChangePassSuccess extends ChangePassState {
  String? message;
  ChangePassSuccess({this.message});
 }
 
-class ChangePassFail extends SettingsState {
+class ChangePassFail extends ChangePassState {
  String? message;
  ChangePassFail({this.message});
 }

@@ -20,13 +20,13 @@ import 'package:http/http.dart';
 
 
 
-class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  SettingsBloc({this.settingsRepo}) : super(InitialSettingsState());
-  final UserRepository? settingsRepo;
+class ChangePassBloc extends Bloc<ChangePassEvent, ChangePassState> {
+  ChangePassBloc({this.changePassRepo}) : super(InitialSettingsState());
+  final UserRepository? changePassRepo;
 
 
   @override
-  Stream<SettingsState> mapEventToState(event) async* {
+  Stream<ChangePassState> mapEventToState(event) async* {
     if (event is OnChangePassword) {
       ///Notify loading to UI
       yield ChangePassLoading();

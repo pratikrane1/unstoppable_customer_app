@@ -26,12 +26,12 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
   final _formKey = GlobalKey<FormState>();
   bool isconnectedToInternet = false;
   var mainHeight, mainWidth;
-  SettingsBloc? settingsBloc;
+  ChangePassBloc? changePassBloc;
   bool loading = true;
 
   @override
   void initState() {
-    settingsBloc = BlocProvider.of<SettingsBloc>(context);
+    changePassBloc = BlocProvider.of<ChangePassBloc>(context);
 
     super.initState();
   }
@@ -233,9 +233,9 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                             SizedBox(
                               height: 20,
                             ),
-                            BlocBuilder<SettingsBloc, SettingsState>(
+                            BlocBuilder<ChangePassBloc, ChangePassState>(
                               builder: (context, changePass) {
-                                return BlocListener<SettingsBloc, SettingsState>(
+                                return BlocListener<ChangePassBloc, ChangePassState>(
                                   listener: (context, state) {
                                     if (state is ChangePassSuccess) {
                                       Fluttertoast.showToast(
@@ -293,7 +293,7 @@ class _EditPasswordPageState extends State<EditPasswordPage> {
                                                 .checkInternetConnectivity();
                                             if (isconnectedToInternet == true) {
                                               if (_formKey.currentState!.validate()) {
-                                                settingsBloc!.add(OnChangePassword(
+                                                changePassBloc!.add(OnChangePassword(
                                                                 currentPwd:
                                                                 _textCurrentPasswordController
                                                                     .text,

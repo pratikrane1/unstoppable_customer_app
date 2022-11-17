@@ -13,8 +13,6 @@ import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
 import '../../Model/category_list.dart';
 import '../../NetworkFunction/fetchCategory.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-
 
 
 class CategoriesTab extends StatefulWidget {
@@ -27,11 +25,11 @@ class CategoriesTab extends StatefulWidget {
 
 class _CategoriesTabState extends State<CategoriesTab> {
 
-  List<CategoryModel> productList = [];
+  List<CategoryModel> categoriesList = [];
   late CategoryModel catModel;
-  CategoryBloc? _productBloc;
-  int offset = 0;
-  int _rowsPerPage = 10;
+  CategoryBloc? _CategoryBloc;
+  int per_page = 10;
+  int start_from = 1;
   double pageCount = 0;
   bool showLoadingIndicator = false;
   bool flagNoDataAvailable=false;
@@ -39,18 +37,44 @@ class _CategoriesTabState extends State<CategoriesTab> {
 
   bool _isSearching=false;
 
+  // 1
+  final _pagingController = PagingController<int, dynamic>(
+    // 2
+    firstPageKey: 1,
+  );
+
   void initState() {
     // TODO: implement initState
     super.initState();
-    _productBloc = BlocProvider.of<CategoryBloc>(context);
-    _productBloc!.add(OnLoadingProductList(perPage: '10', startFrom: '1'));
+    _CategoryBloc = BlocProvider.of<CategoryBloc>(context);
+    _CategoryBloc!.add(OnLoadingCategoryList(
+        per_page:per_page,
+         start_from:start_from,
+    ));
+
+    // 3
+    _pagingController.addPageRequestListener((pageKey) {
+      //_fetchPage(pageKey);
+    });
+
 
 
   }
 
-  Widget buildProductList(
-      BuildContext context, List<CategoryModel> productList) {
-    if (productList.length <= 0) {
+
+
+  @override
+  void dispose() {
+    // 4
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+
+
+  Widget buildCategoryList(
+      BuildContext context, List<CategoryModel> cateboriesList) {
+    if (categoriesList.length <= 0) {
       return ListView.builder(
         scrollDirection: Axis.vertical,
         // padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 15),
@@ -173,9 +197,9 @@ class _CategoriesTabState extends State<CategoriesTab> {
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.only(top: 10, bottom: 15),
       itemBuilder: (context, index) {
-        return categoriesCard(context, productList[index]);
+        return categoriesCard(context, categoriesList[index]);
       },
-      itemCount: productList.length,
+      itemCount: categoriesList.length,
     );
   }
 
@@ -184,23 +208,23 @@ class _CategoriesTabState extends State<CategoriesTab> {
   Widget build(BuildContext context ) {
     // TODO: implement build
     return Scaffold(
-        body: BlocBuilder<CategoryBloc, ProductState>(builder: (context, state) {
-          if (state is ProductListSuccess) {
-            productList = state.productList!;
-            // pageCount = (productList.length / rowsPerPage).ceilToDouble();
+        body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+          if (state is CategoryListSuccess) {
+            categoriesList = state.CategoryList!;
+           // pageCount = (productList.length / rowsPerPage).ceilToDouble();
             // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
           }
-          if (state is ProductLoading) {
+          if (state is CategoryLoading) {
             flagNoDataAvailable = false;
           }
 
-          if (state is ProductListLoadFail) {
+          if (state is CategoryListLoadFail) {
             flagNoDataAvailable = true;
           }
           // if(state is ProductPageCntSucess){
           //   pageCount=state.PageCnt;
           // }
-          return buildProductList(context,productList);
+          return buildCategoryList(context,categoriesList);
         }));
 
 

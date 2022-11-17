@@ -13,10 +13,10 @@ class UserRepository {
     final params = {"user_email":email,"password":password};
     return await Api.login(params);
   }
-  Future<dynamic> fetchProduct({String? perPage, String? startFrom}) async {
+  Future<dynamic> fetchCategory({String? perPage, String? startFrom}) async {
     final params = {"per_page":perPage,
       "start_from":startFrom};
-    return await Api.getProduct(params);
+    return await Api.getCategory(params);
   }
 
   Future<dynamic> fetchProductCategory({String? ssCatId}) async {

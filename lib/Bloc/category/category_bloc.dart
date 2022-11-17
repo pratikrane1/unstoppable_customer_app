@@ -34,7 +34,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
       ///Fetch API via repository
       final CategoryRepo response = await categoryRepo!
-          .fetchProduct();
+          .fetchCategory(
+          per_page:event.per_page.toString(),
+          start_from:event.start_from.toString(),
+      );
 
       final Iterable refactorCategory = response.result ?? [];
       final listCategory = refactorCategory.map((item) {

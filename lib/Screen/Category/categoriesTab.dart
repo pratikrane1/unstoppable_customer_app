@@ -12,6 +12,7 @@ import '../../Bloc/category/category_bloc.dart';
 import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
 import '../../Model/category_list.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../NetworkFunction/fetchCategory.dart';
 
 
@@ -25,30 +26,55 @@ class CategoriesTab extends StatefulWidget {
 
 class _CategoriesTabState extends State<CategoriesTab> {
 
-  List<CategoryModel> productList = [];
+  List<CategoryModel> categoriesList = [];
   late CategoryModel catModel;
   CategoryBloc? _CategoryBloc;
-  int offset = 0;
-  int _rowsPerPage = 10;
+  int per_page = 10;
+  int start_from = 1;
   double pageCount = 0;
   bool showLoadingIndicator = false;
   bool flagNoDataAvailable=false;
   final TextEditingController _searchcontroller = TextEditingController();
-
   bool _isSearching=false;
+
+  // 1
+  final _pagingController = PagingController<int, dynamic>(
+    // 2
+    firstPageKey: 1,
+  );
 
   void initState() {
     // TODO: implement initState
     super.initState();
     _CategoryBloc = BlocProvider.of<CategoryBloc>(context);
-    _CategoryBloc!.add(OnLoadingCategoryList());
+    _CategoryBloc!.add(OnLoadingCategoryList(
+        per_page:per_page,
+         start_from:start_from,
+    ));
+
+    // 3
+    _pagingController.addPageRequestListener((pageKey) {
+      //_fetchPage(pageKey);
+    });
+
 
 
   }
 
-  Widget buildProductList(
-      BuildContext context, List<CategoryModel> productList) {
-    if (productList.length <= 0) {
+
+
+  @override
+  void dispose() {
+    // 4
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+
+
+  Widget buildCategoryList(
+      BuildContext context, List<CategoryModel> cateboriesList) {
+    if (categoriesList.length <= 0) {
       return ListView.builder(
         scrollDirection: Axis.vertical,
         // padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 15),
@@ -171,9 +197,9 @@ class _CategoriesTabState extends State<CategoriesTab> {
       scrollDirection: Axis.vertical,
       padding: EdgeInsets.only(top: 10, bottom: 15),
       itemBuilder: (context, index) {
-        return categoriesCard(context, productList[index]);
+        return categoriesCard(context, categoriesList[index]);
       },
-      itemCount: productList.length,
+      itemCount: categoriesList.length,
     );
   }
 
@@ -184,8 +210,8 @@ class _CategoriesTabState extends State<CategoriesTab> {
     return Scaffold(
         body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
           if (state is CategoryListSuccess) {
-            productList = state.CategoryList!;
-            // pageCount = (productList.length / rowsPerPage).ceilToDouble();
+            categoriesList = state.CategoryList!;
+           // pageCount = (productList.length / rowsPerPage).ceilToDouble();
             // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
           }
           if (state is CategoryLoading) {
@@ -198,7 +224,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
           // if(state is ProductPageCntSucess){
           //   pageCount=state.PageCnt;
           // }
-          return buildProductList(context,productList);
+          return buildCategoryList(context,categoriesList);
         }));
 
 
@@ -217,7 +243,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
               leading: CachedNetworkImage(
                 filterQuality: FilterQuality.medium,
                 // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                 imageUrl: categoryModel.catImg.toString(),
+                 imageUrl: categoryModel.ssCatImg.toString(),
                // imageUrl: "https://picsum.photos/250?image=9",
                 placeholder: (context, url) {
                   return Shimmer.fromColors(
@@ -265,7 +291,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                 },
               ),
               title: Text(
-                categoryModel.catName.toString(),
+                categoryModel.ssCatName.toString(),
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Poppins-SemiBold',

@@ -20,7 +20,7 @@ class AppBloc {
   static final loginBloc = LoginBloc(userRepository: userRepository);
   static final profileBloc = ProfileBloc(profileRepo: userRepository);
   static final contactUsBloc = ContactUsBloc(contactUsRepo: userRepository);
-  static final settingsBloc = SettingsBloc(settingsRepo: userRepository);
+  static final changePassBloc = ChangePassBloc(changePassRepo: userRepository);
   static final categoryBloc = CategoryBloc(categoryRepo: userRepository);
 
 
@@ -48,8 +48,8 @@ class AppBloc {
     BlocProvider<ContactUsBloc>(
       create: (context) => contactUsBloc,
     ),
-    BlocProvider<SettingsBloc>(
-      create: (context) => settingsBloc,
+    BlocProvider<ChangePassBloc>(
+      create: (context) => changePassBloc,
     ),
     BlocProvider<CategoryBloc>(
       create: (context) => categoryBloc,
@@ -66,9 +66,8 @@ class AppBloc {
     loginBloc.close();
     profileBloc.close();
     contactUsBloc.close();
-    productBloc.close();
     categoryBloc.close();
-    settingsBloc.close();
+    changePassBloc.close();
   }
 
   ///Singleton factory

@@ -20,7 +20,7 @@ class Api {
   static const String GET_PROFILE="get_profile";
 
   static const String CHANGE_PASS=HOST_URL+"change_password";
-  static const String Category = HOST_URL+"category_list";
+  static const String Category = HOST_URL+"categories";
 
 
   ///Login api
@@ -63,9 +63,10 @@ class Api {
     }
   }
   ///Category api
-  static Future<dynamic> getProduct() async {
+  static Future<dynamic> getCategory(params) async {
     final response = await http.post(
       Uri.parse(Category),
+      body: params,
     );
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);

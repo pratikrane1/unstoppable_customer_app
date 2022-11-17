@@ -21,7 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       ///Fetch API via repository
       final CategoryRepo response = await homeRepo!
-          .fetchProduct(
+          .fetchCategory(
         perPage: event.perPage,
         startFrom: event.startFrom
       );

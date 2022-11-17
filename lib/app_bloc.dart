@@ -6,6 +6,7 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 import 'Bloc/authentication/authentication_bloc.dart';
 import 'Bloc/contactUs/contactUs_bloc.dart';
 import 'Bloc/category/category_bloc.dart';
+import 'Bloc/home/home_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
 import 'Bloc/profile/profile_bloc.dart';
 import 'Bloc/changePassword/changePassword_bloc.dart';

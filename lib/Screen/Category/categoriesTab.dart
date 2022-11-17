@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -6,13 +7,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../Bloc/category/category_bloc.dart';
 import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
+import '../../Constant/theme_colors.dart';
 import '../../Model/category_list.dart';
 import '../../NetworkFunction/fetchCategory.dart';
+import '../Home/category_screen.dart';
 
 
 class CategoriesTab extends StatefulWidget {
@@ -203,104 +207,129 @@ class _CategoriesTabState extends State<CategoriesTab> {
     );
   }
 
+  Future<Null> _onRefresh() {
+    setState(() {
+      _CategoryBloc!.add(OnLoadingCategoryList(
+        per_page:per_page,
+        start_from:start_from,
+      ));
+    });
+    Completer<Null> completer = new Completer<Null>();
+    Timer(new Duration(seconds: 3), () {
+      completer.complete();
+    });
+
+    return completer.future;
+  }
+
 
   @override
   Widget build(BuildContext context ) {
     // TODO: implement build
     return Scaffold(
-        body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-          if (state is CategoryListSuccess) {
-            categoriesList = state.CategoryList!;
-           // pageCount = (productList.length / rowsPerPage).ceilToDouble();
-            // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
-          }
-          if (state is CategoryLoading) {
-            flagNoDataAvailable = false;
-          }
+        body: RefreshIndicator(
+          onRefresh: _onRefresh,
+          strokeWidth: 3,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+            if (state is CategoryListSuccess) {
+              categoriesList = state.CategoryList!;
+             // pageCount = (productList.length / rowsPerPage).ceilToDouble();
+              // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
+            }
+            if (state is CategoryLoading) {
+              flagNoDataAvailable = false;
+            }
 
-          if (state is CategoryListLoadFail) {
-            flagNoDataAvailable = true;
-          }
-          // if(state is ProductPageCntSucess){
-          //   pageCount=state.PageCnt;
-          // }
-          return buildCategoryList(context,categoriesList);
-        }));
+            if (state is CategoryListLoadFail) {
+              flagNoDataAvailable = true;
+            }
+            // if(state is ProductPageCntSucess){
+            //   pageCount=state.PageCnt;
+            // }
+            return buildCategoryList(context,categoriesList);
+          }),
+        ));
 
 
   }
 
   Widget categoriesCard(BuildContext context,CategoryModel categoryModel){
-    return SizedBox(
-      child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ExpansionTile(
-              // collapsedBackgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
-              // trailing: Icon(
-              //   Icons.arrow_drop_down,size: 27,
-              // ),
-              leading: CachedNetworkImage(
-                filterQuality: FilterQuality.medium,
-                // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                 imageUrl: categoryModel.ssCatImg.toString(),
-               // imageUrl: "https://picsum.photos/250?image=9",
-                placeholder: (context, url) {
-                  return Shimmer.fromColors(
-                    baseColor: Theme.of(context).hoverColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    enabled: true,
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  );
-                },
-                imageBuilder: (context, imageProvider) {
-                  return Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  );
-                },
-                errorWidget: (context, url, error) {
-                  return Shimmer.fromColors(
-                    baseColor: Theme.of(context).hoverColor,
-                    highlightColor: Theme.of(context).highlightColor,
-                    enabled: true,
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(Icons.error),
-                    ),
-                  );
-                },
-              ),
-              title: Text(
-                categoryModel.ssCatName.toString(),
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Poppins-SemiBold',
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CategoryScreen(catData: categoryModel)));
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListTile(
+          // collapsedBackgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+          trailing: Icon(
+              Icons.arrow_forward_ios,
+              color: ThemeColors.baseThemeColor),
+          leading: CachedNetworkImage(
+            filterQuality: FilterQuality.medium,
+            // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+             imageUrl: categoryModel.ssCatImg.toString(),
+           // imageUrl: "https://picsum.photos/250?image=9",
+            placeholder: (context, url) {
+              return Shimmer.fromColors(
+                baseColor: Theme.of(context).hoverColor,
+                highlightColor: Theme.of(context).highlightColor,
+                enabled: true,
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
-              ),
+              );
+            },
+            imageBuilder: (context, imageProvider) {
+              return Container(
+                height: 80,
+                width: 80,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              );
+            },
+            errorWidget: (context, url, error) {
+              return Shimmer.fromColors(
+                baseColor: Theme.of(context).hoverColor,
+                highlightColor: Theme.of(context).highlightColor,
+                enabled: true,
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(Icons.error),
+                ),
+              );
+            },
+          ),
+          title: Text(
+            categoryModel.ssCatName.toString(),
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Poppins-SemiBold',
+              color: Colors.black,
+              fontWeight: FontWeight.w500
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 

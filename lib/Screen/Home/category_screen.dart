@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,8 +35,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
     // TODO: implement initState
     super.initState();
     _productBloc = BlocProvider.of<CategoryBloc>(context);
-    _productBloc!.add(OnLoadingCategoryProductList(ssCatId: widget.catData.ssCatId.toString()));
+    _productBloc!.add(OnLoadingCategoryProductList(ssCatId: widget.catData.sscatId.toString()));
     // _productBloc!.add(OnLoadingCategoryProductList(ssCatId: '3651'));
+  }
+
+  Future<Null> _onRefresh() {
+    setState(() {
+      _productBloc!.add(OnLoadingCategoryProductList(ssCatId: widget.catData.sscatId.toString()));
+
+    });
+    Completer<Null> completer = new Completer<Null>();
+    Timer(new Duration(seconds: 3), () {
+      completer.complete();
+    });
+
+    return completer.future;
   }
 
 
@@ -68,28 +83,37 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-      body: BlocBuilder<CategoryBloc, ProductState>(builder: (context, state) {
+      body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
         if (state is CategoryProductSuccess) {
           categoryProductList = state.categoryProductList!;
           // pageCount = (productList.length / rowsPerPage).ceilToDouble();
           // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
         }
-        if (state is ProductLoading) {
+        if (state is CategoryProductLoading) {
           // flagNoDataAvailable = false;
         }
 
-        if (state is ProductListLoadFail) {
+        if (state is CategoryProductFail) {
           // flagNoDataAvailable = true;
         }
         // if(state is ProductPageCntSucess){
         //   pageCount=state.PageCnt;
         // }
-        return SingleChildScrollView(
-          child: Container(
-            child:
-            // (categoryProductList.isNotEmpty) ?
-            buildProductList(context, categoryProductList)
-            // : const Center(child: Text("No Data")),
+        return RefreshIndicator(
+          onRefresh: _onRefresh,
+          strokeWidth: 3,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                Container(
+                  child:
+                  // (categoryProductList.isNotEmpty) ?
+                  buildProductList(context, categoryProductList)
+                  // : const Center(child: Text("No Data")),
+                ),
+              ],
+            ),
           ),
         );
       }));

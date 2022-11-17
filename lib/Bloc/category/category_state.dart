@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 import '../../Model/category_list.dart';
+import '../../Model/product_model.dart';
 
 
 @immutable
@@ -20,19 +21,19 @@ class CategoryListSuccess extends CategoryState {
  CategoryListSuccess({this.CategoryList});
 }
 
-class ProductListLoadFail extends ProductState {}
-
-class CategoryProductLoading extends ProductState {}
+class CategoryListLoadFail extends CategoryState {}
 
 
 
+class CategoryProductLoading extends CategoryState {}
 
-class CategoryProductSuccess extends ProductState {
+
+class CategoryProductSuccess extends CategoryState {
  List<ProductModel>? categoryProductList;
 
  CategoryProductSuccess({this.categoryProductList});
 }
 
-class CategoryProductFail extends ProductState {}
+class CategoryProductFail extends CategoryState {}
 
 

@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:unstoppable_customer_app/Model/category_list.dart';
 
+import '../../Model/category_product_model.dart';
+import '../../Model/product_model.dart';
 import '../../Repository/UserRepository.dart';
 import '../../Utils/application.dart';
 import 'category_event.dart';
@@ -32,12 +34,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       ///Fetch API via repository
       final CategoryRepo response = await categoryRepo!
           .fetchCategory(
-          per_page:event.per_page.toString(),
-          start_from:event.start_from.toString(),
+          perPage:event.per_page.toString(),
+          startFrom:event.start_from.toString(),
       );
 
-      final Iterable refactorProduct = response.result ?? [];
-      final listproduct = refactorProduct.map((item) {
+      final Iterable refactorCategory = response.result ?? [];
+      final listCategory = refactorCategory.map((item) {
         return CategoryModel.fromJson(item);
       }).toList();
       if (refactorCategory.length > 0) {
@@ -52,7 +54,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       yield CategoryProductLoading();
 
       ///Fetch API via repository
-      final CategoryProductRepo response = await productRepo!
+      final CategoryProductRepo response = await categoryRepo!
           .fetchProductCategory(
           ssCatId: event.ssCatId
       );

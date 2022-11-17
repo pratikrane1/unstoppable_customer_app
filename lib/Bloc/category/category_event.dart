@@ -12,13 +12,8 @@ class OnLoadingCategoryList extends CategoryEvent {
 }
 
 
-class OnLoadingCategoryProductList extends ProductEvent{
+class OnLoadingCategoryProductList extends CategoryEvent {
   String ssCatId;
+
   OnLoadingCategoryProductList({required this.ssCatId});
-
-
-
-class OnLoadingCategoryDetail extends CategoryEvent {
-  String CategoryId;
-  OnLoadingCategoryDetail({required this.CategoryId});
 }

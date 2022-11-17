@@ -6,20 +6,17 @@ abstract class ProductEvent {}
 
 
 class OnLoadingProductList extends ProductEvent {
-
-  OnLoadingProductList();
+  String perPage;
+  String startFrom;
+  OnLoadingProductList({required this.perPage, required this.startFrom});
 }
 
-class DeleteProduct extends ProductEvent{
-  String productid;
+class OnLoadingCategoryProductList extends ProductEvent{
+  String ssCatId;
 
 
-  DeleteProduct({required this.productid});
+  OnLoadingCategoryProductList({required this.ssCatId});
 }
 
 
 
-class OnLoadingProductDetail extends ProductEvent {
-  String prodId;
-  OnLoadingProductDetail({required this.prodId});
-}

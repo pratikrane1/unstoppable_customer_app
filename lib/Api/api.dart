@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Model/banner_model.dart';
 import '../Model/category_list.dart';
+import '../Model/category_product_model.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
 import '../Model/product_model.dart';
@@ -22,7 +23,8 @@ class Api {
   static const String GET_PROFILE="get_profile";
 
   static const String CHANGE_PASS=HOST_URL+"change_password";
-  static const String Category = HOST_URL+"category_list";
+  static const String CATEGORIES = HOST_URL+"categories";
+  static const String CATEGORY_PRODUCT = HOST_URL+"category_products";
   static const String GET_PRODUCT = HOST_URL+"home_products";
   static const String GET_BANNER = HOST_URL+"home_banner";
 
@@ -69,13 +71,25 @@ class Api {
   ///Category api
   static Future<dynamic> getProduct(params) async {
     final response = await http.post(
-      Uri.parse(Category),
+      Uri.parse(CATEGORIES),
       body: params
     );
     if (response.statusCode == 200) {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return CategoryRepo.fromJson(responseJson);
+    }
+  }
+
+  static Future<dynamic> getCategoryProduct(params) async {
+    final response = await http.post(
+        Uri.parse(CATEGORY_PRODUCT),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CategoryProductRepo.fromJson(responseJson);
     }
   }
 

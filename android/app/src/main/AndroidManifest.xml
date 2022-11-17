@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:label="unstoppable_customer_app"
+        android:label="Unstoppable"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <provider

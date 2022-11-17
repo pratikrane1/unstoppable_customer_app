@@ -29,7 +29,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
 
   List<CategoryModel> productList = [];
   late CategoryModel catModel;
-  ProductBloc? _productBloc;
+  CategoryBloc? _productBloc;
   int offset = 0;
   int _rowsPerPage = 10;
   double pageCount = 0;
@@ -42,8 +42,8 @@ class _CategoriesTabState extends State<CategoriesTab> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _productBloc = BlocProvider.of<ProductBloc>(context);
-    _productBloc!.add(OnLoadingProductList());
+    _productBloc = BlocProvider.of<CategoryBloc>(context);
+    _productBloc!.add(OnLoadingProductList(perPage: '10', startFrom: '1'));
 
 
   }
@@ -184,7 +184,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
   Widget build(BuildContext context ) {
     // TODO: implement build
     return Scaffold(
-        body: BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+        body: BlocBuilder<CategoryBloc, ProductState>(builder: (context, state) {
           if (state is ProductListSuccess) {
             productList = state.productList!;
             // pageCount = (productList.length / rowsPerPage).ceilToDouble();
@@ -219,7 +219,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
               leading: CachedNetworkImage(
                 filterQuality: FilterQuality.medium,
                 // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                 imageUrl: categoryModel.catImg.toString(),
+                 imageUrl: categoryModel.ssCatImg.toString(),
                // imageUrl: "https://picsum.photos/250?image=9",
                 placeholder: (context, url) {
                   return Shimmer.fromColors(
@@ -267,7 +267,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
                 },
               ),
               title: Text(
-                categoryModel.catName.toString(),
+                categoryModel.ssCatName.toString(),
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Poppins-SemiBold',

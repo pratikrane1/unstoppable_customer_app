@@ -19,6 +19,11 @@ class UserRepository {
     return await Api.getProduct(params);
   }
 
+  Future<dynamic> fetchProductCategory({String? ssCatId}) async {
+    final params = {"sscat_id":ssCatId};
+    return await Api.getCategoryProduct(params);
+  }
+
   //Fetch User Profile
   Future<dynamic> fetchUserProfile({String? user_id}) async {
     final params = {"user_id":user_id,};

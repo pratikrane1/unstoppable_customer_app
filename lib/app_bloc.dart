@@ -22,7 +22,7 @@ class AppBloc {
   static final profileBloc = ProfileBloc(profileRepo: userRepository);
   static final contactUsBloc = ContactUsBloc(contactUsRepo: userRepository);
   static final settingsBloc = SettingsBloc(settingsRepo: userRepository);
-  static final productBloc = ProductBloc(productRepo: userRepository);
+  static final productBloc = CategoryBloc(productRepo: userRepository);
   static final homeBloc = HomeBloc(homeRepo: userRepository);
 
 
@@ -53,7 +53,7 @@ class AppBloc {
     BlocProvider<SettingsBloc>(
       create: (context) => settingsBloc,
     ),
-    BlocProvider<ProductBloc>(
+    BlocProvider<CategoryBloc>(
       create: (context) => productBloc,
     ),
     BlocProvider<HomeBloc>(

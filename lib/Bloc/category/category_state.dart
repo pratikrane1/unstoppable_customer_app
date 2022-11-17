@@ -1,6 +1,8 @@
 import 'package:meta/meta.dart';
 
 import '../../Model/category_list.dart';
+import '../../Model/category_product_model.dart';
+import '../../Model/product_model.dart';
 
 
 @immutable
@@ -12,21 +14,23 @@ class InitialProductListState extends ProductState {}
 
 class ProductLoading extends ProductState {}
 
-class DeleteProductLoading extends ProductState {}
-
+class ProductListLoadFail extends ProductState {}
 
 class ProductListSuccess extends ProductState {
  List<CategoryModel>? productList;
   ProductListSuccess({this.productList});
 }
 
-class ProductListLoadFail extends ProductState {}
+
+class CategoryProductLoading extends ProductState {}
 
 
 
-class DeleteProductSuccess extends ProductState {
- DeleteProductSuccess();
+class CategoryProductSuccess extends ProductState {
+ List<ProductModel>? categoryProductList;
+ CategoryProductSuccess({this.categoryProductList});
 }
 
+class CategoryProductFail extends ProductState {}
 
 

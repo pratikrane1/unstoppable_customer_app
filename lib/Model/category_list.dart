@@ -22,23 +22,26 @@ class CategoryRepo {
 }
 
 class CategoryModel {
-  String? catId;
-  String? catName;
-  String? catImg;
+  String? subCatId;
+  String? ssCatId;
+  String? ssCatName;
+  String? ssCatImg;
 
-  CategoryModel({this.catId, this.catName, this.catImg});
+  CategoryModel({this.subCatId, this.ssCatId, this.ssCatName, this.ssCatImg});
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
-    catId = json['cat_id'];
-    catName = json['cat_name'];
-    catImg = json['cat_img'];
+    subCatId = json['subcat_id'];
+    ssCatId = json['sscat_id'];
+    ssCatName = json['ss_cat_name'];
+    ssCatImg = json['ss_cat_img'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['cat_id'] = this.catId;
-    data['cat_name'] = this.catName;
-    data['cat_img'] = this.catImg;
+    data['subcat_id'] = this.subCatId;
+    data['sscat_id'] = this.ssCatId;
+    data['ss_cat_name'] = this.ssCatName;
+    data['ss_cat_img'] = this.ssCatImg;
     return data;
   }
 }

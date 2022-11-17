@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CategoryScreen()));
+                          builder: (context) => CategoryScreen(catData: categoryList[index])));
                   // print('clicked category');
                   // setState(() {
                   //   producerListIndex = index;
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
-                      imageUrl: "${categoryList[index].catImg}",
+                      imageUrl: "${categoryList[index].ssCatImg}",
                       imageBuilder: (context, imageProvider) {
                         return Container(
                           height: 70.0,
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 70,
                       // padding: EdgeInsets.all(5),
                       child: Text(
-                        "${categoryList[index].catName}",
+                        "${categoryList[index].ssCatName}",
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         textDirection: TextDirection.rtl,
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 )));
       },
-      itemCount: 10,
+      itemCount: categoryList.length,
     );
   }
 
@@ -652,7 +652,7 @@ class _HomeScreenState extends State<HomeScreen> {
           enlargeCenterPage: true,
           height: 300,
           autoPlay: true,
-          autoPlayInterval: Duration(seconds: 3),
+          autoPlayInterval: const Duration(seconds: 5),
           reverse: false,
           aspectRatio: 5.0,
         ),
@@ -716,8 +716,8 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Hi OM",
-                  style: TextStyle(color: ThemeColors.whiteTextColor),
+                  "Unstoppable",
+                  style: TextStyle(color: ThemeColors.whiteTextColor,fontFamily: 'Poppins-SemiBold',),
                 ),
                 notificationIcon(context),
               ],

@@ -1,11 +1,9 @@
+
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unstoppable_customer_app/Screen/Login/sign_in.dart';
@@ -19,12 +17,7 @@ import '../../Config/image.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/user_profile_model.dart';
 import '../../Utils/application.dart';
-import '../../Widget/app_button.dart';
-import '../../Widget/drawer.dart';
 import '../../image_file.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import '../change_password.dart';
 
 
@@ -40,11 +33,6 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  File? _image;
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _mobileController = TextEditingController();
-  final _emailController = TextEditingController();
   ImageFile? imageFile;
   final picker = ImagePicker();
   bool flagLoading = false;
@@ -53,57 +41,37 @@ class _MyProfileState extends State<MyProfile> {
   ProfileBloc? _probileBloc;
   UserProfileRepo? profileData;
 
-  //method to open gallery
-  _openGallery(BuildContext context) async {
-    final image =
-    await picker.getImage(source: ImageSource.gallery, imageQuality: 25);
-    imageFile = new ImageFile();
-    if (image != null) {
-      _cropImage(image);
-    }
-  }
-
-  // For crop image
-
-  Future<Null> _cropImage(PickedFile imageCropped) async {
-    File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: imageCropped.path,
-        aspectRatioPresets: Platform.isAndroid
-            ? [
-          // CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio4x3,
-        ]
-            : [
-          // CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio4x3,
-        ],
-        androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Theme.of(context).primaryColor,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.square,
-            lockAspectRatio: false),
-        iosUiSettings: IOSUiSettings(
-          title: 'Cropper',
-        )) as File?;
-    if (croppedFile != null) {
-      setState(() {
-        // mImageFile.image = croppedFile;
-        // print(mImageFile.image.path);
-        // state = AppState.cropped;
-        _image = croppedFile;
-        imageFile!.imagePath = _image!.path;
-      });
-      // Navigator.pop(context);
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     loading;
-    _probileBloc = BlocProvider.of<ProfileBloc>(context);
-    _probileBloc!.add(GetProfile(user_id: Application.customerLogin!.userId.toString()));;
+    if(Application.customerLogin!.userId != null){
+      _probileBloc = BlocProvider.of<ProfileBloc>(context);
+      _probileBloc!.add(GetProfile(user_id: Application.customerLogin!.userId.toString()));;
+    }
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('You need to Sign in First'),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Hello"),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> SignInPage()));
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
+        ),
+      ],
+    );
   }
 
   Future<Null> _onRefresh() {
@@ -145,7 +113,9 @@ class _MyProfileState extends State<MyProfile> {
         actions: [
           GestureDetector(
             onTap: () {
-              Application.preferences!.remove('user');
+              if(Application.customerLogin!.userId != null){
+                Application.preferences!.remove('user');
+              }
               // _RemoverUser();
               Navigator.pushAndRemoveUntil(
                 context,
@@ -171,7 +141,8 @@ class _MyProfileState extends State<MyProfile> {
           ),
         ],
       ),
-      body: RefreshIndicator(
+      body: Application.customerLogin!.userId != null ?
+      RefreshIndicator(
         onRefresh: _onRefresh,
 
         strokeWidth: 3,
@@ -382,6 +353,7 @@ class _MyProfileState extends State<MyProfile> {
         }
         ),
       )
+          : _buildPopupDialog(context)
 
     );
   }

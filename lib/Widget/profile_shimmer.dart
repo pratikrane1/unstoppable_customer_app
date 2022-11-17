@@ -31,26 +31,31 @@ class _ProfileShimmerState extends State<ProfileShimmer> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Shimmer.fromColors(
-                        highlightColor: Colors.grey[400]!,
-                        baseColor: Colors.grey[300]!,
-                        child: Container(
-                          padding: EdgeInsets.all(10.0),
-                          width: mainWidth / 3,
-                          height: mainWidth / 3,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 5),
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(Images.profile_icon),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: Shimmer.fromColors(
+                    //     highlightColor: Colors.grey[400]!,
+                    //     baseColor: Colors.grey[300]!,
+                    //     child: Stack(
+                    //       children: [
+                    //         CircleAvatar(
+                    //           radius: 80,
+                    //           backgroundColor: ThemeColors.whiteTextColor,
+                    //           child: ClipOval(
+                    //             child: new SizedBox(
+                    //                 width: 150.0,
+                    //                 height: 150.0,
+                    //                 child: Image.asset(
+                    //                   Images.profile_icon,
+                    //                   fit: BoxFit.fill,
+                    //                 )
+                    //
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
 
                     Shimmer.fromColors(
                       highlightColor: Colors.grey[400]!,
@@ -74,6 +79,35 @@ class _ProfileShimmerState extends State<ProfileShimmer> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Shimmer.fromColors(
+                                highlightColor: Colors.grey[400]!,
+                                baseColor: Colors.grey[300]!,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    print('name taped');
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 80,
+                                        backgroundColor: ThemeColors.whiteTextColor,
+                                        child: ClipOval(
+                                          child: new SizedBox(
+                                              width: 150.0,
+                                              height: 150.0,
+                                              child:Image.asset(
+                                                Images.profile_icon,
+                                                fit: BoxFit.fill,
+                                              )
+
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
                               Shimmer.fromColors(
                                 highlightColor: Colors.grey[400]!,
                                 baseColor: Colors.grey[300]!,

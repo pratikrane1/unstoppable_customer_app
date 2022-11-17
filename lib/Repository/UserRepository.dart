@@ -13,10 +13,15 @@ class UserRepository {
     final params = {"user_email":email,"password":password};
     return await Api.login(params);
   }
-  Future<dynamic> fetchCategory({String? start_from,String? per_page}) async {
-    final params = {"start_from":start_from,
-      "per_page":per_page};
+  Future<dynamic> fetchCategory({String? perPage, String? startFrom}) async {
+    final params = {"per_page":perPage,
+      "start_from":startFrom};
     return await Api.getCategory(params);
+  }
+
+  Future<dynamic> fetchProductCategory({String? ssCatId}) async {
+    final params = {"sscat_id":ssCatId};
+    return await Api.getCategoryProduct(params);
   }
 
   //Fetch User Profile
@@ -37,6 +42,17 @@ class UserRepository {
       Preferences.user,
       jsonEncode(user.toJson()),
     );
+  }
+
+  ///Get Product
+  Future<dynamic> fetchHomeProduct({String? limit}) async {
+    final params = {"limit":limit};
+    return await Api.getHomeProduct(params);
+  }
+
+  ///Get Banner
+  Future<dynamic> fetchHomeBanner() async {
+    return await Api.getHomeBanner();
   }
 
 

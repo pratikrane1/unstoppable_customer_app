@@ -6,6 +6,7 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 import 'Bloc/authentication/authentication_bloc.dart';
 import 'Bloc/contactUs/contactUs_bloc.dart';
 import 'Bloc/category/category_bloc.dart';
+import 'Bloc/home/home_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
 import 'Bloc/profile/profile_bloc.dart';
 import 'Bloc/changePassword/changePassword_bloc.dart';
@@ -22,6 +23,7 @@ class AppBloc {
   static final contactUsBloc = ContactUsBloc(contactUsRepo: userRepository);
   static final changePassBloc = ChangePassBloc(changePassRepo: userRepository);
   static final categoryBloc = CategoryBloc(categoryRepo: userRepository);
+  static final homeBloc = HomeBloc(homeRepo: userRepository);
 
 
 
@@ -54,6 +56,9 @@ class AppBloc {
     BlocProvider<CategoryBloc>(
       create: (context) => categoryBloc,
     ),
+    BlocProvider<HomeBloc>(
+      create: (context) => homeBloc,
+    ),
 
 
   ];
@@ -68,6 +73,7 @@ class AppBloc {
     contactUsBloc.close();
     categoryBloc.close();
     changePassBloc.close();
+    homeBloc.close();
   }
 
   ///Singleton factory

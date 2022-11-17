@@ -6,9 +6,6 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:unstoppable_customer_app/Model/category_list.dart';
 
-import '../../Model/category_list.dart';
-import '../../Model/category_list.dart';
-import '../../Model/category_list.dart';
 import '../../Repository/UserRepository.dart';
 import '../../Utils/application.dart';
 import 'category_event.dart';
@@ -50,52 +47,26 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       }
     }
 
-    // //Product Detail
-    // if (event is OnLoadingProductDetail) {
-    //   ///Notify loading to UI
-    //   yield ProductDetailLoading();
-    //
-    //   ///Fetch API via repository
-    //   final ProductDetailRepo result = await productRepo!
-    //       .fetchProductDetail(
-    //       productId: event.prodId
-    //   );
-    //
-    //   ///Case API fail but not have token
-    //   if (result.result == "Success") {
-    //     ProductDetail productDetail = new ProductDetail();
-    //     productDetail = result.data;
-    //
-    //     yield ProductDetailSuccess(data: productDetail);
-    //   }
-    // }
-    //
-    //
-    // //remove product
-    // if (event is DeleteProduct) {
-    //   yield DeleteProductLoading();
-    //   Map<String, String> params;
-    //   params = {
-    //     'product_id': event.productid
-    //   };
-    //
-    //   var response = await http.post(
-    //       Uri.parse(Api.delProduct),
-    //       body: params
-    //   );
-    //
-    //   try {
-    //     final resp = json.decode(response.body);
-    //     if (resp['result'] == 'Success') {
-    //       yield DeleteProductSuccess();
-    //     }
-    //   } catch (e) {
-    //     print(e);
-    //     rethrow;
-    //   }
-    // }
-    //
+    if (event is OnLoadingCategoryProductList) {
+      ///Notify loading to UI
+      yield CategoryProductLoading();
 
+      ///Fetch API via repository
+      final CategoryProductRepo response = await productRepo!
+          .fetchProductCategory(
+          ssCatId: event.ssCatId
+      );
+
+      final Iterable refactorProduct = response.result ?? [];
+      final listproduct = refactorProduct.map((item) {
+        return ProductModel.fromJson(item);
+      }).toList();
+      if (refactorProduct.length > 0) {
+        yield CategoryProductSuccess(categoryProductList: listproduct);
+      } else {
+        yield CategoryProductFail();
+      }
+    }
   }
 }
 

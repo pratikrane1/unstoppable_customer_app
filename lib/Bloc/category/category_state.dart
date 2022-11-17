@@ -22,11 +22,17 @@ class CategoryListSuccess extends CategoryState {
 
 class CategoryListLoadFail extends CategoryState {}
 
+class CategoryProductLoading extends ProductState {}
 
 
-class DeleteCategorySuccess extends CategoryState {
- DeleteCategorySuccess();
+
+
+class CategoryProductSuccess extends ProductState {
+ List<ProductModel>? categoryProductList;
+
+ CategoryProductSuccess({this.categoryProductList});
 }
 
+class CategoryProductFail extends ProductState {}
 
 

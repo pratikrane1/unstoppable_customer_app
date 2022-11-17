@@ -131,34 +131,36 @@ class _CategoryState extends State<Category> with TickerProviderStateMixin{
           // ),
         ),
         drawer: DrawerWidget(),
-        body: Scaffold(
-          appBar: TabBar(
-            labelColor: Colors.black,
-            unselectedLabelColor: ThemeColors.textFieldBgColor,
-            indicatorColor: ThemeColors.buttonColor,
-            labelStyle: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w500
-            ),
-            tabs: [
-              Tab(
-                text: "Categories",
-              ),
-              Tab(
-                text: "Brand",
-              ),
-              // Tab(icon: Icon(Icons.camera_alt)),
-              // Tab(icon: Icon(Icons.grade)),
-              // Tab(icon: Icon(Icons.email)),
-            ],
-          ),
-          body:TabBarView(
-            children: [
-              CategoriesTab(),
-              BrandTab()
-            ],
-          ) ,
-        )
+        body: CategoriesTab()
+        // Scaffold(
+        //   appBar: TabBar(
+        //     labelColor: Colors.black,
+        //     unselectedLabelColor: ThemeColors.textFieldBgColor,
+        //     indicatorColor: ThemeColors.buttonColor,
+        //     labelStyle: TextStyle(
+        //       fontSize: 19,
+        //       fontWeight: FontWeight.w500
+        //     ),
+        //     tabs: [
+        //       Tab(
+        //         text: "Categories",
+        //       ),
+        //       Tab(
+        //         text: "Brand",
+        //       ),
+        //       // Tab(icon: Icon(Icons.camera_alt)),
+        //       // Tab(icon: Icon(Icons.grade)),
+        //       // Tab(icon: Icon(Icons.email)),
+        //     ],
+        //   ),
+        //   body:
+        //   TabBarView(
+        //     children: [
+        //       CategoriesTab(),
+        //       BrandTab()
+        //     ],
+        //   ) ,
+        // )
 
       )
     );

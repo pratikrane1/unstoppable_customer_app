@@ -11,16 +11,16 @@ class OnLoadingCategoryList extends CategoryEvent {
   OnLoadingCategoryList({required this.per_page,required this.start_from });
 }
 
-class DeleteCategory extends CategoryEvent{
-  String Categoryid;
+class OnLoadingCategoryProductList extends ProductEvent{
+  String ssCatId;
 
 
-  DeleteCategory({required this.Categoryid});
+  OnLoadingCategoryProductList({required this.ssCatId});
 }
 
 
 
-class OnLoadingCategoryDetail extends CategoryEvent {
-  String CategoryId;
-  OnLoadingCategoryDetail({required this.CategoryId});
+class OnLoadingProductDetail extends ProductEvent {
+  String prodId;
+  OnLoadingProductDetail({required this.prodId});
 }

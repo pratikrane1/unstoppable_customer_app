@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import '../Constant/theme_colors.dart';
-import '../Screen/Cart/address_screen.dart';
+import '../Screen/Profile/add_address.dart';
 import '../Screen/Cart/checkout_page.dart';
 import 'app_button.dart';
 

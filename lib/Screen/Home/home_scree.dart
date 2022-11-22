@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   initState() {
     super.initState();
+    categoryList!.shuffle();
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     _homeBloc!.add(GetHomeCategory(perPage: '5', startFrom: '1'));
     _homeBloc!.add(GetProduct(limit: '10'));
@@ -53,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _homeBloc!.add(GetHomeCategory(perPage: '5', startFrom: '1'));
       _homeBloc!.add(GetProduct(limit: '10'));
-      _homeBloc!.add(GetBanners());    });
+      _homeBloc!.add(GetBanners());
+      categoryList!.shuffle();
+
+    });
     Completer<Null> completer = new Completer<Null>();
     Timer(new Duration(seconds: 3), () {
       completer.complete();

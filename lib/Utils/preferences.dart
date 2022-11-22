@@ -1,6 +1,7 @@
 class Preferences {
 
   static String user = 'user';
+  static String address = 'address';
   static String language = 'language';
   static String notification = 'notification';
   static String theme = 'theme';

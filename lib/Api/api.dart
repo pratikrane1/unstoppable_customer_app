@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../Model/address_model.dart';
 import '../Model/banner_model.dart';
 import '../Model/category_list.dart';
 import '../Model/category_product_model.dart';
@@ -27,6 +28,10 @@ class Api {
   static const String CATEGORY_PRODUCT = HOST_URL+"category_products";
   static const String GET_PRODUCT = HOST_URL+"home_products";
   static const String GET_BANNER = HOST_URL+"home_banner";
+  static const String GET_ADDRESS_LIST = HOST_URL+"shipping_address";
+  static const String ADD_ADDRESS = HOST_URL+"add_shipping_address";
+  static const String DELETE_ADDRESS = HOST_URL+"delete_shipping_address";
+  static const String EDIT_ADDRESS = HOST_URL+"edit_shipping_address";
 
 
   ///Login api
@@ -115,6 +120,59 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return BannerRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Address List
+  static Future<dynamic> getAddressList(params) async {
+    final response = await http.post(
+      Uri.parse(GET_ADDRESS_LIST),
+      body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return AddressRepo.fromJson(responseJson);
+    }
+  }
+
+  ///add address
+  static Future<dynamic> addAddress(params) async {
+    final response = await http.post(
+        Uri.parse(ADD_ADDRESS),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return AddAddressRepo.fromJson(responseJson);
+    }
+  }
+
+  /// Edit address
+   static Future<dynamic> editAddress(params) async {
+      final response = await http.post(
+          Uri.parse(EDIT_ADDRESS),
+          body: params
+      );
+      if (response.statusCode == 200) {
+        final responseJson = json.decode(response.body);
+        print(responseJson);
+        return AddAddressRepo.fromJson(responseJson);
+      }
+    }
+
+
+  /// delete address
+  static Future<dynamic> deleteAddress(params) async {
+    final response = await http.post(
+        Uri.parse(DELETE_ADDRESS),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return AddAddressRepo.fromJson(responseJson);
     }
   }
 

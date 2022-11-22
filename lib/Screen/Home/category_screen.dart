@@ -83,40 +83,37 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-      body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-        if (state is CategoryProductSuccess) {
-          categoryProductList = state.categoryProductList!;
-          // pageCount = (productList.length / rowsPerPage).ceilToDouble();
-          // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
-        }
-        if (state is CategoryProductLoading) {
-          // flagNoDataAvailable = false;
-        }
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        strokeWidth: 3,
+        triggerMode: RefreshIndicatorTriggerMode.onEdge,
+        child: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+          if (state is CategoryProductSuccess) {
+            categoryProductList = state.categoryProductList!;
+            // pageCount = (productList.length / rowsPerPage).ceilToDouble();
+            // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
+          }
+          if (state is CategoryProductLoading) {
+            // flagNoDataAvailable = false;
+          }
 
-        if (state is CategoryProductFail) {
-          // flagNoDataAvailable = true;
-        }
-        // if(state is ProductPageCntSucess){
-        //   pageCount=state.PageCnt;
-        // }
-        return RefreshIndicator(
-          onRefresh: _onRefresh,
-          strokeWidth: 3,
-          triggerMode: RefreshIndicatorTriggerMode.onEdge,
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                Container(
-                  child:
-                  // (categoryProductList.isNotEmpty) ?
-                  buildProductList(context, categoryProductList)
-                  // : const Center(child: Text("No Data")),
-                ),
-              ],
+          if (state is CategoryProductFail) {
+            // flagNoDataAvailable = true;
+          }
+          // if(state is ProductPageCntSucess){
+          //   pageCount=state.PageCnt;
+          // }
+          return SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              child:
+              // (categoryProductList.isNotEmpty) ?
+              buildProductList(context, categoryProductList)
+              // : const Center(child: Text("No Data")),
             ),
-          ),
-        );
-      }));
+          );
+        }),
+      ));
 
 
   }

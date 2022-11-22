@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Model/address_model.dart';
 import '../Model/customer_login.dart';
 
 
@@ -14,6 +15,7 @@ class Application {
   static SharedPreferences? preferences;
 
   static CustomerLogin? customerLogin;
+  static AddressModel? address;
   // static DashBoardCountResp? dashBoardCountResp;
   // static ProductModel? productModel;
 

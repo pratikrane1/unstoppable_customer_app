@@ -6,6 +6,8 @@ import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:unstoppable_customer_app/Model/category_list.dart';
 
+import '../../Model/category_product_model.dart';
+import '../../Model/product_model.dart';
 import '../../Repository/UserRepository.dart';
 import '../../Utils/application.dart';
 import 'category_event.dart';
@@ -21,6 +23,32 @@ import 'package:http/http.dart';
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({this.categoryRepo}) : super(InitialCategoryListState());
   final UserRepository? categoryRepo;
+  int startFrom = 1;
+
+  int perPage = 12;
+
+  void loadPosts() {
+    if (state is CategoryListLoading) return;
+
+    final currentState = state;
+
+    var oldCategoryList = <CategoryModel>[];
+    if (currentState is CategoryListLoaded) {
+      oldCategoryList = currentState.CategoryList!;
+    }
+
+    emit(CategoryListLoading(oldCategoryList, isFirstFetch: startFrom == 1));
+
+    categoryRepo?.fetchCategorypagelist(startFrom).then((newCategorys) {
+      startFrom++;
+
+      final Categorys = (state as CategoryListLoading).CategoryList;
+      Categorys?.addAll(newCategorys);
+
+      emit(CategoryListLoaded(Categorys));
+    });
+  }
+
 
 
   @override
@@ -32,8 +60,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       ///Fetch API via repository
       final CategoryRepo response = await categoryRepo!
           .fetchCategory(
-          per_page:event.per_page.toString(),
-          start_from:event.start_from.toString(),
+          perPage:event.per_page.toString(),
+          startFrom:event.start_from.toString(),
       );
 
       final Iterable refactorCategory = response.result ?? [];
@@ -52,7 +80,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       yield CategoryProductLoading();
 
       ///Fetch API via repository
-      final CategoryProductRepo response = await productRepo!
+      final CategoryProductRepo response = await categoryRepo!
           .fetchProductCategory(
           ssCatId: event.ssCatId
       );

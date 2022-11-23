@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../Api/api.dart';
+import '../Model/category_list.dart';
 import '../Model/customer_login.dart';
 import '../Utils/preferences.dart';
 import '../Utils/util_preferences.dart';
@@ -55,7 +56,11 @@ class UserRepository {
     return await Api.getHomeBanner();
   }
 
-
+  Future<dynamic> fetchCategorypagelist(int? startFrom, {String? perPage}) async {
+    final params = {"per_page":perPage,
+      "start_from":startFrom};
+    return await Api.fetchCategorypage(params);
+  }
   // //save image
   // Future<dynamic> saveImage(String image) async {
   //   return await UtilPreferences.setString(

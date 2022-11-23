@@ -1,0 +1,100 @@
+{
+  "project_info": {
+    "project_number": "51038672602",
+    "project_id": "unstoppable-trade-b2b-platform",
+    "storage_bucket": "unstoppable-trade-b2b-platform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51038672602:android:e06026f53bee4ee078b7e3",
+        "android_client_info": {
+          "package_name": "com.unstoppable.trade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51038672602-fvn2hvsgml8s5m9h80k8ccq6rnni7u6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unstoppable.trade",
+            "certificate_hash": "84d6bdf55f332565787037cacf018afe6bceb9d9"
+          }
+        },
+        {
+          "client_id": "51038672602-rpk6j14pmr9m3ju6s8c92fm0hbsn6lj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unstoppable.trade",
+            "certificate_hash": "38dc07dd84ba23605d491bcf60b03b4fc29317bc"
+          }
+        },
+        {
+          "client_id": "51038672602-25lvk6oft3pia85ffev2ncsaur368f9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZvB6b9yWhM1aNCImGhzGaYYrsn5W23f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51038672602-25lvk6oft3pia85ffev2ncsaur368f9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51038672602:android:945a8f103c0bd14478b7e3",
+        "android_client_info": {
+          "package_name": "com.unstoppableTrade.b2bPlatform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51038672602-4206k32uoo0erb0mfglfi5qqgdjh5i47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unstoppableTrade.b2bPlatform",
+            "certificate_hash": "49cad7d51ca04a6142a0926d33556e1ee2034150"
+          }
+        },
+        {
+          "client_id": "51038672602-gqt66dobjjm43om9ati5c1bp01hm9aoh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unstoppableTrade.b2bPlatform",
+            "certificate_hash": "6874f3ab2613cc2ca274a263fd6a83e555abd31a"
+          }
+        },
+        {
+          "client_id": "51038672602-25lvk6oft3pia85ffev2ncsaur368f9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZvB6b9yWhM1aNCImGhzGaYYrsn5W23f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51038672602-25lvk6oft3pia85ffev2ncsaur368f9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

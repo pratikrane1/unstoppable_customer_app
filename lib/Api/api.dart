@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'dart:convert';
 import '../Model/banner_model.dart';
 import '../Model/category_list.dart';
@@ -118,5 +119,18 @@ class Api {
     }
   }
 
+
+  ///Category api
+  static Future<dynamic> fetchCategorypage(params) async {
+    final response = await http.post(
+        Uri.parse(CATEGORIES),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CategoryRepo.fromJson(responseJson);
+    }
+  }
 
 }

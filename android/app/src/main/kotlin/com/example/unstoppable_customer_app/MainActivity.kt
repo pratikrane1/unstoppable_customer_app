@@ -1,4 +1,4 @@
-package com.example.unstoppable_customer_app
+package com.unstoppable.trade
 
 import io.flutter.embedding.android.FlutterActivity
 

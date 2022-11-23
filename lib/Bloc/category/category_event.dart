@@ -11,7 +11,7 @@ class OnLoadingCategoryList extends CategoryEvent {
   OnLoadingCategoryList({required this.per_page,required this.start_from });
 }
 
-class OnLoadingCategoryProductList extends ProductEvent{
+class OnLoadingCategoryProductList extends CategoryEvent{
   String ssCatId;
 
 
@@ -20,7 +20,4 @@ class OnLoadingCategoryProductList extends ProductEvent{
 
 
 
-class OnLoadingProductDetail extends ProductEvent {
-  String prodId;
-  OnLoadingProductDetail({required this.prodId});
-}
+//

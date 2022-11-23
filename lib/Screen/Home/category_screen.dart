@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unstoppable_customer_app/Model/category_product_model.dart';
 import 'package:unstoppable_customer_app/Screen/Home/product_details.dart';
-
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import '../../Bloc/category/category_bloc.dart';
 import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
@@ -26,6 +26,14 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   CategoryBloc? _productBloc;
   List<ProductModel> categoryProductList = [];
+  int _page = 1;
+  final int _limit = 20;
+  bool _isFirstLoadRunning = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  List _posts = [];
 
 
   @override
@@ -33,7 +41,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
     // TODO: implement initState
     super.initState();
     _productBloc = BlocProvider.of<CategoryBloc>(context);
-    _productBloc!.add(OnLoadingCategoryProductList(ssCatId: widget.catData.ssCatId.toString()));
+    _productBloc!.add(OnLoadingCategoryProductList(ssCatId: widget.catData.sscatId.toString()));
+
+    super.initState();
     // _productBloc!.add(OnLoadingCategoryProductList(ssCatId: '3651'));
   }
 
@@ -68,17 +78,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ],
         ),
       ),
-      body: BlocBuilder<CategoryBloc, ProductState>(builder: (context, state) {
+      body: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
         if (state is CategoryProductSuccess) {
           categoryProductList = state.categoryProductList!;
           // pageCount = (productList.length / rowsPerPage).ceilToDouble();
           // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
         }
-        if (state is ProductLoading) {
+        if (state is CategoryProductLoading) {
           // flagNoDataAvailable = false;
         }
 
-        if (state is ProductListLoadFail) {
+        if (state is CategoryProductFail) {
           // flagNoDataAvailable = true;
         }
         // if(state is ProductPageCntSucess){

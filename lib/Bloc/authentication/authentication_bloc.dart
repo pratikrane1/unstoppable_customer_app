@@ -85,6 +85,34 @@ class AuthBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
         throw Exception(message);
       }
     }
+
+
+    ///Save address
+    if (event is OnSaveAddress) {
+      ///Save to Storage user via repository
+      final savePreferences = await userRepository!.saveAddress(event.address);
+
+      ///Check result save user
+      if (savePreferences) {
+
+        ///Set address
+        Application.address= event.address;
+        // UtilPreferences.setString(Preferences.user, Application.user.toString());
+
+        ///Notify loading to UI
+        if(Application.address!.id!=null) {
+          yield AuthenticationSuccess();
+        }else{
+          yield AuthenticationFail();
+        }
+
+
+      } else {
+        final String message = "Cannot save user data to storage phone";
+        throw Exception(message);
+      }
+    }
+
     // if (event is OnSaveImage) {
     //   ///Save to Storage user via repository
     //   final savePreferences = await userRepository.saveImage(event.profilePic);

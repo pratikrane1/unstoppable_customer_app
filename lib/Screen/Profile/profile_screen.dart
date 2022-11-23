@@ -19,6 +19,7 @@ import '../../Model/user_profile_model.dart';
 import '../../Utils/application.dart';
 import '../../image_file.dart';
 import '../change_password.dart';
+import 'address_page.dart';
 
 
 class MyProfile extends StatefulWidget {
@@ -234,8 +235,7 @@ class _MyProfileState extends State<MyProfile> {
                               ),
                             ),
 
-                            //Address
-                            (profileData!.address == null || profileData!.address == "") ? Container() :
+                            Application.address != null ?
                             Container(
                               height: 40,
                               child: ListTile(
@@ -246,7 +246,7 @@ class _MyProfileState extends State<MyProfile> {
                                   size: 20,
                                 ),
                                 title: Text(
-                                  profileData!.address.toString(),
+                                  Application.address!.streetAddress.toString()+', '+Application.address!.city.toString(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
@@ -254,7 +254,29 @@ class _MyProfileState extends State<MyProfile> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ): Container(),
+
+                            // //Address
+                            // (profileData!.address == null || profileData!.address == "") ? Container() :
+                            // Container(
+                            //   height: 40,
+                            //   child: ListTile(
+                            //     leading: Icon(
+                            //       FontAwesomeIcons.streetView,
+                            //       color:
+                            //       ThemeColors.baseThemeColor,
+                            //       size: 20,
+                            //     ),
+                            //     title: Text(
+                            //       profileData!.address.toString(),
+                            //       style: TextStyle(
+                            //         fontSize: 18,
+                            //         fontWeight: FontWeight.w400,
+                            //         color: Colors.grey.shade700,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
 
 
                             //Mobile No
@@ -307,6 +329,35 @@ class _MyProfileState extends State<MyProfile> {
                                MaterialPageRoute(builder: (context)=> EditProfile(profileData: profileData,)));
                               },
                             ),
+
+                            //Address
+                            GestureDetector(
+                              child: Container(
+                                height: 40,
+                                child: ListTile(
+                                  leading: Icon(
+                                    FontAwesomeIcons.solidAddressCard,
+                                    color: ThemeColors.baseThemeColor,
+                                    size: 20,
+                                  ),
+                                  title: Text('Address',
+                                      style: TextStyle(
+                                          color: ThemeColors
+                                              .baseThemeColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400)),
+                                  trailing: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color:
+                                      ThemeColors.baseThemeColor),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context)=> Address()));
+                              },
+                            ),
+
 
                             //Change Password
                             GestureDetector(

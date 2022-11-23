@@ -337,8 +337,8 @@ Widget _RFR(BuildContext context) {
 Widget _GDTDetails(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => ContactUsPage()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => ContactUsPage()));
     },
     child: Card(
       elevation: 1,

@@ -55,6 +55,9 @@ class ProductModel {
   String? prodId;
   String? prodName;
   String? price;
+  String? discountPrice;
+  int? discountPercentage;
+  String? quantity;
   String? description;
   String? prodImg;
   String? catId;
@@ -65,6 +68,9 @@ class ProductModel {
       {this.prodId,
         this.prodName,
         this.price,
+        this.discountPrice,
+        this.discountPercentage,
+        this.quantity,
         this.description,
         this.prodImg,
         this.catId,
@@ -75,6 +81,9 @@ class ProductModel {
     prodId = json['prod_id'];
     prodName = json['prod_name'];
     price = json['price'];
+    discountPrice = json['discount_price'];
+    discountPercentage = json['discount_percentage'];
+    quantity = json['product_unit'];
     description = json['description'];
     prodImg = json['prod_img'];
     catId = json['cat_id'];
@@ -87,6 +96,9 @@ class ProductModel {
     data['prod_id'] = this.prodId;
     data['prod_name'] = this.prodName;
     data['price'] = this.price;
+    data['discount_price'] = this.discountPrice;
+    data['discount_percentage'] = this.discountPercentage;
+    data['product_unit'] = this.quantity;
     data['description'] = this.description;
     data['prod_img'] = this.prodImg;
     data['cat_id'] = this.catId;

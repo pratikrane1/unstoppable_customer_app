@@ -3,6 +3,7 @@
 
 
 
+import '../../Model/address_model.dart';
 import '../../Model/customer_login.dart';
 
 abstract class AuthenticationEvent {}
@@ -15,9 +16,9 @@ class OnSaveUser extends AuthenticationEvent {
 
 }
 
-class OnSaveImage extends AuthenticationEvent {
-  final String profilePic;
-  OnSaveImage(this.profilePic);
+class OnSaveAddress extends AuthenticationEvent {
+  final AddressModel address;
+  OnSaveAddress(this.address);
 
 }
 

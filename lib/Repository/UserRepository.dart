@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../Api/api.dart';
+import '../Model/address_model.dart';
 import '../Model/category_list.dart';
 import '../Model/customer_login.dart';
 import '../Utils/preferences.dart';
@@ -37,13 +38,7 @@ class UserRepository {
     return await Api.contactUs(params);
   }
 
-  ///Save Storage
-  Future<dynamic> saveUser(CustomerLogin user) async {
-    return await UtilPreferences.setString(
-      Preferences.user,
-      jsonEncode(user.toJson()),
-    );
-  }
+
 
   ///Get Product
   Future<dynamic> fetchHomeProduct({String? limit}) async {
@@ -55,6 +50,43 @@ class UserRepository {
   Future<dynamic> fetchHomeBanner() async {
     return await Api.getHomeBanner();
   }
+
+  ///Get Address list
+  Future<dynamic> fetchAddressList({String? user_id}) async {
+    final params = {"user_id":user_id};
+    return await Api.getAddressList(params);
+  }
+
+  Future<dynamic> addAddress({String? user_id, String? streetAddress, String? city,String? state,String? pincode}) async {
+    final params = {
+      "user_id":user_id,
+      "street_address":streetAddress,
+      "city":city,
+      "state":state,
+      "pincode":pincode,};
+    return await Api.addAddress(params);
+  }
+
+  Future<dynamic> editAddress({String? id,String? user_id, String? streetAddress, String? city,String? state,String? pincode}) async {
+    final params = {
+      "id": id,
+      "user_id":user_id,
+      "street_address":streetAddress,
+      "city":city,
+      "state":state,
+      "pincode":pincode,};
+    return await Api.editAddress(params);
+  }
+
+
+  Future<dynamic> deleteAddress({String? user_id, String? id}) async {
+    final params = {
+      "user_id":user_id,
+      "id":id,
+      };
+    return await Api.deleteAddress(params);
+  }
+
 
   Future<dynamic> fetchCategorypagelist(int? startFrom, {String? perPage}) async {
     final params = {"per_page":perPage,
@@ -69,10 +101,30 @@ class UserRepository {
   //
   //
 
+  ///Save Storage
+  Future<dynamic> saveUser(CustomerLogin user) async {
+    return await UtilPreferences.setString(
+      Preferences.user,
+      jsonEncode(user.toJson()),
+    );
+  }
 
   ///Get from Storage
   dynamic getUser() {
     return UtilPreferences.getString(Preferences.user);
+  }
+
+  ///Save address
+  Future<dynamic> saveAddress(AddressModel address) async {
+    return await UtilPreferences.setString(
+      Preferences.address,
+      jsonEncode(address.toJson()),
+    );
+  }
+
+  ///Get from Storage
+  dynamic getAddress() {
+    return UtilPreferences.getString(Preferences.address);
   }
 
   // dynamic getProfile() {

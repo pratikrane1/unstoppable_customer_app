@@ -2,11 +2,12 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:unstoppable_customer_app/Model/address_model.dart';
 import 'package:unstoppable_customer_app/Screen/Cart/thankyou_screen.dart';
 
 import '../../Constant/theme_colors.dart';
 import '../../Widget/app_button.dart';
-import 'address_screen.dart';
+import '../Profile/add_address.dart';
 
 class CheckOutPage extends StatefulWidget {
   const CheckOutPage({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
   int? typeId;
   String? radioBtnType;
+  AddressModel? addressData;
 
 
 
@@ -115,7 +117,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                 child:
                                 AppButton(
                                   onPressed: () async {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData!)));
                                   },
                                   shape: const RoundedRectangleBorder(
                                       borderRadius:

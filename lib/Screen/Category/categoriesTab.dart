@@ -284,8 +284,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
     // return ListView.builder(
     return ListView.builder(
       scrollDirection: Axis.vertical,
-      padding: EdgeInsets.only(top: 10, bottom: 20),
-    //  controller: _controller,
+      padding: EdgeInsets.only(top: 10, bottom: 15),
       itemBuilder: (context, index) {
         return categoriesCard(context, categoriesList[index]);
       },
@@ -456,7 +455,7 @@ class _CategoriesTabState extends State<CategoriesTab> {
           //     ),
           //   ),
         ],
-      ),
+      )
     );
   }
 

@@ -373,7 +373,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         height: 5,
                       ),
                       Text(
-                        "\u{20B9} ${productList.price}",
+                        "\u{20B9} ${productList.discountPrice}",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0,

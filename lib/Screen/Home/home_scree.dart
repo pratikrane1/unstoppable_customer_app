@@ -470,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 5,
                       ),
                       Text(
-                        "\u{20B9} ${productData.price}",
+                        "\u{20B9} ${productData.discountPrice}",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0,

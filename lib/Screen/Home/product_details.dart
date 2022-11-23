@@ -169,14 +169,16 @@ class _ProductDetailState extends State<ProductDetail> {
                             },
                           ),
                         ),
+                        widget.productData.discountPercentage != null ?
                         Positioned(
                           top: 5,
-                          left: 10,
+                          // left: 18,
+                            right: 18,
                           child: CircleAvatar(
                               radius: 20,
                               backgroundColor: ThemeColors.discountBackgroundColor,
                               child: Text(
-                                "27%\n off",
+                                "${widget.productData.discountPercentage}%\n off",
                                 style: TextStyle(
                                     fontFamily: 'SF-Pro-Display-Thin',
                                     fontSize: 10,
@@ -185,7 +187,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ),
                               )
                           ),
-                        ),
+                        ): Container(),
                         // Positioned(
                         //   top: 5,
                         //   right: 10,
@@ -215,7 +217,10 @@ class _ProductDetailState extends State<ProductDetail> {
                             Expanded(
                               // width: MediaQuery.of(context).size.width /2.1,
                               child: Table(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                columnWidths: {
+                                  0: FlexColumnWidth(2),
+                                  1: FlexColumnWidth(4),
+                                },
                                 children: [
                                   TableRow(
                                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,7 +262,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                         ),
                                       ),
                                       Text(
-                                        "\u{20B9} ${widget.productData.price}",
+                                        "\u{20B9} ${widget.productData.discountPrice}",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,

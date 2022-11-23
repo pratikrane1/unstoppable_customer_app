@@ -113,7 +113,6 @@ class _AddressState extends State<Address> {
               child:  addressData != null ?
               RefreshIndicator(
                 onRefresh: _onRefresh,
-
                 strokeWidth: 3,
                 triggerMode: RefreshIndicatorTriggerMode.onEdge,
                 child: Container(
@@ -203,6 +202,7 @@ class _AddressState extends State<Address> {
                                                             style: TextStyle(
                                                               fontWeight:
                                                               FontWeight.bold,
+                                        fontFamily: 'SF-Pro-Display-Regular',
                                                               color: Color(
                                                                   0Xff3f3639),
                                                               fontSize:
@@ -219,6 +219,7 @@ class _AddressState extends State<Address> {
                                                             style: TextStyle(
                                                               fontWeight:
                                                               FontWeight.bold,
+                                        fontFamily: 'SF-Pro-Display-Medium',
                                                               color: Color(
                                                                   0Xffaaa4a6),
                                                               fontSize:
@@ -273,46 +274,44 @@ class _AddressState extends State<Address> {
                                 height: 50,
                               ),
 
-                              Positioned(
-                                  left: 10.0,
-                                  bottom: 0.0,
-                                  child: Container(
-                                    width: width,
-                                    height: 60.0,
-                                    decoration: BoxDecoration(color: Colors.white),
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                        left: width * 0.20,
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: data!,)));
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.add,
-                                                    color: ThemeColors.baseThemeColor,
-                                                  ),
-                                                  onPressed: null),
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "Add New Address",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: ThemeColors.baseThemeColor,
-                                                  fontSize: width * 0.04,
-                                                ),
+                              Container(
+                                width: width,
+                                height: 60.0,
+                                decoration: BoxDecoration(color: Colors.white),
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                    left: width * 0.20,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage()));
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          child: IconButton(
+                                              icon: Icon(
+                                                Icons.add,
+                                                color: ThemeColors.baseThemeColor,
                                               ),
-                                            ),
-                                          ],
+                                              onPressed: null),
                                         ),
-                                      ),
+                                        Container(
+                                          child: Text(
+                                            "Add New Address",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: ThemeColors.baseThemeColor,
+                                              fontSize: width * 0.04,
+                                                fontFamily: 'SF-Pro-Display-Regular',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  )),
+                                  ),
+                                ),
+                              ),
 
                             ],
                           ))

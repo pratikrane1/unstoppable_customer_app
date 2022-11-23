@@ -15,8 +15,8 @@ import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
 
 class AddressPage extends StatefulWidget {
-  AddressModel addressData;
-  AddressPage({Key? key,required this.addressData}) : super(key: key);
+  AddressModel? addressData;
+  AddressPage({Key? key,this.addressData}) : super(key: key);
 
   @override
   _AddressPageState createState() => _AddressPageState();
@@ -33,11 +33,11 @@ class _AddressPageState extends State<AddressPage> {
   bool loading = true;
 
   setData(){
-    if(widget.addressData.id != null){
-      _flatNoController.text = widget.addressData.streetAddress.toString();
-      _pinCodeController.text = widget.addressData.pincode.toString();
-      _stateController.text = widget.addressData.state.toString();
-      _cityController.text = widget.addressData.city.toString();
+    if(widget.addressData!.id != null){
+      _flatNoController.text = widget.addressData!.streetAddress.toString();
+      _pinCodeController.text = widget.addressData!.pincode.toString();
+      _stateController.text = widget.addressData!.state.toString();
+      _cityController.text = widget.addressData!.city.toString();
     }else{
       _flatNoController.text = "";
       _pinCodeController.text = "";
@@ -53,8 +53,9 @@ class _AddressPageState extends State<AddressPage> {
     super.initState();
     _addressBloc = BlocProvider.of<AddressBloc>(context);
     loading;
-    setData();
-
+    if(widget.addressData!=null){
+      setData();
+    }
   }
 
   @override
@@ -360,7 +361,7 @@ class _AddressPageState extends State<AddressPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: AppButton(
                                 onPressed: () async {
-                                  if(widget.addressData.id != null){
+                                  if(widget.addressData!.id != null){
                                     if (_formKey.currentState!.validate()) {
                                       if (_flatNoController == null) {
                                         Fluttertoast.showToast(
@@ -378,7 +379,7 @@ class _AddressPageState extends State<AddressPage> {
                                       } else if (_formKey.currentState!
                                           .validate()) {
                                         _addressBloc!.add(EditAddress(
-                                          id: widget.addressData.id.toString(),
+                                          id: widget.addressData!.id.toString(),
                                           user_id: Application.customerLogin!.userId.toString(),
                                           streetAddress: _flatNoController.text,
                                           pinCode: _pinCodeController.text,

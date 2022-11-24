@@ -16,7 +16,8 @@ import '../../Widget/app_button.dart';
 
 class AddressPage extends StatefulWidget {
   AddressModel? addressData;
-  AddressPage({Key? key,this.addressData}) : super(key: key);
+  bool editAddress;
+  AddressPage({Key? key,this.addressData, required this.editAddress}) : super(key: key);
 
   @override
   _AddressPageState createState() => _AddressPageState();
@@ -361,7 +362,7 @@ class _AddressPageState extends State<AddressPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: AppButton(
                                 onPressed: () async {
-                                  if(widget.addressData!.id != null){
+                                  if(widget.editAddress == true){
                                     if (_formKey.currentState!.validate()) {
                                       if (_flatNoController == null) {
                                         Fluttertoast.showToast(
@@ -392,7 +393,9 @@ class _AddressPageState extends State<AddressPage> {
                                           msg: "Please fill the data");
                                     }
 
+
                                   }else{
+
                                     if (_formKey.currentState!.validate()) {
                                       if (_flatNoController == null) {
                                         Fluttertoast.showToast(

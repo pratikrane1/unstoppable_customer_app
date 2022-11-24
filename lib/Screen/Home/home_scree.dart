@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => CartPage()));
+                                                builder: (context) => CartPage(backIcon: true,)));
                                       },
                                       child: Icon(
                                         Icons.add_shopping_cart,
@@ -496,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CartPage()));
+                                        builder: (context) => CartPage(backIcon: true,)));
                               },
                               child: Icon(
                                 Icons.add_shopping_cart,

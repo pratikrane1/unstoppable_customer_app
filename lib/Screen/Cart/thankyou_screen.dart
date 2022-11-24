@@ -21,7 +21,7 @@ class _ThankYouPageState extends State<ThankYouPage>{
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Checkout",
+          "Thank You",
           style: TextStyle(
               fontSize: 18,
               fontFamily: 'SF-Pro-Display-Regular',
@@ -37,7 +37,7 @@ class _ThankYouPageState extends State<ThankYouPage>{
             },
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: ThemeColors.baseThemeColor,
             )),
       ),
       body: SingleChildScrollView(
@@ -49,38 +49,38 @@ class _ThankYouPageState extends State<ThankYouPage>{
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: ThemeColors.backgroundColor
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15.0,top: 10.0,bottom: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("It's ordered!",
-                        style: TextStyle(
-                          fontFamily: 'SF-Pro-Display-Regular',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500
-                        ),),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text("Order No. #12345",
-                          style: TextStyle(
-                              fontFamily: 'SF-Pro-Display-Medium',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500
-                          ),),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     decoration: BoxDecoration(
+              //       color: ThemeColors.backgroundColor
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(left: 15.0,top: 10.0,bottom: 10.0),
+              //       child: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         children: [
+              //           Text("It's ordered!",
+              //           style: TextStyle(
+              //             fontFamily: 'SF-Pro-Display-Regular',
+              //             fontSize: 18,
+              //             fontWeight: FontWeight.w500
+              //           ),),
+              //           SizedBox(
+              //             height: 4,
+              //           ),
+              //           Text("Order No. #12345",
+              //             style: TextStyle(
+              //                 fontFamily: 'SF-Pro-Display-Medium',
+              //                 fontSize: 14,
+              //                 fontWeight: FontWeight.w500
+              //             ),),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 15,
               ),
@@ -93,13 +93,13 @@ class _ThankYouPageState extends State<ThankYouPage>{
                       Text("You've successfully placed the order",
                       style: TextStyle(
                           fontFamily: 'SF-Pro-Display-Regular',
-                          fontSize: 18,
+                          fontSize: 22,
                           fontWeight: FontWeight.w500
                       ),),
                       SizedBox(
                         height: 8,
                       ),
-                      Text("You can check status of your order by using our delivery status feature. You will receive a order confirmation email with details of order and a link to track its process.",
+                      Text("You can check status of your order in My Orders page.",
                       style: TextStyle(
                         fontFamily: 'SF-Pro-Display-Medium'
                       ),),
@@ -117,9 +117,8 @@ class _ThankYouPageState extends State<ThankYouPage>{
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
-                              text: 'SHOW ALL MY ORDERED',
-                              // loading: login is LoginLoading,
-                              disableTouchWhenLoading: true,
+                              text: 'SHOW ALL MY ORDERS',
+                              loading: true,
                             )
                         ),
                       ),
@@ -127,25 +126,34 @@ class _ThankYouPageState extends State<ThankYouPage>{
                         child: Text("OR",
                           style: TextStyle(
                               fontFamily: 'SF-Pro-Display-Regular',
-                              fontSize: 18,
+                              fontSize: 15,
                               fontWeight: FontWeight.w400
                           ),),
                       ),
-                      Center(
-                        child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child:
-                            AppButton(
-                              onPressed: () async {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
-                              },
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                              text: 'BACK TO SHOP',
-                              // loading: login is LoginLoading,
-                              disableTouchWhenLoading: true,
-                            )
+                      InkWell(
+                        onTap: (){
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
+                        },
+                        child: Center(
+                          child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("BACK TO HOME",
+                                  style: TextStyle(
+                                      fontFamily: 'SF-Pro-Display-Regular',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400
+                                  ))
+                              // AppButton(
+                              //   onPressed: () async {
+                              //     Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
+                              //   },
+                              //   shape: const RoundedRectangleBorder(
+                              //       borderRadius:
+                              //       BorderRadius.all(Radius.circular(10))),
+                              //   text: 'BACK TO HOME',
+                              //   loading: true,
+                              // )
+                          ),
                         ),
                       ),
                     ],

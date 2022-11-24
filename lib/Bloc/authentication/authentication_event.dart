@@ -4,6 +4,7 @@
 
 
 import '../../Model/address_model.dart';
+import '../../Model/cart_model.dart';
 import '../../Model/customer_login.dart';
 
 abstract class AuthenticationEvent {}
@@ -21,6 +22,14 @@ class OnSaveAddress extends AuthenticationEvent {
   OnSaveAddress(this.address);
 
 }
+
+class OnSaveCart extends AuthenticationEvent {
+  CartListRepo cart;
+  OnSaveCart(this.cart);
+
+}
+
+
 
 
 

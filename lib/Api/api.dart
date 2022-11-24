@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Model/address_model.dart';
 import '../Model/banner_model.dart';
+import '../Model/cart_model.dart';
 import '../Model/category_list.dart';
 import '../Model/category_product_model.dart';
 import '../Model/contact_us_model.dart';
@@ -32,6 +33,12 @@ class Api {
   static const String ADD_ADDRESS = HOST_URL+"add_shipping_address";
   static const String DELETE_ADDRESS = HOST_URL+"delete_shipping_address";
   static const String EDIT_ADDRESS = HOST_URL+"edit_shipping_address";
+  static const String ADD_TO_CART = HOST_URL+"add_to_cart";
+  static const String GET_CART = HOST_URL+"my_cart";
+  static const String DELETE_CART = HOST_URL+"remove_to_cart";
+  static const String CHECKOUT = HOST_URL+"place_order";
+  static const String GENERATE_TOKEN="https://unstoppabletrade.in/Paytmtoken/";
+
 
 
   ///Login api
@@ -173,6 +180,59 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return AddAddressRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Add to Cart
+  static Future<dynamic> addToCart(params) async {
+    final response = await http.post(
+        Uri.parse(ADD_TO_CART),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CartRepo.fromJson(responseJson);
+    }
+  }
+
+
+  ///Fetch Cart Data
+  static Future<dynamic> fetchCart(params) async {
+    final response = await http.post(
+        Uri.parse(GET_CART),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CartListRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Delete Cart
+  static Future<dynamic> deleteCart(params) async {
+    final response = await http.post(
+        Uri.parse(DELETE_CART),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CartRepo.fromJson(responseJson);
+    }
+  }
+
+
+  static Future<dynamic> checkOut(params) async {
+    final response = await http.post(
+        Uri.parse(CHECKOUT),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CartRepo.fromJson(responseJson);
     }
   }
 

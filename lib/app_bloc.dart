@@ -5,6 +5,7 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 
 import 'Bloc/address/address_bloc.dart';
 import 'Bloc/authentication/authentication_bloc.dart';
+import 'Bloc/cart/cart_bloc.dart';
 import 'Bloc/contactUs/contactUs_bloc.dart';
 import 'Bloc/category/category_bloc.dart';
 import 'Bloc/home/home_bloc.dart';
@@ -26,6 +27,7 @@ class AppBloc {
   static final categoryBloc = CategoryBloc(categoryRepo: userRepository);
   static final homeBloc = HomeBloc(homeRepo: userRepository);
   static final addressBloc = AddressBloc(addressRepo: userRepository);
+  static final cartBloc = CartBloc(cartRepo: userRepository);
 
 
 
@@ -64,6 +66,9 @@ class AppBloc {
     BlocProvider<AddressBloc>(
       create: (context) => addressBloc,
     ),
+    BlocProvider<CartBloc>(
+      create: (context) => cartBloc,
+    ),
 
 
   ];
@@ -80,6 +85,7 @@ class AppBloc {
     changePassBloc.close();
     homeBloc.close();
     addressBloc.close();
+    cartBloc.close;
   }
 
   ///Singleton factory

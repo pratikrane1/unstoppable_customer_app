@@ -393,10 +393,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ),
                           InkWell(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CartPage()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => CartPage()));
                               },
                               child: Icon(
                                 Icons.add_shopping_cart,

@@ -5,10 +5,12 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_event.dart';
 
 import 'Bloc/address/address_bloc.dart';
 import 'Bloc/authentication/authentication_bloc.dart';
+import 'Bloc/cart/cart_bloc.dart';
 import 'Bloc/contactUs/contactUs_bloc.dart';
 import 'Bloc/category/category_bloc.dart';
 import 'Bloc/home/home_bloc.dart';
 import 'Bloc/login/login_bloc.dart';
+import 'Bloc/myOrders/myOrders_bloc.dart';
 import 'Bloc/profile/profile_bloc.dart';
 import 'Bloc/changePassword/changePassword_bloc.dart';
 import 'Bloc/theme/theme_bloc.dart';
@@ -26,8 +28,8 @@ class AppBloc {
   static final categoryBloc = CategoryBloc(categoryRepo: userRepository);
   static final homeBloc = HomeBloc(homeRepo: userRepository);
   static final addressBloc = AddressBloc(addressRepo: userRepository);
+  static final myOrderBloc = MyOrdersBloc(ordersRepo: userRepository);
   static final cartBloc = CartBloc(cartRepo: userRepository);
-  static final myOrdersBloc=MyOrdersBloc(ordersRepo:userRepository);
 
 
 
@@ -66,15 +68,12 @@ class AppBloc {
     BlocProvider<AddressBloc>(
       create: (context) => addressBloc,
     ),
+    BlocProvider<MyOrdersBloc>(
+      create: (context) => myOrderBloc,
+    ),
     BlocProvider<CartBloc>(
       create: (context) => cartBloc,
     ),
-    BlocProvider<MyOrdersBloc>(
-      create: (context) => myOrdersBloc,
-    ),
-
-
-
   ];
 
   static void dispose() {
@@ -89,6 +88,8 @@ class AppBloc {
     changePassBloc.close();
     homeBloc.close();
     addressBloc.close();
+    myOrderBloc.close();
+    cartBloc.close();
   }
 
   ///Singleton factory

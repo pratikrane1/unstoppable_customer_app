@@ -35,10 +35,9 @@ class Productfail extends MyOrdersState {
 }
 //for track order
 class TrackOrdersListSuccess extends MyOrdersState {
-  List<TrackData>? trackOrderList;
-  String? currentstatus="";
+  List<TrackData> trackOrderList;
   String? message;
-  TrackOrdersListSuccess({this.trackOrderList,this.currentstatus,this.message});
+  TrackOrdersListSuccess({required this.trackOrderList,this.message});
 }
 
 
@@ -53,7 +52,9 @@ class CancelOrderSuccess extends MyOrdersState {
   CancelOrderSuccess({this.message});
 }
 class CancelOrderFail extends MyOrdersState {
-  CancelOrderFail();
+  String? message;
+
+  CancelOrderFail({this.message});
 }
 
 class MyOrdersDetailLoading extends MyOrdersState {}

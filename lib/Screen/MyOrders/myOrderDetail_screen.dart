@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,12 @@ import '../../Bloc/myOrders/myOrders_bloc.dart';
 import '../../Bloc/myOrders/myOrders_event.dart';
 import '../../Bloc/myOrders/myOrders_state.dart';
 import '../../Constant/theme_colors.dart';
+import '../../Model/model_trackOrder.dart';
 import '../../Model/my_order.dart';
 import '../../Model/product_model.dart';
 import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
+import '../../Widget/tracking_stepper_widget.dart';
 import '../Cart/cart.dart';
 import '../Home/product_details.dart';
 import '../Login/sign_in.dart';
@@ -27,9 +31,10 @@ class MyOrdersDetail extends StatefulWidget {
 }
 
 class _MyOrdersDetailState extends State<MyOrdersDetail> {
-
+  var mainHeight, mainWidth;
   MyOrdersBloc? _myOrdersBloc;
   List<Orders>? myOrderList = [];
+  List<TrackData>? trackOrderList;
   bool isconnectedToInternet = false;
   bool flagNoData = false;
   List<Orders> searchresult = [];
@@ -50,12 +55,38 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
     _myOrdersBloc = BlocProvider.of<MyOrdersBloc>(context);
     _myOrdersBloc!.add(OnLoadingOrdersList(
         userId: Application.customerLogin!.userId.toString()));
-    // _myOrdersBloc!.add(GetProduct(
-    //     sscatId: widget.myOrderList.products[].sscatId.toString()));
-    // print(widget.myOrderList.products?.prodName.toString());
+    _myOrdersBloc!.add(GetProduct(
+        sscatId: widget.myOrderList.products![0].sscatId.toString()));
+    _myOrdersBloc!.add(OnLoadingTrackOrderList(
+      orderId: widget.myOrderList.orderId.toString()
+    ));
+    print(widget.myOrderList);
+
   }
+
+  Future<Null> _onRefresh() {
+    setState(() {
+      _myOrdersBloc = BlocProvider.of<MyOrdersBloc>(context);
+      _myOrdersBloc!.add(OnLoadingOrdersList(
+          userId: Application.customerLogin!.userId.toString()));
+      _myOrdersBloc!.add(GetProduct(
+          sscatId: widget.myOrderList.products![0].sscatId.toString()));
+      _myOrdersBloc!.add(OnLoadingTrackOrderList(
+          orderId: widget.myOrderList.orderId.toString()
+      ));
+    });
+    Completer<Null> completer = new Completer<Null>();
+    Timer(new Duration(seconds: 3), () {
+      completer.complete();
+    });
+
+    return completer.future;
+  }
+
   @override
     Widget build(BuildContext context) {
+    mainHeight = MediaQuery.of(context).size.height;
+    mainWidth = MediaQuery.of(context).size.width;
 
       Widget buildOrdersList(BuildContext context, List<ProductModel> productList,) {
         if (productList.length <= 0) {
@@ -182,10 +213,10 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: (){
-               // Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetail(productData: productData,)));
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetail(productData: productList[index],)));
               },
               child: Container(
-                height: 500,
+                height: MediaQuery.of(context).size.height,
                 padding: new EdgeInsets.all(10.0),
                 child: Card(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -255,7 +286,7 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                productList[index].prodImg.toString(),
+                                productList[index].prodName.toString(),
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     color: ThemeColors.textColor,
@@ -287,17 +318,17 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                                         fontFamily: 'SF-Pro-Display-Regular',
                                         color: ThemeColors.textFieldHintColor),
                                   ),
-                                  InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => CartPage()));
-                                      },
-                                      child: Icon(
-                                        Icons.add_shopping_cart,
-                                        color: ThemeColors.baseThemeColor,
-                                      ))
+                                  // InkWell(
+                                  //     onTap: () {
+                                  //       // Navigator.push(
+                                  //       //     context,
+                                  //       //     MaterialPageRoute(
+                                  //       //         builder: (context) => CartPage()));
+                                  //     },
+                                  //     child: Icon(
+                                  //       Icons.add_shopping_cart,
+                                  //       color: ThemeColors.baseThemeColor,
+                                  //     ))
                                 ],
                               ),
                             ],
@@ -554,10 +585,10 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                               ),
                               InkWell(
                                   onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CartPage()));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => CartPage()));
                                   },
                                   child: Icon(
                                     Icons.add_shopping_cart,
@@ -742,127 +773,355 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
           ),
         ),
         body:
-        BlocBuilder<MyOrdersBloc, MyOrdersState>(builder: (context, state) {
-        if (state is MyOrdersDetailSuccess) {
-          myOrderList = state.orderList!;
-          data = state.data;
-          // flagNoData = false;
-        }
-        if (state is MyOrdersDetailLoading) {
-          flagNoData = false;
-        }
-        if (state is MyOrdersDetailLoadFail) {
-          flagNoData = true;
-        }
-        if (state is ProductLoading) {
-          flagNoDataAvailable = false;
-          // profileData = [];
-          // setData(companyData!);
-        }
-        if (state is ProductSuccess) {
-          productList = state.productData;
-          // setData(companyData!);
-        }
-        if (state is Productfail) {
-          flagNoDataAvailable = true;
-          // profileData = [];
-          // setData(companyData!);
-        }
-        if(state is CancelOrderSuccess){
-          Fluttertoast.showToast(msg: "Cancel Order successfully");
-        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 1)));
-           Navigator.pop(context);
-        }
-       return SingleChildScrollView(
-          child: Container(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  MyOrderCard(context, widget.myOrderList,  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                        AppButton(
-                          onPressed: () async {},
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          text: 'Download Invoice',
-                          // loading: login is LoginLoading,
-                          disableTouchWhenLoading: true,
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Center(
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                        AppButton(
-                          onPressed: () async {
-                            _myOrdersBloc!.add(CancelOrder(userId: Application.customerLogin!.userId.toString(),orderId:""));
-                          },
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10))),
-                          text: 'Cancel Order',
-                          // loading: login is LoginLoading,
-                          disableTouchWhenLoading: true,
-                        )
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                 // OrderStatusCard(context),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    // decoration: new BoxDecoration(
-                    //   borderRadius: new BorderRadius.circular(16.0),
-                    //   color: ThemeColors.orderDetailBGColor,
-                    // ),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text("You might be also Interested in",
-                            style: TextStyle(
-                              fontFamily: 'SF-Pro-Display-Medium',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500
-                            ),),),
+        RefreshIndicator(
+          onRefresh: _onRefresh,
+          strokeWidth: 3,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: BlocBuilder<MyOrdersBloc, MyOrdersState>(builder: (context, state) {
+            return BlocListener<MyOrdersBloc, MyOrdersState>(
+                listener: (context, state) {
+                  if(state is ProductSuccess){
+                    productList = state.productData;
+                  }
+                  if(state is Productfail){
+                    Fluttertoast.showToast(msg: state.message.toString());
+                  }
+                  if(state is TrackOrdersListSuccess){
+                    trackOrderList = state.trackOrderList;
+                  }
+                  if(state is TrackOrdersListLoadFail){
+                    Fluttertoast.showToast(msg: state.message.toString());
+                  }
+                  if(state is CancelOrderSuccess){
+                    Fluttertoast.showToast(msg: state.message.toString());
+                    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 1)));
+                    Navigator.pop(context);
+                  }
+                  if(state is CancelOrderFail){
+                    Fluttertoast.showToast(msg: state.message.toString());
+                  }
+                },
+                child: ListView(
+                  shrinkWrap: true,
+                 children: [
+                   Container(
+                   child: Padding(
+                     padding: EdgeInsets.all(20),
+                     child: Column(
+                       children: [
+                         MyOrderCard(context, widget.myOrderList,  ),
+                         SizedBox(
+                           height: 10,
+                         ),
+                         trackOrderList==null?Container():
+                         SizedBox(
+                           height: MediaQuery.of(context).size.height/2.2,
+                           child: Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Text("Tracking Status",
+                                 style: TextStyle(
+                                     fontFamily: 'SF-Pro-Display-Medium',
+                                     fontSize: 15,
+                                     fontWeight: FontWeight.w500
+                                 ),),
+                               Stepper(
+                                 physics: ClampingScrollPhysics(),
+                                 controlsBuilder: (BuildContext context,
+                                     ControlsDetails controls) {
+                                   return SizedBox(height: 0.0);
+                                 },
+                                 steps: getTrackingSteps(
+                                   context,
+                                   trackOrderList![0].orderStatus,
+                                 ),
+                                 currentStep: statusValue,
+                               ),
+                             ],
+                           ),
+                           // child: TrackingStepperWidget(status: "delivered"),
+                           // child: OrderStatusCard(context,trackOrderList)),
+                         ),
+                         widget.myOrderList.products==null?Container():
+                         SizedBox(
+                           height: 200,
+                           child: ListView(
+                             shrinkWrap: true,
+                             children: [
+                               Text("Order Summary",
+                                 style: TextStyle(
+                                     fontFamily: 'SF-Pro-Display-Medium',
+                                     fontSize: 15,
+                                     fontWeight: FontWeight.w500
+                                 ),),
+                               Padding(
+                                   padding: const EdgeInsets.all(2.0),
+                                   child: ListView.builder(
+                                     physics: NeverScrollableScrollPhysics(),
+                                     shrinkWrap: true,
+                                     scrollDirection: Axis.vertical,
+                                     itemCount: widget.myOrderList.products!.length,
+                                     padding: EdgeInsets.only(top: 10, bottom: 15),
+                                     itemBuilder: (BuildContext context, int index) {
+                                       return
+                                         orderList(context, widget.myOrderList.products![index]);
 
-                        SizedBox(
-                          height: 20,
-                        ),
+                                     },
+
+                                   )
+                               ),
+                             ],
+                           ),
+                         ),
+
+                         // Center(
+                         //   child: Padding(
+                         //       padding: const EdgeInsets.all(8.0),
+                         //       child:
+                         //       AppButton(
+                         //         onPressed: () async {},
+                         //         shape: const RoundedRectangleBorder(
+                         //             borderRadius:
+                         //             BorderRadius.all(Radius.circular(10))),
+                         //         text: 'Download Invoice',
+                         //         // loading: login is LoginLoading,
+                         //         disableTouchWhenLoading: true,
+                         //       )
+                         //   ),
+                         // ),
+                         SizedBox(height: 10,),
+
+                         // trackOrderList![0].orderStatus == null? Container():
+                         Center(
+                           child: Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child:
+                               AppButton(
+                                 onPressed: () async {
+                                   _myOrdersBloc!.add(CancelOrder(userId: Application.customerLogin!.userId.toString(),orderId: widget.myOrderList.orderId.toString()));
+                                 },
+                                 shape: const RoundedRectangleBorder(
+                                     borderRadius:
+                                     BorderRadius.all(Radius.circular(10))),
+                                 text: 'Cancel Order',
+                                 loading: true,
+                                 // disableTouchWhenLoading: true,
+                               )
+                           ),
+                         ),
+                         SizedBox(
+                           height: 10,
+                         ),
+
+                         // SizedBox(
+                         //   height: 10,
+                         // ),
+                         Container(
+                           // decoration: new BoxDecoration(
+                           //   borderRadius: new BorderRadius.circular(16.0),
+                           //   color: ThemeColors.orderDetailBGColor,
+                           // ),
+                           child: Column(
+                             children: [
+                               Align(
+                                 alignment: Alignment.topLeft,
+                                 child: Text("You might be also Interested in",
+                                   style: TextStyle(
+                                     fontFamily: 'SF-Pro-Display-Medium',
+                                       fontSize: 18,
+                                       fontWeight: FontWeight.w500
+                                   ),),),
+
+                               SizedBox(
+                                 height: 20,
+                               ),
 
 
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height / 2.7,
+                               SizedBox(
+                                 height: MediaQuery.of(context).size.height / 2.7,
 
-                          child: buildOrdersList(context, productList!, ),
-                        )
-                      ],
-                    ),
+                                 child: buildOrdersList(context, productList!, ),
+                               )
+                             ],
+                           ),
+                         ),
+
+
+                       ],
+                     ),
+                   ),
+                 ),]
+               )
+
+            );
+
+
+
+          }),
+        ));
+    }
+
+  int statusValue = 0;
+
+  List<Step> getTrackingSteps(BuildContext context, statusName) {
+    List<Step> _orderStatusSteps = [];
+    _orderStatusSteps.add(Step(
+      state: StepState.complete,
+      title: Text(
+        'Processing ',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      content: SizedBox(
+          width: double.infinity,
+          child: Text(
+            '',
+            style: TextStyle(
+                color: Colors.green, fontSize: 16, fontWeight: FontWeight.bold),
+          )),
+      isActive: statusName! == 'Processing',
+    ));
+    _orderStatusSteps.add(Step(
+      state: StepState.complete,
+      title: Text(
+        'Shipping',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      content: SizedBox(
+          width: double.infinity,
+          child: Text(
+            '',
+            style: TextStyle(
+                color: Colors.green, fontSize: 16, fontWeight: FontWeight.bold),
+          )),
+      isActive: statusName == 'Shipping',
+    ));
+    _orderStatusSteps.add(Step(
+      state: StepState.complete,
+      title: Text(
+        'Delivered',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      content: SizedBox(
+          width: double.infinity,
+          child: Text(
+            '',
+            style: TextStyle(
+                color: Colors.green, fontSize: 16, fontWeight: FontWeight.bold),
+          )),
+      isActive: statusName== 'Delivered',
+    ));
+    _orderStatusSteps.add(Step(
+      state: StepState.complete,
+      title: Text(
+        'Cancelled',
+        style: Theme.of(context).textTheme.subtitle1,
+      ),
+      content: SizedBox(
+          width: double.infinity,
+          child: Text(
+            '',
+            style: TextStyle(
+                color: Colors.green, fontSize: 16, fontWeight: FontWeight.bold),
+          )),
+      isActive: statusName== 'Canceled',
+    ));
+    return _orderStatusSteps;
+  }
+
+
+  Widget orderList(BuildContext context, Products data){
+    return Container(
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(10.0),
+      //   border: Border.all(width: 1, color: ThemeColors.buttonColor),
+      //   // color: Colors.black12,
+      // ),
+      child:
+      ListTile(
+        leading: CachedNetworkImage(
+          imageUrl: "${data.imgPath}",
+          imageBuilder: (context, imageProvider) =>
+              Container(
+                height: mainWidth / 6,
+                width: mainWidth / 6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.fill,
                   ),
+                ),
+              ),
+          placeholder: (context, url) => Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[400]!,
+            child: Container(
+              height: mainWidth / 5,
+              width: mainWidth / 5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
 
-
-                ],
               ),
             ),
           ),
-        );
+          errorWidget: (context, url, error) =>
+              Icon(Icons.error),
+        ),
+        title: Text(
+          data.prodName.toString(),
+          style: TextStyle(
+            fontFamily: "SF-Pro-Display-Bold",
+            fontWeight: FontWeight.w500,
+            fontSize: 13.0,
+          ),
+        ),
 
-        }));
+        subtitle: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "\u{20B9} ${data.price}",
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: ThemeColors.greyTextColor
+                      .withOpacity(0.7),
+                  fontSize: 11.0,
+                  fontFamily: 'SF-Pro-Display-Regular'),
+            ),
+            Text(
+              "Quantity: ${data.quantity}",
+              style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: ThemeColors.greyTextColor
+                      .withOpacity(0.7),
+                  fontSize: 11.0,
+                  fontFamily: 'SF-Pro-Display-Regular'),
+            ),
+          ],
+        ),
+
+        // trailing: Container(
+        //   // width: mainWidth / 3,
+        //   child: IconButton(
+        //     icon: Icon(
+        //       Icons.close,
+        //       color: Colors.grey,
+        //     ),
+        //     onPressed: () {
+        //       // _cartBloc!.add(DeleteCart(
+        //       //     user_id: Application.customerLogin!.userId.toString(),
+        //       //     prod_id: cartList[index].prodId.toString()));
+        //     },
+        //   ),
+        //
+        //
+        // ),
+
+        //trailing:Add_to_cart_column(),
+      ),
+    );
     }
-
    
 // MyOrderCard
   Widget MyOrderCard(BuildContext context, Orders myOrderList) {
@@ -875,17 +1134,19 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Order Id  - ",
+                Text("Order Id  - ${widget.myOrderList.orderId}",
                   style: TextStyle(
                       fontFamily: 'Poppins-Medium',
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: ThemeColors.orderIdTextColor
                   ),),
-                Text("",
+                Text(widget.myOrderList.orderDate.toString(),
                   style: TextStyle(
                       fontFamily: 'Poppins-Medium',
                       fontSize: 14,
@@ -896,129 +1157,40 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
               ],
             ),
             SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Container(
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(10.0),
-                //   border: Border.all(width: 1, color: ThemeColors.buttonColor),
-                //   // color: Colors.black12,
-                // ),
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      height: 100,
-                      width: 100,
-
-                      filterQuality: FilterQuality.medium,
-                      // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                      // imageUrl: "https://picsum.photos/250?image=9",
-                      imageUrl:"myOrderList.imgPath.toString()",
-                      placeholder: (context, url) {
-                        return Shimmer.fromColors(
-                          baseColor: Theme.of(context).hoverColor,
-                          highlightColor: Theme.of(context).highlightColor,
-                          enabled: true,
-                          child: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                        );
-                      },
-                      imageBuilder: (context, imageProvider) {
-                        return Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        );
-                      },
-                      errorWidget: (context, url, error) {
-                        return Shimmer.fromColors(
-                          baseColor: Theme.of(context).hoverColor,
-                          highlightColor: Theme.of(context).highlightColor,
-                          enabled: true,
-                          child: Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Icon(Icons.error),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "",
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13.0,
-                                fontFamily: 'Poppins-SemiBold'
-                              //color: Theme.of(context).accentColor
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width/2.5,
-                          child: Text(
-                            "",
-                            style: TextStyle(
-                              fontFamily: 'Poppins-Regular',
-                              fontWeight: FontWeight.w500,
-                              color: ThemeColors.greyTextColor.withOpacity(0.7),
-                              fontSize: 10.0,
-                            ),
-                            maxLines: 3,
-
-                          ),
-                        ),
-                        SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "\u{20B9}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22.0,
-                              fontFamily: 'SF-Pro-Display-Bold'
-                          ),
-                        ),
-
-
-
-
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              height: 10,
             ),
 
+            Text("Payment Type: ${widget.myOrderList.paymentMethod}",
+                style: TextStyle(
+                    fontFamily: 'Poppins-Medium',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ThemeColors.orderIdTextColor
+                )),
+
+            SizedBox(
+              height: 10,
+            ),
+
+            Text("Payment Status: ${widget.myOrderList.paymentStatus}",
+                style: TextStyle(
+                    fontFamily: 'Poppins-Medium',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ThemeColors.orderIdTextColor
+                )),
+
+            SizedBox(
+              height: 10,
+            ),
+
+            Text("Total amount: ${widget.myOrderList.subTotal}",
+                style: TextStyle(
+                    fontFamily: 'Poppins-Medium',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: ThemeColors.orderIdTextColor
+                )),
 
 
           ],
@@ -1027,107 +1199,6 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
     );
   }
 
-  Widget OrderStatusCard(BuildContext context)
-  {
-    int _currentStep = 0;
-    StepperType stepperType = StepperType.vertical;
-    return  Container(
-      child: Column(
-        children: [
-          Expanded(
-            child: Stepper(
-              type: stepperType,
-              physics: ScrollPhysics(),
-              currentStep: _currentStep,
-              onStepTapped: (step) => tapped(step),
-              onStepContinue:  continued,
-              onStepCancel: cancel,
-              steps: <Step>[
-                Step(
-                  title: new Text('Ordered'),
-                  content: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(labelText: '23-09-2022'),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'Description'),
-                      ),
-                    ],
-                  ),
-                  isActive: _currentStep >= 0,
-                  state: _currentStep >= 0 ?
-                  StepState.complete : StepState.disabled,
-                ),
-                Step(
-                  title: new Text('Packed'),
-                  content: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(labelText: '23-09-2022'),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'Postcode'),
-                      ),
-                    ],
-                  ),
-                  isActive: _currentStep >= 0,
-                  state: _currentStep >= 1 ?
-                  StepState.complete : StepState.disabled,
-                ),
-                Step(
-                  title: new Text('Shipped'),
-                  content: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(labelText: 'Mobile Number'),
-                      ),
-                    ],
-                  ),
-                  isActive:_currentStep >= 0,
-                  state: _currentStep >= 2 ?
-                  StepState.complete : StepState.disabled,
-                ),
-                Step(
-                  title: new Text('Delivered'),
-                  content: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(labelText: '23-09-2022'),
-                      ),
-                    ],
-                  ),
-                  isActive:_currentStep >= 0,
-                  state: _currentStep >= 2 ?
-                  StepState.complete : StepState.disabled,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-  }
-//
-  switchStepsType() {
-    setState(() => stepperType == StepperType.vertical
-        ? stepperType = StepperType.horizontal
-        : stepperType = StepperType.vertical);
-  }
-
-  tapped(int step){
-    setState(() => _currentStep = step);
-  }
-
-  continued(){
-    _currentStep < 2 ?
-    setState(() => _currentStep += 1): null;
-  }
-  cancel(){
-    _currentStep > 0 ?
-    setState(() => _currentStep -= 1) : null;
-  }
 }
 
 

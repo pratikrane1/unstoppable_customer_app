@@ -60,7 +60,7 @@ class UserRepository {
   ///Get Product
   Future<dynamic> fetchOrderProduct({ String? sscatId}) async {
     final params = {"sscatId":sscatId};
-    return await Api.getHomeProduct(params);
+    return await Api.getCategoryProduct(params);
   }
 
   //track order

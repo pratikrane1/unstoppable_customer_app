@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Api/api.dart';
+import '../../Model/category_product_model.dart';
 import '../../Model/model_trackOrder.dart';
 import '../../Model/my_order.dart';
 import '../../Model/product_model.dart';
@@ -36,9 +37,10 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent,MyOrdersState> {
       final listorder = refactorProduct.map((item) {
         return Orders.fromJson(item);
       }).toList();
-      // final Iterable productList = listorder[""]?? [];
+      print(listorder);
+      // final Iterable productList = listorder[''].products ?? [];
       // final listProduct = refactorProduct.map((item) {
-      //   return Orders.fromJson(item);
+      //   return Products.fromJson(item);
       // }).toList();
       // print(listProduct);
       if (refactorProduct.length > 0) {
@@ -65,8 +67,10 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent,MyOrdersState> {
 
       try {
         final resp = json.decode(response.body);
-        if (resp.status == true) {
-          yield CancelOrderSuccess(message: resp.msg.toString());
+        if (resp["status"] == true) {
+          yield CancelOrderSuccess(message: resp["msg"]);
+        }else{
+          CancelOrderFail(message: resp["msg"]);
         }
       } catch (e) {
         print(e);
@@ -110,14 +114,13 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent,MyOrdersState> {
       print(response);
 
       final Iterable refactortrackorder = response.result ?? [];
-      String currentStatus = response.result.retRplc;
+      // String currentStatus = response.result.retRplc;
       final trackorders = refactortrackorder.map((item) {
         return TrackData.fromJson(item);
       }).toList();
       if (refactortrackorder.length > 0) {
         yield TrackOrdersListSuccess(message: response.msg.toString(),
-            trackOrderList: trackorders,
-            currentstatus: currentStatus);
+            trackOrderList: trackorders,);
       } else {
         yield TrackOrdersListLoadFail(message: response.msg.toString());
       }
@@ -131,9 +134,14 @@ class MyOrdersBloc extends Bloc<MyOrdersEvent,MyOrdersState> {
       yield ProductLoading();
 
       ///Fetch API via repository
-      final ProductRepo response = await ordersRepo!
-          .fetchOrderProduct(
-        sscatId: event.sscatId,
+      // final ProductRepo response = await ordersRepo!
+      //     .fetchOrderProduct(
+      //   sscatId: event.sscatId,
+      // );
+
+      final CategoryProductRepo response = await ordersRepo!
+          .fetchProductCategory(
+          ssCatId: event.sscatId
       );
 
       print(response);

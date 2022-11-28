@@ -23,6 +23,32 @@ import 'package:http/http.dart';
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc({this.categoryRepo}) : super(InitialCategoryListState());
   final UserRepository? categoryRepo;
+  int startFrom = 1;
+
+  int perPage = 12;
+
+  void loadPosts() {
+    if (state is CategoryListLoading) return;
+
+    final currentState = state;
+
+    var oldCategoryList = <CategoryModel>[];
+    if (currentState is CategoryListLoaded) {
+      oldCategoryList = currentState.CategoryList!;
+    }
+
+    emit(CategoryListLoading(oldCategoryList, isFirstFetch: startFrom == 1));
+
+    categoryRepo?.fetchCategorypagelist(startFrom).then((newCategorys) {
+      startFrom++;
+
+      final Categorys = (state as CategoryListLoading).CategoryList;
+      Categorys?.addAll(newCategorys);
+
+      emit(CategoryListLoaded(Categorys));
+    });
+  }
+
 
 
   @override

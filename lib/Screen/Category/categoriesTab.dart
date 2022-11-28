@@ -44,7 +44,13 @@ class _CategoriesTabState extends State<CategoriesTab> {
   bool loading = true;
   ScrollController scrollController = ScrollController();
 
+  bool _isSearching=false;
 
+  // 1
+  final _pagingController = PagingController<int, dynamic>(
+    // 2
+    firstPageKey: 1,
+  );
 
   void initState() {
     // TODO: implement initState

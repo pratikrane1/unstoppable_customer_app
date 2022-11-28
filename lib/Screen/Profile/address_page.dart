@@ -167,7 +167,7 @@ class _AddressState extends State<Address> {
                                                       });
                                                       AppBloc.authBloc.add(OnSaveAddress(addressData[index]));
 
-                                                      Navigator.pop(context);
+                                                      Navigator.of(context).pop();
                                                     },
                                                   ),
                                                 ],

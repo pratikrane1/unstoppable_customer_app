@@ -133,9 +133,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    mainHeight = MediaQuery.of(context).size.height;
-    mainWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -143,7 +140,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
           style: TextStyle(
               fontSize: 18,
               fontFamily: 'SF-Pro-Display-Regular',
-              color: ThemeColors.whiteTextColor),
+              color: ThemeColors.whiteTextColor
+          ),
         ),
         backgroundColor: ThemeColors.baseThemeColor,
         centerTitle: true,
@@ -742,4 +740,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
           ],
         ));
   }
+}
+
 }

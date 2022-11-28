@@ -393,9 +393,7 @@ class _AddressPageState extends State<AddressPage> {
                                           msg: "Please fill the data");
                                     }
 
-
                                   }else{
-
                                     if (_formKey.currentState!.validate()) {
                                       if (_flatNoController == null) {
                                         Fluttertoast.showToast(

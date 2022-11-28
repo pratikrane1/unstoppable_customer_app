@@ -8,6 +8,8 @@ import '../Model/category_list.dart';
 import '../Model/category_product_model.dart';
 import '../Model/contact_us_model.dart';
 import '../Model/customer_login.dart';
+import '../Model/model_trackOrder.dart';
+import '../Model/my_order.dart';
 import '../Model/product_model.dart';
 import '../Model/user_profile_model.dart';
 
@@ -38,6 +40,11 @@ class Api {
   static const String DELETE_CART = HOST_URL+"remove_to_cart";
   static const String CHECKOUT = HOST_URL+"place_order";
   static const String GENERATE_TOKEN="https://unstoppabletrade.in/Paytmtoken/";
+
+
+  static const String GET_MYORDER=HOST_URL+"my_orders";
+  static const String GET_TRACK_ORDER=HOST_URL+"order_status";
+  static const String CANCEL_MYORDER=HOST_URL+"cancel_order";
 
 
 
@@ -115,6 +122,19 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return ProductRepo.fromJson(responseJson);
+    }
+  }
+
+  //track order
+  //fetch myorders list
+  static Future<dynamic> getTrackOrderList(params) async {
+    final response = await http.post(
+      Uri.parse(GET_TRACK_ORDER),
+      body: params,
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      return TrackOrderResp.fromJson(responseJson);
     }
   }
 
@@ -233,6 +253,32 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return CartRepo.fromJson(responseJson);
+    }
+  }
+
+
+  ///Category api
+  static Future<dynamic> fetchCategorypage(params) async {
+    final response = await http.post(
+        Uri.parse(CATEGORIES),
+        body: params
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return CategoryRepo.fromJson(responseJson);
+    }
+  }
+
+  //fetch myorders list
+  static Future<dynamic> getOrdersList(params) async {
+    final response = await http.post(
+      Uri.parse(GET_MYORDER),
+      body: params,
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      return MyOrdersResp.fromJson(responseJson);
     }
   }
 

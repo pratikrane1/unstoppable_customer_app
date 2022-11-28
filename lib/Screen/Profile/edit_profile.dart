@@ -555,7 +555,7 @@ class _EditProfileState extends State<EditProfile> {
                                         shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10))),
-                                        text: 'Update',
+                                        text: 'Submit',
                                         loading: loading,
                                       )),
                                 ));

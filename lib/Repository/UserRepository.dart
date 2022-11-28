@@ -38,7 +38,18 @@ class UserRepository {
     return await Api.contactUs(params);
   }
 
-
+  //fetch myOrders
+  Future<dynamic> fetchMyOrdersList({String? userId}) async
+  {
+    final params = {"user_id":userId};
+    return await Api.getOrdersList(params);
+  }
+  //fetch myOrders
+  Future<dynamic> fetchOrdersDetail({String? orderId}) async
+  {
+    final params = {"order_id":orderId};
+    return await Api.getOrdersList(params);
+  }
 
   ///Get Product
   Future<dynamic> fetchHomeProduct({String? limit}) async {
@@ -46,6 +57,18 @@ class UserRepository {
     return await Api.getHomeProduct(params);
   }
 
+  ///Get Product
+  Future<dynamic> fetchOrderProduct({ String? sscatId}) async {
+    final params = {"sscatId":sscatId};
+    return await Api.getHomeProduct(params);
+  }
+
+  //track order
+  Future<dynamic> fetchTrackOrdersList({String? orderId}) async
+  {
+    final params = {"order_id":orderId};
+    return await Api.getTrackOrderList(params);
+  }
   ///Get Banner
   Future<dynamic> fetchHomeBanner() async {
     return await Api.getHomeBanner();
@@ -78,7 +101,7 @@ class UserRepository {
     return await Api.editAddress(params);
   }
 
-///Delete address
+
   Future<dynamic> deleteAddress({String? user_id, String? id}) async {
     final params = {
       "user_id":user_id,
@@ -135,6 +158,11 @@ class UserRepository {
   }
 
 
+  Future<dynamic> fetchCategorypagelist(int? startFrom, {String? perPage}) async {
+    final params = {"per_page":perPage,
+      "start_from":startFrom};
+    return await Api.fetchCategorypage(params);
+  }
   // //save image
   // Future<dynamic> saveImage(String image) async {
   //   return await UtilPreferences.setString(

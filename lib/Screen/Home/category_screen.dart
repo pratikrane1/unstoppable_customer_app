@@ -396,7 +396,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CartPage(backIcon: true,)));
+                                        builder: (context) => CartPage()));
                               },
                               child: Icon(
                                 Icons.add_shopping_cart,

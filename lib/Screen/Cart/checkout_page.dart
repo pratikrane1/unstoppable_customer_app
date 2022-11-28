@@ -162,216 +162,218 @@ class _CheckOutPageState extends State<CheckOutPage> {
         onRefresh: _onRefresh,
         strokeWidth: 3,
         triggerMode: RefreshIndicatorTriggerMode.anywhere,
-        child: SingleChildScrollView(
-          // physics: const AlwaysScrollableScrollPhysics(),
-          child:  Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 10),
-                    child: Text(
-                      "Delivery Address",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'SF-Pro-Display-Regular',
-                          fontWeight: FontWeight.w500),
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, left: 10),
+                      child: Text(
+                        "Delivery Address",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'SF-Pro-Display-Regular',
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
-                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Application.address == null
-                                ? Container()
-                                : Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Icon(Icons.maps_home_work_outlined),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Application.address!.id != null
-                                          ? Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${Application.address!.streetAddress}",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'SF-Pro-Display-Regular',
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                                Text(
-                                                    "${Application.address!.city},${Application.address!.state},${Application.address!.pincode}"),
-                                              ],
-                                            )
-                                          : Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily:
-                                                          'SF-Pro-Display-Regular',
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                                Text(""),
-                                              ],
-                                            )
-                                    ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Application.address == null
+                                  ? Container()
+                                  : Row(
+                                children: [
+                                  SizedBox(
+                                    width: 15,
                                   ),
-                            Center(
-                              child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: AppButton(
-                                    onPressed: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Address()));
+                                  Icon(Icons.maps_home_work_outlined),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Application.address!.id != null
+                                      ? Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${Application.address!.streetAddress}",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily:
+                                            'SF-Pro-Display-Regular',
+                                            fontWeight:
+                                            FontWeight.w500),
+                                      ),
+                                      Text(
+                                          "${Application.address!.city},${Application.address!.state},${Application.address!.pincode}"),
+                                    ],
+                                  )
+                                      : Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily:
+                                            'SF-Pro-Display-Regular',
+                                            fontWeight:
+                                            FontWeight.w500),
+                                      ),
+                                      Text(""),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Center(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: AppButton(
+                                      onPressed: () async {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Address()));
+                                      },
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      text: Application.address == null
+                                          ? 'Choose Address'
+                                          : 'Edit Address',
+                                      loading: true,
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Payment Type",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'SF-Pro-Display-Regular',
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // _atomaticManualOther(),
+                                  // _semiatomaticMultiporpose(),
+                                  Radio(
+                                    value: 1,
+                                    groupValue: typeId,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioBtnType = 'COD';
+                                        typeId = 1;
+                                      });
                                     },
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    text: Application.address == null
-                                        ? 'Choose Address'
-                                        : 'Edit Address',
-                                    loading: true,
-                                  )),
-                            ),
-                          ],
+                                  ),
+                                  Text(
+                                    'Cash on Delivery (COD)',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'SF-Pro-Display-Regular',
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Radio(
+                                    value: 2,
+                                    groupValue: typeId,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        radioBtnType = 'PayTM';
+                                        typeId = 2;
+                                      });
+                                    },
+                                  ),
+                                  Image.asset(
+                                    "assets/images/paytm-icon.png",
+                                    height: 70,
+                                    width: 50,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
 
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Payment Type",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'SF-Pro-Display-Regular',
-                          fontWeight: FontWeight.w500),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                // _atomaticManualOther(),
-                                // _semiatomaticMultiporpose(),
-                                Radio(
-                                  value: 1,
-                                  groupValue: typeId,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      radioBtnType = 'COD';
-                                      typeId = 1;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  'Cash on Delivery (COD)',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'SF-Pro-Display-Regular',
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Radio(
-                                  value: 2,
-                                  groupValue: typeId,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      radioBtnType = 'PayTM';
-                                      typeId = 2;
-                                    });
-                                  },
-                                ),
-                                Image.asset(
-                                  "assets/images/paytm-icon.png",
-                                  height: 70,
-                                  width: 50,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        "Order Summary",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'SF-Pro-Display-Regular',
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
-                  ),
 
-                  SizedBox(
-                    height: 20,
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Order Summary",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'SF-Pro-Display-Regular',
-                          fontWeight: FontWeight.w500),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 4.2,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          CartList(context, widget.cartList),
+                        ],
+                      ),
                     ),
-                  ),
-
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 4.2,
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        CartList(context, widget.cartList),
-                      ],
-                    ),
-                  ),
-
-                  widget.cartData != null ?
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child:
-                          BottomBar(context, widget.cartData, widget.cartList))
-                  : Container(),
-                ],
-              ),
+                  ],
+                )
             ),
+
+
+            widget.cartData != null ?
+            Align(
+                alignment: Alignment.bottomCenter,
+                child:
+                    BottomBar(context, widget.cartData, widget.cartList))
+            : Container(),
+          ],
         ),
       ),
     );
@@ -562,7 +564,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        height: mainHeight / 4.77,
+        height: mainHeight / 4.8,
+        width: double.infinity,
         child: Column(
           children: [
             //SizedBox(height: 5,),

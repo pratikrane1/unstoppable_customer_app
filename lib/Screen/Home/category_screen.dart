@@ -107,9 +107,154 @@ class _CategoryScreenState extends State<CategoryScreen> {
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
               child:
-              // (categoryProductList.isNotEmpty) ?
+              (categoryProductList.isNotEmpty) ? categoryProductList.length > 0 ?
               buildProductList(context, categoryProductList)
-              // : const Center(child: Text("No Data")),
+              : const Center(child: Text("No Data")) : GridView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 2/2.5,
+                ),
+                // padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 15),
+                itemBuilder: (context, index) {
+                  return Shimmer.fromColors(
+                    baseColor: Theme.of(context).hoverColor,
+                    highlightColor: Theme.of(context).highlightColor,
+                    enabled: true,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Card(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          elevation: 5,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: 15,
+                              ),
+                              CachedNetworkImage(
+                                // width: 150,
+                                // height: 150,
+                                filterQuality: FilterQuality.medium,
+                                // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                                imageUrl: "https://picsum.photos/250?image=9",
+                                // imageUrl: productData.prodImg.toString(),
+                                placeholder: (context, url) {
+                                  return Shimmer.fromColors(
+                                    baseColor: Theme.of(context).hoverColor,
+                                    highlightColor: Theme.of(context).highlightColor,
+                                    enabled: true,
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                imageBuilder: (context, imageProvider) {
+                                  return Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                  );
+                                },
+                                errorWidget: (context, url, error) {
+                                  return Shimmer.fromColors(
+                                    baseColor: Theme.of(context).hoverColor,
+                                    highlightColor: Theme.of(context).highlightColor,
+                                    enabled: true,
+                                    child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Icon(Icons.error),
+                                    ),
+                                  );
+                                },
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15, top: 10, right: 5),
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Product",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color: ThemeColors.textColor,
+                                            fontSize: 15.0,
+                                            fontFamily: 'SF-Pro-Display-Regular'),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "\u{20B9} 0.0",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20.0,
+                                            fontFamily: 'SF-Pro-Display-Bold'),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "\u{20B9} 0.0",
+                                            style: TextStyle(
+                                                decoration: TextDecoration.lineThrough,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18.0,
+                                                fontFamily: 'SF-Pro-Display-Regular',
+                                                color: ThemeColors.textFieldHintColor),
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) => CartPage()));
+                                              },
+                                              child: Icon(
+                                                Icons.add_shopping_cart,
+                                                color: ThemeColors.baseThemeColor,
+                                              ))
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: List.generate(10, (index) => index).length,
+              )
             ),
           );
         }),
@@ -120,154 +265,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   Widget buildProductList(
       BuildContext context, List<ProductModel> productList) {
-    if (productList.length <= 0) {
-      return GridView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.vertical,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 2/2.5,
-        ),
-        // padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 15),
-        itemBuilder: (context, index) {
-          return Shimmer.fromColors(
-            baseColor: Theme.of(context).hoverColor,
-            highlightColor: Theme.of(context).highlightColor,
-            enabled: true,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  elevation: 5,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      CachedNetworkImage(
-                        // width: 150,
-                        // height: 150,
-                        filterQuality: FilterQuality.medium,
-                        // imageUrl: Api.PHOTO_URL + widget.users.avatar,
-                        imageUrl: "https://picsum.photos/250?image=9",
-                        // imageUrl: productData.prodImg.toString(),
-                        placeholder: (context, url) {
-                          return Shimmer.fromColors(
-                            baseColor: Theme.of(context).hoverColor,
-                            highlightColor: Theme.of(context).highlightColor,
-                            enabled: true,
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          );
-                        },
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            height: 80,
-                            width: 80,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(0),
-                            ),
-                          );
-                        },
-                        errorWidget: (context, url, error) {
-                          return Shimmer.fromColors(
-                            baseColor: Theme.of(context).hoverColor,
-                            highlightColor: Theme.of(context).highlightColor,
-                            enabled: true,
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Icon(Icons.error),
-                            ),
-                          );
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 10, right: 5),
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Product",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: ThemeColors.textColor,
-                                    fontSize: 15.0,
-                                    fontFamily: 'SF-Pro-Display-Regular'),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "\u{20B9} 0.0",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 20.0,
-                                    fontFamily: 'SF-Pro-Display-Bold'),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "\u{20B9} 0.0",
-                                    style: TextStyle(
-                                        decoration: TextDecoration.lineThrough,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18.0,
-                                        fontFamily: 'SF-Pro-Display-Regular',
-                                        color: ThemeColors.textFieldHintColor),
-                                  ),
-                                  InkWell(
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => CartPage()));
-                                      },
-                                      child: Icon(
-                                        Icons.add_shopping_cart,
-                                        color: ThemeColors.baseThemeColor,
-                                      ))
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white),
-              ),
-            ),
-          );
-        },
-        itemCount: List.generate(10, (index) => index).length,
-      );
-    }
 
     // return ListView.builder(
     return GridView.builder(

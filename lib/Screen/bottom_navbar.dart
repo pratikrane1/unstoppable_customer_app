@@ -87,28 +87,29 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,
-                icon: Stack(
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_rounded,
-                    ),
-                    // Application.cart!.cartQuantity != null ?
-                    Application.cart == null ? Container() :
-                    Positioned(
-                      top: -3,
-                      right: 2,
-                      child: Center(
-                          child: Text(Application.cart!.cartQuantity.toString(),
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: ThemeColors.whiteTextColor
-                            ),
-                          )),
-                    )
-                    // : Container(),
-                  ],
-                ),
+                icon:  Icon(Icons.shopping_cart_rounded),
+                // Stack(
+                //   children: [
+                //     Icon(
+                //       Icons.shopping_cart_rounded,
+                //     ),
+                //     // Application.cart!.cartQuantity != null ?
+                //     Application.cart == null ? Container() :
+                //     Positioned(
+                //       top: -3,
+                //       right: 2,
+                //       child: Center(
+                //           child: Text(Application.cart!.cartQuantity.toString(),
+                //             style: TextStyle(
+                //                 fontSize: 15,
+                //                 fontWeight: FontWeight.bold,
+                //                 color: ThemeColors.whiteTextColor
+                //             ),
+                //           )),
+                //     )
+                //     // : Container(),
+                //   ],
+                // ),
                 label: 'Cart',
               ),
               BottomNavigationBarItem(

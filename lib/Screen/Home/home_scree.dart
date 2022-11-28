@@ -491,17 +491,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontFamily: 'SF-Pro-Display-Regular',
                                 color: ThemeColors.textFieldHintColor),
                           ),
-                          InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CartPage(backIcon: true,)));
-                              },
-                              child: Icon(
-                                Icons.add_shopping_cart,
-                                color: ThemeColors.baseThemeColor,
-                              ))
+                          // InkWell(
+                          //     onTap: () {
+                          //       Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) => CartPage(backIcon: true,)));
+                          //     },
+                          //     child: Icon(
+                          //       Icons.add_shopping_cart,
+                          //       color: ThemeColors.baseThemeColor,
+                          //     ))
                         ],
                       ),
                     ],

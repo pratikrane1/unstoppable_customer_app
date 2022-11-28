@@ -10,6 +10,7 @@ import 'package:unstoppable_customer_app/Bloc/contactUs/contactUs_state.dart';
 
 import '../Constant/theme_colors.dart';
 import '../Widget/app_button.dart';
+import '../Widget/drawer.dart';
 import '../image_file.dart';
 
 class ContactUsPage extends StatefulWidget {
@@ -122,7 +123,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                     height: 1.5,
                                   ),
                                   decoration:  InputDecoration(
-                                    hintText: "name",
+                                    hintText: "Name",
                                     contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                                     hintStyle: TextStyle(fontSize: 15),
                                     enabledBorder: OutlineInputBorder(
@@ -364,7 +365,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                       return BlocListener<ContactUsBloc, ContactUsState>(
                                           listener: (context, state) {
                                             if (state is ContactUsSuccess) {
-                                              // Navigator.of(context).pop();
+                                              Navigator.of(context).pop();
                                               // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> DrawerWidget()));
                                               Fluttertoast.showToast(
                                                   msg: state.message.toString());

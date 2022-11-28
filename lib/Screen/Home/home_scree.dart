@@ -19,6 +19,7 @@ import '../../Bloc/home/home_bloc.dart';
 import '../../Bloc/home/home_event.dart';
 import '../../Bloc/home/home_state.dart';
 import '../../Constant/theme_colors.dart';
+import '../../Utils/application.dart';
 import '../../Widget/common.dart';
 import '../../Widget/drawer.dart';
 import '../../Widget/product_Card.dart';
@@ -716,11 +717,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Column(
           children: [
+            Application.customerLogin == null ?
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   "Unstoppable",
+                  style: TextStyle(color: ThemeColors.whiteTextColor,fontFamily: 'Poppins-SemiBold',),
+                ),
+                notificationIcon(context),
+              ],
+            ): Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  Application.customerLogin!.name.toString(),
                   style: TextStyle(color: ThemeColors.whiteTextColor,fontFamily: 'Poppins-SemiBold',),
                 ),
                 notificationIcon(context),

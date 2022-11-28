@@ -40,6 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List<ProductModel>? productList = [];
   List<BannerModel>? bannerList = [];
   List<CategoryModel>? categoryList = [];
+  List<ProductModel> searchResult=[];
+  bool _isSearching=false;
+  bool flagNoDataAvailable=false;
+  final TextEditingController _searchcontroller = TextEditingController();
 
   initState() {
     super.initState();
@@ -48,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _homeBloc!.add(GetHomeCategory(perPage: '5', startFrom: '1'));
     _homeBloc!.add(GetProduct(limit: '10'));
     _homeBloc!.add(GetBanners());
+    _isSearching = false;
   }
 
   Future<Null> _onRefresh() {
@@ -56,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _homeBloc!.add(GetProduct(limit: '10'));
       _homeBloc!.add(GetBanners());
       categoryList!.shuffle();
+      _isSearching = false;
 
     });
     Completer<Null> completer = new Completer<Null>();
@@ -64,6 +70,38 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     return completer.future;
+  }
+
+  void _handleSearchStart() {
+    setState(() {
+      _isSearching = true;
+    });
+  }
+
+  void searchOperation(String searchText) {
+    searchResult.clear();
+    if (_isSearching != null) {
+      for (int i = 0; i < productList!.length; i++) {
+        ProductModel product = new ProductModel();
+        product.prodName = productList![i].prodName.toString();
+        product.price = productList![i].price.toString();
+        product.description = productList![i].description.toString();
+
+
+
+        if (product.prodName.toString().toLowerCase().contains(searchText.toLowerCase()) ||
+            product.price.toString().toLowerCase().contains(searchText.toLowerCase()) ||
+            product.description.toString().toLowerCase().contains(searchText.toLowerCase()) ) {
+          flagNoDataAvailable=false;
+          searchResult.add(product);
+        }
+      }
+      setState(() {
+        if(searchResult.length==0){
+          flagNoDataAvailable=true;
+        }
+      });
+    }
   }
 
   Widget buildCategory(BuildContext context, List<CategoryModel> categoryList) {
@@ -728,25 +766,96 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(40),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.infinity,
-              height: 40,
-              color: Colors.white,
-              child: const Center(
-                child: TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Search for something',
-                      prefixIcon: Icon(Icons.search),
-                      suffixIcon: Icon(CupertinoIcons.mic_fill)),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // bottom: PreferredSize(
+        //   preferredSize: const Size.fromHeight(40),
+        //   // child: Column(
+        //   //
+        //   //   children: [
+        //   //     flagNoDataAvailable==false?
+        //   //     Expanded(child:Container(
+        //   //         margin: EdgeInsets.only(bottom: 70.0),
+        //   //         height: MediaQuery.of(context).size.height,
+        //   //         child:searchResult.length != 0 ||
+        //   //             _searchcontroller.text.isNotEmpty
+        //   //             ?
+        //   //         buildProductList(context,searchResult)
+        //   //             :
+        //   //         // (productList.length != 0)
+        //   //         // ?
+        //   //         buildProductList(context,productList!)
+        //   //       // :
+        //   //       //         Center(child: Text("No Data Available",
+        //   //       //         style: TextStyle(fontSize: 20),),)
+        //   //     )
+        //   //     )
+        //   //         :
+        //   //     Container(
+        //   //         margin: EdgeInsets.only(top:180.0),
+        //   //         child: Center(child:Text("No Data Available"),)),
+        //   //     Padding(
+        //   //       padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 0.0),
+        //   //       child: TextField(
+        //   //         controller: _searchcontroller,
+        //   //         onChanged: (value) {
+        //   //           // this.phoneNo=value;
+        //   //           print(value);
+        //   //           searchOperation(value);
+        //   //         },
+        //   //
+        //   //         decoration: InputDecoration(
+        //   //           filled: true,
+        //   //           fillColor: const Color(0xFFFFFFFF),
+        //   //           isDense: true,
+        //   //           contentPadding:
+        //   //           const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+        //   //           /* -- Text and Icon -- */
+        //   //           hintText: "Search Here...",
+        //   //           hintStyle: const TextStyle(
+        //   //             fontSize: 18,
+        //   //             color: Color(0xFFB3B1B1),
+        //   //           ), // TextStyle
+        //   //           prefixIcon:  IconButton(
+        //   //             icon: Icon(
+        //   //               Icons.search,
+        //   //               size: 25.0,
+        //   //             ),
+        //   //             onPressed: () {
+        //   //               _handleSearchStart();
+        //   //             },
+        //   //           ),
+        //   //
+        //   //
+        //   //           // Icon
+        //   //           /* -- Border Styling -- */
+        //   //           border: OutlineInputBorder(
+        //   //             borderRadius: BorderRadius.circular(45.0),
+        //   //             borderSide: const BorderSide(
+        //   //               width: 1.0,
+        //   //               color: Color(0xFFFF0000),
+        //   //             ), // BorderSide
+        //   //           ), // OutlineInputBorder
+        //   //           enabledBorder: OutlineInputBorder(
+        //   //             borderRadius: BorderRadius.circular(45.0),
+        //   //             borderSide: const BorderSide(
+        //   //               width: 1.0,
+        //   //               color: Colors.grey,
+        //   //             ), // BorderSide
+        //   //           ), // OutlineInputBorder
+        //   //           focusedBorder: OutlineInputBorder(
+        //   //             borderRadius: BorderRadius.circular(45.0),
+        //   //             borderSide: const BorderSide(
+        //   //               width: 2.0,
+        //   //               color: Colors.grey,
+        //   //             ), // BorderSide
+        //   //           ), // OutlineInputBorder
+        //   //         ),
+        //   //         // InputDecoration
+        //   //       ),
+        //   //     ),
+        //   //
+        //   //   ],
+        //   // ),
+        // ),
       ),
       drawer: DrawerWidget(),
       body: RefreshIndicator(
@@ -763,6 +872,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Fluttertoast.showToast(msg: state.message);
                 }
                 if (state is ProductLoading) {
+                  flagNoDataAvailable = false;
                   // profileData = [];
                   // setData(companyData!);
                 }
@@ -771,9 +881,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   // setData(companyData!);
                 }
                 if (state is Productfail) {
+                  flagNoDataAvailable = true;
                   // profileData = [];
                   // setData(companyData!);
                 }
+
                 if(state is GetBannerSuccess){
                   bannerList = state.bannerList;
                 }
@@ -786,6 +898,87 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                  // flagNoDataAvailable==false?
+                  // Expanded(child:Container(
+                  //     margin: EdgeInsets.only(bottom: 70.0),
+                  //     height: MediaQuery.of(context).size.height,
+                  //     child:searchResult.length != 0 ||
+                  //         _searchcontroller.text.isNotEmpty
+                  //         ?
+                  //     buildProductList(context,searchResult)
+                  //         :
+                  //     // (productList.length != 0)
+                  //     // ?
+                  //     buildProductList(context,productList!)
+                  //   // :
+                  //   //         Center(child: Text("No Data Available",
+                  //   //         style: TextStyle(fontSize: 20),),)
+                  // )
+                  // )
+                  //     :
+                  // Container(
+                  //     margin: EdgeInsets.only(top:180.0),
+                  //     child: Center(child:Text("No Data Available"),)),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 0.0),
+                  //   child: TextField(
+                  //     controller: _searchcontroller,
+                  //     onChanged: (value) {
+                  //       // this.phoneNo=value;
+                  //       print(value);
+                  //       searchOperation(value);
+                  //     },
+                  //
+                  //     decoration: InputDecoration(
+                  //       filled: true,
+                  //       fillColor: const Color(0xFFFFFFFF),
+                  //       isDense: true,
+                  //       contentPadding:
+                  //       const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+                  //       /* -- Text and Icon -- */
+                  //       hintText: "Search Here...",
+                  //       hintStyle: const TextStyle(
+                  //         fontSize: 18,
+                  //         color: Color(0xFFB3B1B1),
+                  //       ), // TextStyle
+                  //       prefixIcon:  IconButton(
+                  //         icon: Icon(
+                  //           Icons.search,
+                  //           size: 25.0,
+                  //         ),
+                  //         onPressed: () {
+                  //           _handleSearchStart();
+                  //         },
+                  //       ),
+                  //
+                  //
+                  //       // Icon
+                  //       /* -- Border Styling -- */
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(45.0),
+                  //         borderSide: const BorderSide(
+                  //           width: 1.0,
+                  //           color: Color(0xFFFF0000),
+                  //         ), // BorderSide
+                  //       ), // OutlineInputBorder
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(45.0),
+                  //         borderSide: const BorderSide(
+                  //           width: 1.0,
+                  //           color: Colors.grey,
+                  //         ), // BorderSide
+                  //       ), // OutlineInputBorder
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(45.0),
+                  //         borderSide: const BorderSide(
+                  //           width: 2.0,
+                  //           color: Colors.grey,
+                  //         ), // BorderSide
+                  //       ), // OutlineInputBorder
+                  //     ),
+                  //     // InputDecoration
+                  //   ),
+                  // ),
                       // slider images in row
                       Padding(
                         padding: const EdgeInsets.only(
@@ -882,6 +1075,8 @@ class _HomeScreenState extends State<HomeScreen> {
               // )
 
               );
+
+
         }),
       ),
     );

@@ -42,7 +42,7 @@ class CategoryProductLoading extends CategoryState {}
 
 
 
-class CategoryProductSuccess extends ProductState {
+class CategoryProductSuccess extends CategoryState {
  List<ProductModel>? categoryProductList;
 
  CategoryProductSuccess({this.categoryProductList});

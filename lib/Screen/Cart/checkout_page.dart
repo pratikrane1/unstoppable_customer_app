@@ -117,7 +117,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                                 child:
                                 AppButton(
                                   onPressed: () async {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData!)));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(editAddress: true,)));
                                   },
                                   shape: const RoundedRectangleBorder(
                                       borderRadius:

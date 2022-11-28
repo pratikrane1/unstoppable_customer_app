@@ -239,7 +239,7 @@ class _AddressState extends State<Address> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData[index],)));
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData[index],editAddress: true,)));
 
                                                     },
                                                     child: Container(
@@ -284,7 +284,7 @@ class _AddressState extends State<Address> {
                                   ),
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(editAddress: false,)));
                                     },
                                     child: Row(
                                       children: [

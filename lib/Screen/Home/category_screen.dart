@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unstoppable_customer_app/Model/category_product_model.dart';
 import 'package:unstoppable_customer_app/Screen/Home/product_details.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
 import '../../Bloc/category/category_bloc.dart';
 import '../../Bloc/category/category_event.dart';
 import '../../Bloc/category/category_state.dart';
@@ -28,14 +28,6 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   CategoryBloc? _productBloc;
   List<ProductModel> categoryProductList = [];
-  int _page = 1;
-  final int _limit = 20;
-  bool _isFirstLoadRunning = false;
-  bool _hasNextPage = true;
-
-  bool _isLoadMoreRunning = false;
-
-  List _posts = [];
 
 
   @override
@@ -65,78 +57,63 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ThemeColors.baseThemeColor,
-        elevation: 0.0,
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
+        appBar: AppBar(
+          backgroundColor: ThemeColors.baseThemeColor,
+          elevation: 0.0,
+          centerTitle: true,
+          leading: GestureDetector(
+            onTap: () {
 
-            Navigator.of(context).pop();
-          },
-          child: Icon(Icons.arrow_back_ios,
-            color: ThemeColors.whiteTextColor,),
-        ),
-        title: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.catData.ssCatName.toString(),
-                  style: TextStyle(color: ThemeColors.whiteTextColor,
-                      fontFamily: 'SF-Pro-Display-Regular',
-                      fontSize: 20),),
-              ],
-            ),
-          ],
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _onRefresh,
-        strokeWidth: 3,
-        triggerMode: RefreshIndicatorTriggerMode.onEdge,
-        child: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
-          if (state is CategoryProductSuccess) {
-            categoryProductList = state.categoryProductList!;
-            // pageCount = (productList.length / rowsPerPage).ceilToDouble();
-            // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
-          }
-          if (state is CategoryProductLoading) {
-            // flagNoDataAvailable = false;
-          }
-
-          if (state is CategoryProductFail) {
-            // flagNoDataAvailable = true;
-          }
-          // if(state is ProductPageCntSucess){
-          //   pageCount=state.PageCnt;
-          // }
-          return SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Container(
-              child:
-              // (categoryProductList.isNotEmpty) ?
-              buildProductList(context, categoryProductList)
-              // : const Center(child: Text("No Data")),
-            ),
-          );
-        }),
-      ));
-        if (state is CategoryProductFail) {
-          // flagNoDataAvailable = true;
-        }
-        // if(state is ProductPageCntSucess){
-        //   pageCount=state.PageCnt;
-        // }
-        return SingleChildScrollView(
-          child: Container(
-            child:
-            // (categoryProductList.isNotEmpty) ?
-            buildProductList(context, categoryProductList)
-            // : const Center(child: Text("No Data")),
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.arrow_back_ios,
+              color: ThemeColors.whiteTextColor,),
           ),
-        );
-      }));
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.catData.ssCatName.toString(),
+                    style: TextStyle(color: ThemeColors.whiteTextColor,
+                        fontFamily: 'SF-Pro-Display-Regular',
+                        fontSize: 20),),
+                ],
+              ),
+            ],
+          ),
+        ),
+        body: RefreshIndicator(
+          onRefresh: _onRefresh,
+          strokeWidth: 3,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          child: BlocBuilder<CategoryBloc, CategoryState>(builder: (context, state) {
+            if (state is CategoryProductSuccess) {
+              categoryProductList = state.categoryProductList!;
+              // pageCount = (productList.length / rowsPerPage).ceilToDouble();
+              // _productBloc!.add(OnUpdatePageCnt(productList: productList, rowsPerPage: rowsPerPage));
+            }
+            if (state is CategoryProductLoading) {
+              // flagNoDataAvailable = false;
+            }
+
+            if (state is CategoryProductFail) {
+              // flagNoDataAvailable = true;
+            }
+            // if(state is ProductPageCntSucess){
+            //   pageCount=state.PageCnt;
+            // }
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Container(
+                  child:
+                  // (categoryProductList.isNotEmpty) ?
+                  buildProductList(context, categoryProductList)
+                // : const Center(child: Text("No Data")),
+              ),
+            );
+          }),
+        ));
 
 
   }
@@ -396,7 +373,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         height: 5,
                       ),
                       Text(
-                        "\u{20B9} ${productList.price}",
+                        "\u{20B9} ${productList.discountPrice}",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20.0,

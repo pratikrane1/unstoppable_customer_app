@@ -305,7 +305,7 @@ class _MyOrdersState extends State<MyOrders> {
                                 height: 4,
                               ),
                               Text(
-                                '\u{20B9} '+ myOrderList[index].totalAmount.toString(),
+                                '\u{20B9} '+ myOrderList[index].subTotal.toString(),
                                 style: TextStyle(
                                   fontFamily: 'SF-Pro-Display-Bold',
                                   fontWeight: FontWeight.bold,

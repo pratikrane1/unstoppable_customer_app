@@ -833,7 +833,8 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                                  },
                                  steps: getTrackingSteps(
                                    context,
-                                   trackOrderList![0].orderStatus,
+                                   // trackOrderList![0].orderStatus,
+                                   trackOrderList!.last.orderStatus,
                                  ),
                                  currentStep: statusValue,
                                ),
@@ -891,7 +892,7 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                          // ),
                          SizedBox(height: 10,),
 
-                         // trackOrderList![0].orderStatus == null? Container():
+                         // trackOrderList!.last.orderStatus == "Canceled" ? Container():
                          Center(
                            child: Padding(
                                padding: const EdgeInsets.all(8.0),

@@ -163,11 +163,166 @@ class _MyOrdersState extends State<MyOrders> {
     return ListView.builder(
       //shrinkWrap: true,
       scrollDirection: Axis.vertical,
+      itemCount: myOrderList.length,
       padding: EdgeInsets.only(top: 10, bottom: 15),
       itemBuilder: (context, index) {
-        return unstoppableProductCard(context, myOrderList[index]);
+        return InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyOrdersDetail(myOrderList: myOrderList[index],)));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(width: 0.9, color: ThemeColors.buttonColor),
+                  // color: Colors.black12,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Container(
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(10.0),
+                      //   border: Border.all(width: 1, color: ThemeColors.buttonColor),
+                      //   // color: Colors.black12,
+                      // ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // CachedNetworkImage(
+                          //   height: 80,
+                          //   width: 85,
+                          //
+                          //   filterQuality: FilterQuality.medium,
+                          //   // imageUrl: Api.PHOTO_URL + widget.users.avatar,
+                          //   // imageUrl: "https://picsum.photos/250?image=9",
+                          //   imageUrl:"myOrderList.products![0].imgPath.toString()",
+                          //
+                          //   placeholder: (context, url) {
+                          //     return Shimmer.fromColors(
+                          //       baseColor: Theme.of(context).hoverColor,
+                          //       highlightColor: Theme.of(context).highlightColor,
+                          //       enabled: true,
+                          //       child: Container(
+                          //         height: 80,
+                          //         width: 80,
+                          //         decoration: BoxDecoration(
+                          //           color: Colors.white,
+                          //           borderRadius: BorderRadius.circular(8),
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          //   imageBuilder: (context, imageProvider) {
+                          //     return Container(
+                          //       height: 80,
+                          //       width: 80,
+                          //       decoration: BoxDecoration(
+                          //         image: DecorationImage(
+                          //           image: imageProvider,
+                          //           fit: BoxFit.cover,
+                          //         ),
+                          //         borderRadius: BorderRadius.circular(8),
+                          //       ),
+                          //     );
+                          //   },
+                          //   errorWidget: (context, url, error) {
+                          //     return Shimmer.fromColors(
+                          //       baseColor: Theme.of(context).hoverColor,
+                          //       highlightColor: Theme.of(context).highlightColor,
+                          //       enabled: true,
+                          //       child: Container(
+                          //         height: 80,
+                          //         width: 80,
+                          //         decoration: BoxDecoration(
+                          //           color: Colors.white,
+                          //           borderRadius: BorderRadius.circular(8),
+                          //         ),
+                          //         child: Icon(Icons.error),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          // SizedBox(
+                          //   width: 20,
+                          // ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Order ID: ",
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14.0,
+                                          fontFamily: 'SF-Pro-Display-Bold'
+                                        //color: Theme.of(context).accentColor
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 4,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      myOrderList[index].orderId.toString(),
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14.0,
+                                          fontFamily: 'SF-Pro-Display-Bold'
+                                        //color: Theme.of(context).accentColor
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width / 1.9,
+                                child: Text(
+                                  myOrderList[index].orderDate.toString(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: ThemeColors.greyTextColor
+                                          .withOpacity(0.7),
+                                      fontSize: 10.0,
+                                      fontFamily: 'SF-Pro-Display-Regular'),
+                                  maxLines: 3,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              Text(
+                                '\u{20B9} '+ myOrderList[index].subTotal.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'SF-Pro-Display-Bold',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(Icons.arrow_forward_ios)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ));
       },
-      itemCount: myOrderList.length,
     );
   }
 
@@ -261,11 +416,11 @@ class _MyOrdersState extends State<MyOrders> {
         // ));
   }
 
-  Widget unstoppableProductCard(BuildContext context, Orders myOrderList) {
+  Widget unstoppableProductCard(BuildContext context, List<Orders> myOrderList) {
     return InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MyOrdersDetail(myOrderList: myOrderList,)));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => MyOrdersDetail(myOrderList: myOrderList,)));
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -294,7 +449,7 @@ class _MyOrdersState extends State<MyOrders> {
                         filterQuality: FilterQuality.medium,
                         // imageUrl: Api.PHOTO_URL + widget.users.avatar,
                         // imageUrl: "https://picsum.photos/250?image=9",
-                       imageUrl:myOrderList.products![0].imgPath.toString(),
+                       imageUrl:"myOrderList.products![0].imgPath.toString()",
 
                         placeholder: (context, url) {
                           return Shimmer.fromColors(
@@ -350,7 +505,7 @@ class _MyOrdersState extends State<MyOrders> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              myOrderList.products![0].prodName.toString(),
+                              "myOrderList",
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                   fontWeight: FontWeight.w700,

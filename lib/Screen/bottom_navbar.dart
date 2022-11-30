@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unstoppable_customer_app/Constant/theme_colors.dart';
 import 'package:unstoppable_customer_app/Screen/Cart/cart.dart';
+import '../Bloc/cart/cart_bloc.dart';
+import '../Bloc/cart/cart_event.dart';
+import '../Utils/application.dart';
 import 'Category/category_screen.dart';
 import 'Home/home_scree.dart';
 import 'MyOrders/myOrders_Screen.dart';
@@ -20,11 +24,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
   bool backIcon = false;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+
+
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    MyOrders(),
     Category(),
-    CartPage(),
+    CartPage(backIcon: false),
+    MyOrders(),
     MyProfile(),
   ];
 
@@ -67,16 +74,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
             topLeft: Radius.circular(15),
         ),
         child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.home),
                 label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: ThemeColors.bottomNavColor,
-                icon: Icon(Icons.shopping_cart),
-                label: 'My Orders',
               ),
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,
@@ -85,9 +87,37 @@ class _BottomNavigationState extends State<BottomNavigation> {
               ),
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,
-                icon: Icon(Icons.shopping_cart),
+                icon:  Icon(Icons.shopping_cart_rounded),
+                // Stack(
+                //   children: [
+                //     Icon(
+                //       Icons.shopping_cart_rounded,
+                //     ),
+                //     // Application.cart!.cartQuantity != null ?
+                //     Application.cart == null ? Container() :
+                //     Positioned(
+                //       top: -3,
+                //       right: 2,
+                //       child: Center(
+                //           child: Text(Application.cart!.cartQuantity.toString(),
+                //             style: TextStyle(
+                //                 fontSize: 15,
+                //                 fontWeight: FontWeight.bold,
+                //                 color: ThemeColors.whiteTextColor
+                //             ),
+                //           )),
+                //     )
+                //     // : Container(),
+                //   ],
+                // ),
                 label: 'Cart',
               ),
+              BottomNavigationBarItem(
+                backgroundColor: ThemeColors.bottomNavColor,
+                icon: Icon(Icons.shopping_cart),
+                label: 'My Orders',
+              ),
+
               BottomNavigationBarItem(
                 backgroundColor: ThemeColors.bottomNavColor,
                 icon: Icon(Icons.person),

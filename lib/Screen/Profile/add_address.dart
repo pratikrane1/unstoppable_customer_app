@@ -362,7 +362,7 @@ class _AddressPageState extends State<AddressPage> {
                               padding: const EdgeInsets.all(8.0),
                               child: AppButton(
                                 onPressed: () async {
-                                  if(widget.editAddress==true){
+                                  if(widget.editAddress == true){
                                     if (_formKey.currentState!.validate()) {
                                       if (_flatNoController == null) {
                                         Fluttertoast.showToast(

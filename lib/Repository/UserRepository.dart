@@ -1,7 +1,7 @@
 import 'dart:convert';
 import '../Api/api.dart';
 import '../Model/address_model.dart';
-import '../Model/category_list.dart';
+import '../Model/cart_model.dart';
 import '../Model/customer_login.dart';
 import '../Utils/preferences.dart';
 import '../Utils/util_preferences.dart';
@@ -66,7 +66,7 @@ class UserRepository {
   ///Get Product
   Future<dynamic> fetchOrderProduct({ String? sscatId}) async {
     final params = {"sscatId":sscatId};
-    return await Api.getHomeProduct(params);
+    return await Api.getCategoryProduct(params);
   }
 
   //track order
@@ -116,6 +116,53 @@ class UserRepository {
     return await Api.deleteAddress(params);
   }
 
+  /// Add to cart
+  Future<dynamic> addToCart({String? user_id, String? prodId, String? quantity}) async {
+    final params = {
+      "user_id":user_id,
+      "prod_id":prodId,
+      "quantity":quantity};
+    return await Api.addToCart(params);
+  }
+
+  ///Fetch Cart Data
+  Future<dynamic> fetchCartData({String? user_id}) async {
+    final params = {
+      "user_id":user_id,
+      };
+    return await Api.fetchCart(params);
+  }
+
+
+  ///Delete Cart
+  Future<dynamic> deleteCart({String? user_id,String? prodId}) async {
+    final params = {
+      "user_id":user_id,
+      "prod_id":prodId,
+    };
+    return await Api.deleteCart(params);
+  }
+
+
+  ///CheckOut
+  Future<dynamic> checkOut({String? user_id,String? cart,
+    dynamic subTotal,
+    dynamic shippingCharge,
+    dynamic totalAmount,
+  String? paymentMethod,
+  String? address,}) async {
+    final params = {
+      "user_id":user_id,
+      "sub_total":subTotal,
+      "shipping_charge":shippingCharge,
+      "total_amount":totalAmount,
+      "payment_method":paymentMethod,
+      "billing_address":address,
+      "product_details":jsonEncode(cart)
+    };
+    return await Api.checkOut(params);
+  }
+
 
   Future<dynamic> fetchCategorypagelist(int? startFrom, {String? perPage}) async {
     final params = {"per_page":perPage,
@@ -151,11 +198,25 @@ class UserRepository {
     );
   }
 
-  ///Get from Storage
+  ///Get address
   dynamic getAddress() {
     return UtilPreferences.getString(Preferences.address);
   }
 
+
+  ///Save cartCount
+  Future<dynamic> saveCart(CartListRepo cartData) async {
+    return await UtilPreferences.setString(
+      Preferences.cart,
+      jsonEncode(cartData.toJson()),
+      // cartData.
+    );
+  }
+
+  ///Get cart count
+  dynamic getCart() {
+    return UtilPreferences.getString(Preferences.cart);
+  }
   // dynamic getProfile() {
   //   return UtilPreferences.getString(Preferences.profilePic);
   // }

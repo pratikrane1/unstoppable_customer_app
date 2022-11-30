@@ -112,7 +112,7 @@ class _CheckoutBottomBarState extends State<CheckoutBottomBar> {
                       child:
                       AppButton(
                         onPressed: () async {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage()));
+                          // Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage()));
                         },
                         shape: const RoundedRectangleBorder(
                             borderRadius:

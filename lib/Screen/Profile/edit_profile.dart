@@ -511,6 +511,7 @@ class _EditProfileState extends State<EditProfile> {
                                     Fluttertoast.showToast(
                                         msg: state.message.toString());
                                     loading = true;
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MyProfile()));
                                   }
                                   if (state is ProfileUpdateLoading) {
                                     loading = false;

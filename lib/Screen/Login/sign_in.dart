@@ -47,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    timer!.cancel();
+    // timer!.cancel();
 
   }
 
@@ -69,12 +69,11 @@ class _SignInPageState extends State<SignInPage> {
               // Fluttertoast.showToast(msg: state.message.toString());
               // loading = true;
 
-              timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+               Future.delayed( Duration(seconds: 5), (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> BottomNavigation(index: 0,)));
                 Fluttertoast.showToast(msg: state.message.toString());
                 loading = true;
                 // if(DateTime.now().second == 10){
-                timer.cancel();
                 print("Timer Cancelled");
                 // }
               });

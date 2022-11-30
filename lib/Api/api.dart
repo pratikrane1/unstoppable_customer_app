@@ -10,6 +10,7 @@ import '../Model/customer_login.dart';
 import '../Model/model_trackOrder.dart';
 import '../Model/my_order.dart';
 import '../Model/product_model.dart';
+import '../Model/search_product_model.dart';
 import '../Model/user_profile_model.dart';
 
 
@@ -29,6 +30,7 @@ class Api {
   static const String CATEGORIES = HOST_URL+"categories";
   static const String CATEGORY_PRODUCT = HOST_URL+"category_products";
   static const String GET_PRODUCT = HOST_URL+"home_products";
+  static const String SEARCH_PRODUCT = HOST_URL+"search_products";
   static const String GET_BANNER = HOST_URL+"home_banner";
   static const String GET_ADDRESS_LIST = HOST_URL+"shipping_address";
   static const String ADD_ADDRESS = HOST_URL+"add_shipping_address";
@@ -115,6 +117,19 @@ class Api {
       final responseJson = json.decode(response.body);
       print(responseJson);
       return ProductRepo.fromJson(responseJson);
+    }
+  }
+
+  ///Search Product api
+  static Future<dynamic> searchAllProduct(params) async {
+    final response = await http.post(
+      Uri.parse(SEARCH_PRODUCT),
+      body: params,
+    );
+    if (response.statusCode == 200) {
+      final responseJson = json.decode(response.body);
+      print(responseJson);
+      return SearchProductRepo.fromJson(responseJson);
     }
   }
 

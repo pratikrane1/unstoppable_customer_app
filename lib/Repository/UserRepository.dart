@@ -57,6 +57,12 @@ class UserRepository {
     return await Api.getHomeProduct(params);
   }
 
+  ///Search Product
+  Future<dynamic> searchProduct({String? ProductName}) async {
+    final params = {"product_name":ProductName};
+    return await Api.searchAllProduct(params);
+  }
+
   ///Get Product
   Future<dynamic> fetchOrderProduct({ String? sscatId}) async {
     final params = {"sscatId":sscatId};

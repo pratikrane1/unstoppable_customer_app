@@ -12,6 +12,18 @@ class InitialHomeState extends HomeState {}
 
 class ProductLoading extends HomeState {}
 
+class SearchProductLoading extends HomeState {}
+
+class SearchProductSuccess extends HomeState {
+  String message;
+  List<ProductModel>? productData;
+  SearchProductSuccess({required this.message, required this.productData});
+}
+
+class SearchProductfail extends HomeState {
+  String message;
+  SearchProductfail({required this.message});
+}
 
 class ProductSuccess extends HomeState {
   String message;

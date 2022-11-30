@@ -21,7 +21,7 @@ class _ThankYouPageState extends State<ThankYouPage>{
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Checkout",
+          "Thank You",
           style: TextStyle(
               fontSize: 18,
               fontFamily: 'SF-Pro-Display-Regular',
@@ -31,14 +31,14 @@ class _ThankYouPageState extends State<ThankYouPage>{
         backgroundColor: ThemeColors.baseThemeColor,
         centerTitle: true,
         elevation: 0.0,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
+        // leading: IconButton(
+        //     onPressed: () {
+        //       Navigator.of(context).pop();
+        //     },
+        //     icon: Icon(
+        //       Icons.arrow_back_ios,
+        //       color: Colors.white,
+        //     )),
       ),
       body: SingleChildScrollView(
         child: Container(

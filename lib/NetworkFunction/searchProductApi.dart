@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../Model/product_model.dart';
 import '../Model/search_product_model.dart';
 
-Future<List<ProductSearchModel>> fetchCategory(String? query) async{
+Future<List<ProductModel>> fetchSearchProduct(String? query) async{
 
   Map<String, String> params;
   params = {
@@ -17,14 +18,14 @@ Future<List<ProductSearchModel>> fetchCategory(String? query) async{
 
   try{
     final resp = json.decode(response.body);
-    List<ProductSearchModel> listOfCategory=[];
+    List<ProductModel> listOfCategory=[];
     // final Iterable refactorProduct = resp['results'] ?? [];
     // final searchData = refactorProduct.map((item) {
     //   return ProductSearchModel.fromJson(item);
     // }).toList();
     if( response.statusCode==200) {
-      listOfCategory = resp['result'].map<ProductSearchModel>((item) {
-        return ProductSearchModel.fromJson(item);
+      listOfCategory = resp['result'].map<ProductModel>((item) {
+        return ProductModel.fromJson(item);
       }).toList();
       if (query!= null){
         listOfCategory = listOfCategory.where((element) => element.prodName!.toLowerCase().contains((query.toLowerCase()))).toList();

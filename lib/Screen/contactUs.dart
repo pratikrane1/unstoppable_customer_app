@@ -210,27 +210,22 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                         BorderSide(width: 0.8, color: ThemeColors.textFieldBgColor)),
 
                                   ),
-                                  validator: (value) {
-                                    // profile.name = value!.trim();
-                                    // Pattern pattern =
-                                    //     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                    // RegExp regex =
-                                    // new RegExp(pattern.toString());
+                                  validator: (value){
+                                    Pattern pattern =
+                                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                    RegExp regex =
+                                    new RegExp(pattern.toString());
+
                                     if(value==null || value.isEmpty){
-                                      return 'Please enter Mobile Number';
+                                      return 'Please enter Mobile number';
+                                    }else if(value.length != 10){
+                                      return 'Mobile Number must be of 10 digit';
                                     }
-                                    // else if(!regex.hasMatch(value)){
-                                    //   return 'Please enter valid name';
-                                    // }
                                     return null;
                                   },
-                                  onChanged: (value) {
-
-                                    // profile.name = value;
+                                  onChanged: (text) {
                                     setState(() {
-                                      // _nameController.text = value;
                                       if ( _formKey.currentState!.validate()) {}
-
                                     });
                                   },
                                 ),
@@ -278,27 +273,22 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                         BorderSide(width: 0.8, color: ThemeColors.textFieldBgColor)),
 
                                   ),
-                                  validator: (value) {
-                                    // profile.name = value!.trim();
-                                    // Pattern pattern =
-                                    //     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                    // RegExp regex =
-                                    // new RegExp(pattern.toString());
+                                  validator: (value){
+                                    Pattern pattern =
+                                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                    RegExp regex =
+                                    new RegExp(pattern.toString());
+
                                     if(value==null || value.isEmpty){
-                                      return 'Please enter Email';
+                                      return 'Please enter email';
+                                    }else if(!regex.hasMatch(value)){
+                                      return 'Please enter valid email';
                                     }
-                                    // else if(!regex.hasMatch(value)){
-                                    //   return 'Please enter valid name';
-                                    // }
                                     return null;
                                   },
-                                  onChanged: (value) {
-
-                                    // profile.name = value;
+                                  onChanged: (text) {
                                     setState(() {
-                                      // _nameController.text = value;
                                       if ( _formKey.currentState!.validate()) {}
-
                                     });
                                   },
                                 ),

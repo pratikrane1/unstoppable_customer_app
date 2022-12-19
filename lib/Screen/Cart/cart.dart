@@ -10,17 +10,19 @@ import '../../Bloc/cart/cart_state.dart';
 import '../../Constant/font_size.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/cart_model.dart';
+import '../../Model/product_model.dart';
 import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
 import '../../Widget/fixed_checkout_bottom_bar.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../bottom_navbar.dart';
 import 'checkout_page.dart';
 
 class CartPage extends StatefulWidget {
   bool backIcon;
   CartPage({Key? key,
-    required this.backIcon
+    required this.backIcon,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class _CartPageState extends State<CartPage> {
   var totalValue = 0;
   int prodValue = 15000;
 
+  Timer? timer;
 
   CartBloc? _cartBloc;
   List<CartListModel> cartList = [];
@@ -45,7 +48,23 @@ class _CartPageState extends State<CartPage> {
     super.initState();
     _cartBloc = BlocProvider.of<CartBloc>(context);
     _cartBloc!.add(GetCart(user_id: Application.customerLogin!.userId.toString()));
+   // timer = Timer.periodic(Duration(seconds: 1), (Timer t) =>addValue(context));
   }
+
+  void addValue(BuildContext context) {
+    setState(() {
+      DeleteCart(
+          user_id: Application.customerLogin!.userId.toString(),
+          prod_id: Application.products!.prodId.toString());
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
 
   Future<Null> _onRefresh() {
     setState(() {
@@ -83,7 +102,8 @@ class _CartPageState extends State<CartPage> {
                 child: widget.backIcon ?
                 IconButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                     // Navigator.of(context).pop();
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
                     },
                     icon: Icon(
                       Icons.arrow_back_ios,
@@ -107,19 +127,22 @@ class _CartPageState extends State<CartPage> {
                   // loading = false;
                 }
                 if (state is CartListfail) {
-                  Fluttertoast.showToast(
-                      msg: state.message.toString());
+                  // Fluttertoast.showToast(
+                  //     msg: state.message.toString());
                   // loading = false;
                 }
                 if(state is DeleteCartSuccess){
                   Fluttertoast.showToast(
                       msg: state.message.toString());
+                  _onRefresh();
+                  cartList;
                   _cartBloc!.add(GetCart(user_id: Application.customerLogin!.userId.toString()));
 
                 }
                 if(state is DeleteCartfail){
                   Fluttertoast.showToast(
                       msg: state.message.toString());
+
                 }
 
               },
@@ -132,17 +155,7 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         CartList(context, cartList),
                       ],
-                    ):
-                    const Align(
-                      alignment: Alignment.center,
-                      child: Text("Cart is empty",
-                        style: TextStyle(
-                          fontFamily: "SF-Pro-Display-Bold",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                        ),),
-                    )
-                        :
+                    ) :
                     ListView.builder(
                       scrollDirection: Axis.vertical,
                       // padding: EdgeInsets.only(left: 5, right: 20, top: 10, bottom: 15),
@@ -257,10 +270,19 @@ class _CartPageState extends State<CartPage> {
                         );
                       },
                       itemCount: List.generate(4, (index) => index).length,
-                    ),
+                    ):
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text("Cart is empty",
+                        style: TextStyle(
+                          fontFamily: "SF-Pro-Display-Bold",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                        ),),
+                    )
 
                   ),
-                  cartData != null ?
+                  cartList.length > 0 ?
                   Align(
                       alignment: Alignment.bottomCenter,
                       child: BottomBar(context, cartData, cartList))
@@ -348,6 +370,11 @@ class _CartPageState extends State<CartPage> {
                 color: Colors.grey,
               ),
               onPressed: () {
+                // cartList.isNotEmpty && cartList.length > 0 ?
+                // _cartBloc!.add(DeleteCart(
+                //     user_id: Application.customerLogin!.userId.toString(),
+                //     prod_id: cartList[index].prodId.toString()))
+                //     :Container();
                 _cartBloc!.add(DeleteCart(
                     user_id: Application.customerLogin!.userId.toString(),
                     prod_id: cartList[index].prodId.toString()));
@@ -486,7 +513,7 @@ class _CartPageState extends State<CartPage> {
                       child:
                       AppButton(
                         onPressed: () async {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage(cartList: cartList,cartData: cartData,)));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>CheckOutPage(cartList: cartList,cartData: cartData,)));
                         },
                         shape: const RoundedRectangleBorder(
                             borderRadius:

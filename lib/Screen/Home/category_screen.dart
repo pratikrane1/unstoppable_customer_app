@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unstoppable_customer_app/Model/category_product_model.dart';
+import 'package:unstoppable_customer_app/Model/search_product_model.dart';
 import 'package:unstoppable_customer_app/Screen/Home/product_details.dart';
 
 import '../../Bloc/category/category_bloc.dart';
@@ -28,6 +29,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   CategoryBloc? _productBloc;
   List<ProductModel> categoryProductList = [];
+  List<ProductSearchModel> productsearchList = [];
 
 
   @override
@@ -106,10 +108,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
-              child:
-              (categoryProductList.isNotEmpty) ? categoryProductList.length > 0 ?
-              buildProductList(context, categoryProductList)
-              : const Center(child: Text("No Data")) : GridView.builder(
+              child: categoryProductList.length != 0 ?
+              categoryProductList.length > 0 ?
+              buildProductList(context, categoryProductList,)
+
+                  : GridView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -255,6 +258,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
                 itemCount: List.generate(10, (index) => index).length,
               )
+                  : Stack(
+                    children: [
+                      Align(alignment: Alignment.center,
+                      child: Text("No Data",style: TextStyle(
+                        fontFamily: "SF-Pro-Display-Bold",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                      ),)),
+                    ],
+                  )
             ),
           );
         }),
@@ -277,13 +290,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(top: 10, bottom: 15),
       itemBuilder: (context, index) {
-        return buildProductCard(context, productList[index]);
+        return buildProductCard(context, productList[index],);
       },
       itemCount: productList.length,
     );
   }
 
-  Widget buildProductCard(BuildContext context,ProductModel productList) {
+  Widget buildProductCard(BuildContext context,ProductModel productList,) {
     return InkWell(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetail(productData: productList,)));

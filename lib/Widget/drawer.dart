@@ -90,8 +90,8 @@ class _DrawerWidgetState extends State<DrawerWidget>{
             // _MyOrders(context),
             // _ChangePassword(context),
             _ContactUs(context),
-            _RFR(context),
-            _GDTDetails(context),
+           // _RFR(context),
+           // _GDTDetails(context),
 
             // _LogOutButton(context)
           ],

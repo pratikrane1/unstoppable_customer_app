@@ -12,15 +12,20 @@ import 'package:unstoppable_customer_app/Model/address_model.dart';
 import 'package:unstoppable_customer_app/Screen/Cart/thankyou_screen.dart';
 
 import '../../Api/api.dart';
+import '../../Bloc/address/address_event.dart';
 import '../../Bloc/cart/cart_bloc.dart';
 import '../../Bloc/cart/cart_event.dart';
 import '../../Bloc/cart/cart_state.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/cart_model.dart';
 import '../../Utils/application.dart';
+import '../../Utils/application.dart';
+import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
 import 'package:http/http.dart' as http;
 import '../Profile/address_page.dart';
+import '../Profile/address_page_profile.dart';
+import '../bottom_navbar.dart';
 
 class CheckOutPage extends StatefulWidget {
   List<CartListModel> cartList;
@@ -39,20 +44,165 @@ class _CheckOutPageState extends State<CheckOutPage> {
   String? radioBtnType;
   AddressModel? addressData;
   CartBloc? _cartBloc;
-
+  Timer? timer;
   String _mid = "ctqcfC52960494856707"; //live mid=GXytVC30838085377757
   double? amount = 100;
+
 
   @override
   void initState() {
     _cartBloc = BlocProvider.of<CartBloc>(context);
     print(widget.cartList);
     print(widget.cartData);
+
     if (Application.address != null) {
       Application.address!.streetAddress.toString();
+      timer = Timer.periodic(Duration(seconds: 1), (Timer t) =>addValue());
     }
     _onRefresh();
     super.initState();
+  }
+
+  void addValue() {
+    setState(() {
+      EditAddress();
+      // AddAddress(
+      //   user_id: Application.customerLogin!.userId.toString(),
+      //   city: Application.address!.city.toString(),
+      //   pinCode: Application.address!.pincode.toString(),
+      //   state: Application.address!.state.toString(),
+      //   streetAddress: Application.address!.streetAddress.toString(),
+      // );
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> showAlert() async {
+    showDialog(context: context,
+        builder: (BuildContext context){
+          return  AlertDialog(
+            title: const Text("Address"),
+            content: const Text("Do you want to add address?"),
+            actions: [
+              ElevatedButton(onPressed: (){
+                _onRefresh();
+                Navigator.of(context).pop();
+              }, child: const Text("Yes"))
+            ],
+          );
+        }
+    );
+
+
+
+  }
+
+  Widget EditAddress()
+  {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Application.address == null
+                  ? Container(
+                // child:  InkWell(
+                //   onTap: (){
+                //     showAlert();
+                //     // Application.address != null && Application.address!.id != null
+                //     // ?showAlert()
+                //     //     :Container();
+                //
+                //   },
+                //     //child: Icon(Icons.refresh)),
+                //   child: Text("Add address")),
+              )
+                  : Row(
+                children: [
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Icon(Icons.maps_home_work_outlined),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Application.address!.id != null
+                      ? Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${Application.address!.streetAddress}",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily:
+                            'SF-Pro-Display-Regular',
+                            fontWeight:
+                            FontWeight.w500),
+                      ),
+                      Text(
+                          "${Application.address!.city},${Application.address!.state},${Application.address!.pincode}"),
+                    ],
+                  )
+                      : Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily:
+                            'SF-Pro-Display-Regular',
+                            fontWeight:
+                            FontWeight.w500),
+                      ),
+                      Text(""),
+                    ],
+                  )
+                ],
+              ),
+              Center(
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: AppButton(
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddressProfile(cartData: widget.cartData, cartList: widget.cartList,)));
+                        //  Navigator.pushAndRemoveUntil(
+                        //      context,
+                        //      MaterialPageRoute(
+                        //          builder: (context) =>
+                        //              Address()),
+                        //          (Route<dynamic> route) =>
+                        //      false);
+                      },
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(10))),
+                      text: Application.address == null
+                          ? 'Choose Address'
+                          : 'Edit Address',
+                      loading: true,
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<Null> _onRefresh() {
@@ -148,7 +298,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
         elevation: 0.0,
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
             },
             icon: Icon(
               Icons.arrow_back_ios,
@@ -178,87 +328,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       ),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        elevation: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Application.address == null
-                                  ? Container()
-                                  : Row(
-                                children: [
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Icon(Icons.maps_home_work_outlined),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Application.address!.id != null
-                                      ? Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "${Application.address!.streetAddress}",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily:
-                                            'SF-Pro-Display-Regular',
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      ),
-                                      Text(
-                                          "${Application.address!.city},${Application.address!.state},${Application.address!.pincode}"),
-                                    ],
-                                  )
-                                      : Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily:
-                                            'SF-Pro-Display-Regular',
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      ),
-                                      Text(""),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Center(
-                                child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: AppButton(
-                                      onPressed: () async {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Address()));
-                                      },
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10))),
-                                      text: Application.address == null
-                                          ? 'Choose Address'
-                                          : 'Edit Address',
-                                      loading: true,
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    //
+
+                    EditAddress(),
 
                     SizedBox(
                       height: 20,
@@ -561,7 +633,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
             color: ThemeColors.backgroundColor,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         height: mainHeight / 4.8,
         width: double.infinity,
         child: Column(
@@ -640,7 +712,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
+              padding: const EdgeInsets.only(bottom: 3.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/address_model.dart';
 import '../Model/cart_model.dart';
 import '../Model/customer_login.dart';
+import '../Model/product_model.dart';
 
 
 
@@ -16,6 +17,7 @@ class Application {
   static SharedPreferences? preferences;
 
   static CustomerLogin? customerLogin;
+  static ProductModel? products;
   static AddressModel? address;
   static CartListRepo? cart;
   // static DashBoardCountResp? dashBoardCountResp;

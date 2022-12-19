@@ -815,7 +815,7 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                          ),
                          trackOrderList==null?Container():
                          SizedBox(
-                           height: MediaQuery.of(context).size.height/2.2,
+                           height: MediaQuery.of(context).size.height/2.1,
                            child: Column(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
@@ -855,21 +855,27 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                                      fontSize: 15,
                                      fontWeight: FontWeight.w500
                                  ),),
-                               Padding(
-                                   padding: const EdgeInsets.all(2.0),
-                                   child: ListView.builder(
-                                     physics: NeverScrollableScrollPhysics(),
-                                     shrinkWrap: true,
-                                     scrollDirection: Axis.vertical,
-                                     itemCount: widget.myOrderList.products!.length,
-                                     padding: EdgeInsets.only(top: 10, bottom: 15),
-                                     itemBuilder: (BuildContext context, int index) {
-                                       return
-                                         orderList(context, widget.myOrderList.products![index]);
+                               Container(
+                                 decoration: new BoxDecoration(
+                                   borderRadius: new BorderRadius.circular(16.0),
+                                   color: ThemeColors.orderDetailBGColor,
+                                 ),
+                                 child: Padding(
+                                     padding: const EdgeInsets.all(2.0),
+                                     child: ListView.builder(
+                                       physics: NeverScrollableScrollPhysics(),
+                                       shrinkWrap: true,
+                                       scrollDirection: Axis.vertical,
+                                       itemCount: widget.myOrderList.products!.length,
+                                       padding: EdgeInsets.only(top: 10, bottom: 15),
+                                       itemBuilder: (BuildContext context, int index) {
+                                         return
+                                           orderList(context, widget.myOrderList.products![index]);
 
-                                     },
+                                       },
 
-                                   )
+                                     )
+                                 ),
                                ),
                              ],
                            ),
@@ -891,8 +897,8 @@ class _MyOrdersDetailState extends State<MyOrdersDetail> {
                          //   ),
                          // ),
                          SizedBox(height: 10,),
-
-                         // trackOrderList!.last.orderStatus == "Canceled" ? Container():
+                         trackOrderList==null?Container():
+                         trackOrderList!.last.orderStatus == "Canceled" ? Container():
                          Center(
                            child: Padding(
                                padding: const EdgeInsets.all(8.0),

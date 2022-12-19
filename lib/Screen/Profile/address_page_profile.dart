@@ -18,20 +18,21 @@ import '../bottom_navbar.dart';
 import 'add_address.dart';
 
 
-class Address extends StatefulWidget {
+class AddressProfile extends StatefulWidget {
   // UserProfileRepo? profileData;
-
-  Address({
+  List<CartListModel> cartList;
+  CartListRepo cartData;
+  AddressProfile({
     Key? key,
-
     // required this.profileData
+    required this.cartList, required this.cartData
   }) : super(key: key);
 
   @override
-  State<Address> createState() => _AddressState();
+  State<AddressProfile> createState() => _AddressProfileState();
 }
 
-class _AddressState extends State<Address> {
+class _AddressProfileState extends State<AddressProfile> {
   dynamic addressLabel = '';
 
   AddressBloc? _addressBloc;
@@ -43,7 +44,7 @@ class _AddressState extends State<Address> {
     super.initState();
     _addressBloc = BlocProvider.of<AddressBloc>(context);
     _addressBloc!.add(GetAddressList(user_id: Application.customerLogin!.userId.toString()));;
- 
+
   }
 
 
@@ -87,7 +88,7 @@ class _AddressState extends State<Address> {
             },
             child: Icon(Icons.arrow_back_ios,color: ThemeColors.whiteTextColor),
           ),
-          
+
         ),
         body: BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
           return BlocListener<AddressBloc, AddressState>(
@@ -174,14 +175,20 @@ class _AddressState extends State<Address> {
                                                       // AppBloc.authBloc.add(OnSaveAddress(addressData[index]));
                                                       Future.delayed(Duration(seconds: 1),(){
                                                        // Navigator.of(context).pop();
-                                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 4,)));
-                                                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>CheckOutPage()));
-
+                                                        Future.delayed(
+                                                            const Duration(seconds: 0),
+                                                                () => Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (context) => CheckOutPage(cartData:widget.cartData,cartList: widget.cartList),
+                                                              ),
+                                                            ));
+                                                         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 4,)));
 
                                                         if(Application.address != null)
-                                                          {
-                                                            Application.address!.streetAddress;
-                                                          }
+                                                        {
+                                                          Application.address!.streetAddress;
+                                                        }
 
 
 
@@ -220,7 +227,7 @@ class _AddressState extends State<Address> {
                                                             style: TextStyle(
                                                               fontWeight:
                                                               FontWeight.bold,
-                                        fontFamily: 'SF-Pro-Display-Regular',
+                                                              fontFamily: 'SF-Pro-Display-Regular',
                                                               color: Color(
                                                                   0Xff3f3639),
                                                               fontSize:
@@ -237,7 +244,7 @@ class _AddressState extends State<Address> {
                                                             style: TextStyle(
                                                               fontWeight:
                                                               FontWeight.bold,
-                                        fontFamily: 'SF-Pro-Display-Medium',
+                                                              fontFamily: 'SF-Pro-Display-Medium',
                                                               color: Color(
                                                                   0Xffaaa4a6),
                                                               fontSize:
@@ -257,7 +264,7 @@ class _AddressState extends State<Address> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () {
-                                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData[index], editAddress: true,)));
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(addressData: addressData[index], editAddress: true,)));
                                                     },
                                                     child: Container(
                                                       child: Icon(Icons.edit,
@@ -269,9 +276,9 @@ class _AddressState extends State<Address> {
                                                   SizedBox(width: 15),
                                                   InkWell(
                                                     onTap: () {
-                                                     _addressBloc!.add(DeleteAddress(
-                                                         user_id: Application.customerLogin!.userId.toString(),
-                                                         id: addressData[index].id.toString()));
+                                                      _addressBloc!.add(DeleteAddress(
+                                                          user_id: Application.customerLogin!.userId.toString(),
+                                                          id: addressData[index].id.toString()));
 
                                                     },
                                                     child: Container(
@@ -301,7 +308,7 @@ class _AddressState extends State<Address> {
                                   ),
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(editAddress: false)));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddressPage(editAddress: false,)));
                                     },
                                     child: Row(
                                       children: [
@@ -320,7 +327,7 @@ class _AddressState extends State<Address> {
                                               fontWeight: FontWeight.bold,
                                               color: ThemeColors.baseThemeColor,
                                               fontSize: width * 0.04,
-                                                fontFamily: 'SF-Pro-Display-Regular',
+                                              fontFamily: 'SF-Pro-Display-Regular',
                                             ),
                                           ),
                                         ),
@@ -348,7 +355,7 @@ class _AddressState extends State<Address> {
         }
         )
 
-            
+
 
     );
   }

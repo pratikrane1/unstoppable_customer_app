@@ -5,6 +5,7 @@ import 'package:unstoppable_customer_app/Screen/Home/home_scree.dart';
 
 import '../../Constant/theme_colors.dart';
 import '../../Widget/app_button.dart';
+import '../MyOrders/myOrders_Screen.dart';
 import '../bottom_navbar.dart';
 
 class ThankYouPage extends StatefulWidget{
@@ -112,7 +113,7 @@ class _ThankYouPageState extends State<ThankYouPage>{
                             child:
                             AppButton(
                               onPressed: () async {
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 1,)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 3,)));
                               },
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
@@ -132,7 +133,7 @@ class _ThankYouPageState extends State<ThankYouPage>{
                       ),
                       InkWell(
                         onTap: (){
-                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 0,)));
                         },
                         child: Center(
                           child: Padding(

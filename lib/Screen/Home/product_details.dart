@@ -13,6 +13,7 @@ import '../../Bloc/cart/cart_state.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/cart_model.dart';
 import '../../Model/product_model.dart';
+import '../../Model/search_product_model.dart';
 import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
 import '../../Widget/common.dart';
@@ -23,7 +24,7 @@ import 'package:flutter_html/flutter_html.dart';
 
 class ProductDetail extends StatefulWidget {
   ProductModel productData;
-  ProductDetail({Key? key, required this.productData}) : super(key: key);
+  ProductDetail({Key? key, required this.productData,}) : super(key: key);
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
@@ -39,18 +40,34 @@ class _ProductDetailState extends State<ProductDetail> {
   CartBloc? _cartBloc;
   CartListRepo? cartData;
 
+  Timer? timer;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _cartBloc = BlocProvider.of<CartBloc>(context);
-
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) =>addValue());
     setState((){
       _cartBloc!.add(GetCart(user_id: Application.customerLogin!.userId.toString()));
       if(Application.cart != null){
         Application.cart!.cartQuantity;
       }
     });
+  }
+
+  void addValue() {
+    setState(() {
+      cartNotificationNumber(context);
+      GetCart(user_id: Application.customerLogin!.userId.toString());
+     CartPage(backIcon: true,);
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   Future<Null> _onRefresh() {
@@ -66,6 +83,48 @@ class _ProductDetailState extends State<ProductDetail> {
     });
 
     return completer.future;
+  }
+
+  Widget cartNotificationNumber(BuildContext context)
+  {
+    return Stack(
+      children: [
+        IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CartPage(backIcon: true,)));
+          },
+          icon: Icon(
+            Icons.shopping_cart_rounded,
+            size: 30,
+            color: ThemeColors.whiteTextColor,
+          ),
+        ),
+        // Application.cart!.cartQuantity != null ?
+        Application.cart == null ? Container() :
+        Positioned(
+          top: 4,
+          right: 4,
+          child: Container(
+            height: 22,
+            width: 22,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: ThemeColors.discountBackgroundColor,
+            ),
+            child: Center(
+                child: Text(Application.cart!.cartQuantity.toString(),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColors.whiteTextColor
+                  ),
+                )),
+          ),
+        )
+        // : Container(),
+      ],
+    );
   }
 
   @override
@@ -95,44 +154,45 @@ class _ProductDetailState extends State<ProductDetail> {
                 fontSize: 20),
           ),
           actions: [
-            Stack(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartPage(backIcon: true,)));
-                  },
-                  icon: Icon(
-                    Icons.shopping_cart_rounded,
-                    size: 30,
-                    color: ThemeColors.whiteTextColor,
-                  ),
-                ),
-                // Application.cart!.cartQuantity != null ?
-                Application.cart == null ? Container() :
-                Positioned(
-                  top: 4,
-                  right: 4,
-                  child: Container(
-                    height: 22,
-                    width: 22,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ThemeColors.discountBackgroundColor,
-                    ),
-                    child: Center(
-                        child: Text(Application.cart!.cartQuantity.toString(),
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.whiteTextColor
-                      ),
-                    )),
-                  ),
-                )
-                    // : Container(),
-              ],
-            )
+            // Stack(
+            //   children: [
+            //     IconButton(
+            //       onPressed: () {
+            //         Navigator.push(context,
+            //             MaterialPageRoute(builder: (context) => CartPage(backIcon: true,)));
+            //       },
+            //       icon: Icon(
+            //         Icons.shopping_cart_rounded,
+            //         size: 30,
+            //         color: ThemeColors.whiteTextColor,
+            //       ),
+            //     ),
+            //     // Application.cart!.cartQuantity != null ?
+            //     Application.cart == null ? Container() :
+            //     Positioned(
+            //       top: 4,
+            //       right: 4,
+            //       child: Container(
+            //         height: 22,
+            //         width: 22,
+            //         decoration: const BoxDecoration(
+            //           shape: BoxShape.circle,
+            //           color: ThemeColors.discountBackgroundColor,
+            //         ),
+            //         child: Center(
+            //             child: Text(Application.cart!.cartQuantity.toString(),
+            //           style: TextStyle(
+            //             fontSize: 12,
+            //             fontWeight: FontWeight.bold,
+            //             color: ThemeColors.whiteTextColor
+            //           ),
+            //         )),
+            //       ),
+            //     )
+            //         // : Container(),
+            //   ],
+            // )
+            cartNotificationNumber(context),
           ],
         ),
         backgroundColor: ThemeColors.backgroundColor,
@@ -161,7 +221,9 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                   _cartBloc!.add(GetCart(user_id: Application.customerLogin!.userId.toString()));
+                  _onRefresh();
                   if(Application.cart != null){
                     Application.cart!.cartQuantity;
                   }
@@ -493,6 +555,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                             prod_id: widget.productData.prodId
                                                 .toString(),
                                             quantity: quantity.toString()));
+                                        // _onRefresh();
                                       },
                                       shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(

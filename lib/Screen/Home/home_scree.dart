@@ -471,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, top: 10, right: 5),
+                padding: const EdgeInsets.only(left: 15, top: 5, right: 5),
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -481,7 +481,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
                             color: ThemeColors.textColor,
-                            fontSize: 15.0,
+                            fontSize: 12.0,
                             fontFamily: 'SF-Pro-Display-Regular'),
                       ),
                       SizedBox(
@@ -491,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         "\u{20B9} ${productData.discountPrice}",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
+                            fontSize: 15.0,
                             fontFamily: 'SF-Pro-Display-Bold'),
                       ),
                       SizedBox(
@@ -505,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
                                 fontWeight: FontWeight.w600,
-                                fontSize: 18.0,
+                                fontSize: 15.0,
                                 fontFamily: 'SF-Pro-Display-Regular',
                                 color: ThemeColors.textFieldHintColor),
                           ),
@@ -737,7 +737,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               showSearch(context: context, delegate: SearchUser());
             },
-            icon: Icon(Icons.search_sharp),
+            icon: Icon(Icons.search_sharp,color: Colors.white,),
           )
         ],
         title: Column(
@@ -995,7 +995,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 2,)));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavigation(index: 1,)));
                                   },
                                   child: Text(
                                     "See all",

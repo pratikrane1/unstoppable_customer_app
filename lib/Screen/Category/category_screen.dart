@@ -6,6 +6,7 @@ import 'package:unstoppable_customer_app/Screen/Category/categoriesTab.dart';
 import 'package:unstoppable_customer_app/Widget/drawer.dart';
 
 import '../../Constant/theme_colors.dart';
+import '../Home/search_product.dart';
 
 class Category extends StatefulWidget {
   Category({Key? key, }) : super(key: key);
@@ -93,25 +94,14 @@ class _CategoryState extends State<Category> with TickerProviderStateMixin{
               ),
             ],
           ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                height: 40,
-                color: Colors.white,
-                child: const Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Search for something',
-                        prefixIcon: Icon(Icons.search),
-                        suffixIcon: Icon(CupertinoIcons.mic_fill)),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchUser());
+              },
+              icon: Icon(Icons.search_sharp,color: Colors.white,),
+            )
+          ],
 
           // bottom:   TabBar(
           //   labelColor: Colors.black,

@@ -77,7 +77,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final cartList = refactorProduct.map((item) {
         return CartListModel.fromJson(item);
       }).toList();
-      if (refactorProduct.length > 0) {
+      if(refactorProduct.length == 0){
+        Application.preferences!.remove('cart');
+      }
+      if (refactorProduct.length >= 0) {
         AppBloc.authBloc.add(OnSaveCart(response));
         yield CartListSuccess(message: response.msg.toString(), cartList: cartList, cartData: response);
       } else {

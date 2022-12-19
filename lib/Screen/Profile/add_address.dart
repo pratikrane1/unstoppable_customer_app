@@ -11,6 +11,7 @@ import '../../Bloc/address/address_event.dart';
 import '../../Bloc/address/address_state.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/address_model.dart';
+import '../../Model/cart_model.dart';
 import '../../Utils/application.dart';
 import '../../Widget/app_button.dart';
 
@@ -197,12 +198,19 @@ class _AddressPageState extends State<AddressPage> {
                         hintText: "Pincode",
                       ),
                       validator: (value){
+                        Pattern pattern =
+                            r'(^\d{6}$)';
+                        RegExp regex =
+                        new RegExp(pattern.toString());
+
                         if(value==null || value.isEmpty){
-                          return 'Please enter Pincode';
+                          return 'Please enter pincode';
+                        }else if(!regex.hasMatch(value)){
+                          return 'Please enter valid pincode';
                         }
                         return null;
                       },
-                      onChanged: (value) {
+                      onChanged: (text) {
                         setState(() {
                           if ( _formKey.currentState!.validate()) {}
                         });
@@ -343,6 +351,7 @@ class _AddressPageState extends State<AddressPage> {
                           if (state is EditAddressSuccess) {
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)
                             =>Address()));
+                           // Navigator.push( context, MaterialPageRoute( builder: (context) => Address()), ).then((value) => setState(() {}));
                             Fluttertoast.showToast(
                                 msg: state.message.toString());
                             loading = true;

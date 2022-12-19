@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:unstoppable_customer_app/Bloc/myOrders/myOrders_event.dart';
 import 'package:unstoppable_customer_app/Screen/MyOrders/myOrderDetail_screen.dart';
+import 'package:unstoppable_customer_app/Screen/MyOrders/searchOrder.dart';
 import 'package:unstoppable_customer_app/Widget/drawer.dart';
 
 import '../../Bloc/myOrders/myOrders_bloc.dart';
@@ -12,6 +13,7 @@ import '../../Bloc/myOrders/myOrders_state.dart';
 import '../../Constant/theme_colors.dart';
 import '../../Model/my_order.dart';
 import '../../Utils/application.dart';
+import '../Home/search_product.dart';
 
 class MyOrders extends StatefulWidget {
   MyOrders({
@@ -180,9 +182,9 @@ class _MyOrdersState extends State<MyOrders> {
                   // color: Colors.black12,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(bottom: 0,left:8,right: 8,top: 0),
                   child: Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.only(bottom: 0,left:8,right: 8,top: 0),
                     child: Container(
                       // decoration: BoxDecoration(
                       //   borderRadius: BorderRadius.circular(10.0),
@@ -364,25 +366,33 @@ class _MyOrdersState extends State<MyOrders> {
               ),
             ],
           ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                height: 40,
-                color: Colors.white,
-                child: const Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Search for something',
-                        prefixIcon: Icon(Icons.search),
-                        suffixIcon: Icon(CupertinoIcons.mic_fill)),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchOrder());
+              },
+              icon: Icon(Icons.search_sharp,color: Colors.white,),
+            )
+          ],
+          // bottom: PreferredSize(
+          //   preferredSize: const Size.fromHeight(40),
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Container(
+          //       width: double.infinity,
+          //       height: 40,
+          //       color: Colors.white,
+          //       child: const Center(
+          //         child: TextField(
+          //           decoration: InputDecoration(
+          //               hintText: 'Search for something',
+          //               prefixIcon: Icon(Icons.search),
+          //               suffixIcon: Icon(CupertinoIcons.mic_fill)),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ),
         drawer: DrawerWidget(),
         body:

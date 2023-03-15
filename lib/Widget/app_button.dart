@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
       margin: EdgeInsets.only(left: 10, right: 10),
       width: 14,
       height: 14,
-      child: CircularProgressIndicator(strokeWidth: 2),
+      child: CircularProgressIndicator(strokeWidth: 2,color:Colors.white),
     );
   }
 
@@ -44,7 +44,6 @@ class AppButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             side: BorderSide(color: Theme.of(context).buttonColor, width: 1),
           primary: Theme.of(context).buttonColor,
-
           shape: shape,
         ),
       // shape: shape,
